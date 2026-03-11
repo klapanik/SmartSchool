@@ -18,7 +18,7 @@ import { GraduationCap } from "lucide-react";
 
 export function AppSidebar() {
   return (
-    <div className="relative h-full">
+    <div className="relative h-full w-0">
       <Sidebar>
         <div className="px-4 py-5 h-full">
           <SidebarHeader className="flex flex-row mb-5">

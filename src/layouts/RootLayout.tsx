@@ -1,4 +1,4 @@
-import { AppSidebar } from "@/widgets/index";
+import { AppSidebar } from "@/widgets/AppSidebar";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { Outlet } from "react-router-dom";
 import { TooltipProvider } from "@/components/ui/tooltip";
