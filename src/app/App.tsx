@@ -1,3 +1,5 @@
+import { SidebarProvider } from "@/components/ui/sidebar";
+import { TooltipProvider } from "@/components/ui/tooltip";
 import { RootLayout } from "@/layouts/RootLayout";
 import {
     createBrowserRouter,
@@ -11,5 +13,11 @@ export function App() {
         <Route path="/" element={<RootLayout />}></Route>,
     );
     const router = createBrowserRouter(routes);
-    return <RouterProvider router={router} />;
+    return (
+        <TooltipProvider>
+            <SidebarProvider>
+                <RouterProvider router={router} />
+            </SidebarProvider>
+        </TooltipProvider>
+    );
 }

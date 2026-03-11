@@ -1,20 +1,14 @@
 import { AppSidebar } from "@/widgets/AppSidebar";
-import { SidebarProvider } from "@/components/ui/sidebar";
 import { Outlet } from "react-router-dom";
-import { TooltipProvider } from "@/components/ui/tooltip";
 
 export function RootLayout() {
-  return (
-    <TooltipProvider>
-      <SidebarProvider>
+    return (
         <div>
-          <AppSidebar />
+            <AppSidebar />
 
-          <div className="p-6">
-            <Outlet />
-          </div>
+            <div className="p-6">
+                <Outlet />
+            </div>
         </div>
-      </SidebarProvider>
-    </TooltipProvider>
-  );
+    );
 }
