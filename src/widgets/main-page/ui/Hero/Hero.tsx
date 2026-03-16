@@ -1,3 +1,5 @@
+import "./Hero.css";
+
 export function Hero() {
     return (
         <section
@@ -7,7 +9,7 @@ export function Hero() {
             <div>
                 <h2 className="font-bold text-2xl">
                     Добро пожаловать,&nbsp;
-                    <span className="cursor-pointer">Константин</span>!
+                    <span className="cursor-pointer flowtext">Константин</span>!
                 </h2>
                 <p className="text-gray-500">9А класс</p>
             </div>
