@@ -65,7 +65,7 @@
 }
 
 @theme inline {
-        --color-smoky-white: var(--smoky-white);
+    --color-smoky-white: var(--smoky-white);
     --color-smoky-black: var(--smoky-black);
 
     --radius-sm: calc(var(--radius) - 4px);
