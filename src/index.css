@@ -166,12 +166,5 @@
 }
 
 .primary-block {
-    color: var(--smoky-black);
-    background-color: var(--smoky-white);
-    border-color: var(--smoky-white);
-    border-radius: var(--radius-lg);
-    padding: var(--p-6);
-    box-shadow: var(--shadow-lg);
-    width: 670px;
-    margin-top: 20px;
+    @apply text-smoky-black bg-smoky-white border-smoky-white rounded-lg shadow-sm p-6
 }
