@@ -1,0 +1,18 @@
+.flowtext {
+    background: linear-gradient(90deg, var(--primary), #8b5cf6, #06b6d4, #0ea5e9, #4f46e5);
+    background-size: 200% auto;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: textflow 5s linear infinite;
+}
+
+@keyframes textflow {
+    from {
+        background-position: 0% center
+    }
+
+    to {
+        background-position: 200% center
+    }
+}

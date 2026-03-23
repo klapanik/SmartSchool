@@ -1,13 +1,19 @@
-import { AppSidebar } from "@/widgets/AppSidebar";
 import { Outlet } from "react-router-dom";
+
+import { AppHeader } from "@/widgets/AppHeader";
+import { AppSidebar } from "@/widgets/AppSidebar";
 
 export function RootLayout() {
     return (
-        <div className="flex">
+        <div className="flex w-full">
             <AppSidebar />
 
-            <div className="p-6">
-                <Outlet />
+            <div className="w-full">
+                <AppHeader />
+
+                <div className="p-6">
+                    <Outlet />
+                </div>
             </div>
         </div>
     );
