@@ -37,14 +37,14 @@ export function AppSidebar() {
                         <SidebarGroup className="p-0">
                             <SidebarGroupLabel className="text-sm">Навигация</SidebarGroupLabel>
 
-                            <SidebarGroupContent className="pl-1 mt-1.5">
+                            <SidebarGroupContent className="pl-1">
                                 <SidebarMenu>
                                     {links.map((link) => (
                                         <SidebarMenuItem key={link.title}>
                                             <SidebarMenuButton asChild>
                                                 <NavLink to={link.url}>
-                                                    <link.icon className="!size-5" />
-                                                    <span className="lg:text-lg">{link.title}</span>
+                                                    <link.icon />
+                                                    <span>{link.title}</span>
                                                 </NavLink>
                                             </SidebarMenuButton>
                                         </SidebarMenuItem>
