@@ -2,15 +2,23 @@ import {
     Sidebar,
     SidebarContent,
     SidebarGroup,
+    SidebarGroupContent,
     SidebarGroupLabel,
     SidebarHeader,
+    SidebarMenu,
+    SidebarMenuButton,
+    SidebarMenuItem,
     SidebarTrigger,
 } from "@/components/ui/sidebar";
 
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
 import { Kbd, KbdGroup } from "@/components/ui/kbd";
+
 import { GraduationCap } from "lucide-react";
+import { NavLink } from "react-router-dom";
+
+import { links } from "../model/links";
 
 export function AppSidebar() {
     return (
@@ -28,6 +36,21 @@ export function AppSidebar() {
                     <SidebarContent>
                         <SidebarGroup className="p-0">
                             <SidebarGroupLabel className="text-sm">Навигация</SidebarGroupLabel>
+
+                            <SidebarGroupContent className="pl-1 mt-1.5">
+                                <SidebarMenu>
+                                    {links.map((link) => (
+                                        <SidebarMenuItem key={link.title}>
+                                            <SidebarMenuButton asChild>
+                                                <NavLink to={link.url}>
+                                                    <link.icon className="!size-5" />
+                                                    <span className="lg:text-lg">{link.title}</span>
+                                                </NavLink>
+                                            </SidebarMenuButton>
+                                        </SidebarMenuItem>
+                                    ))}
+                                </SidebarMenu>
+                            </SidebarGroupContent>
                         </SidebarGroup>
                     </SidebarContent>
                 </div>
