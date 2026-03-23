@@ -65,7 +65,7 @@
 }
 
 @theme inline {
-        --color-smoky-white: var(--smoky-white);
+    --color-smoky-white: var(--smoky-white);
     --color-smoky-black: var(--smoky-black);
 
     --radius-sm: calc(var(--radius) - 4px);
@@ -163,4 +163,8 @@
     --sidebar-accent-foreground: hsl(240 4.8% 95.9%);
     --sidebar-border: hsl(240 3.7% 15.9%);
     --sidebar-ring: hsl(217.2 91.2% 59.8%);
+}
+
+.primary-block {
+    @apply text-smoky-black bg-smoky-white border-smoky-white rounded-lg shadow-sm p-6
 }
