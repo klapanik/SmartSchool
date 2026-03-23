@@ -164,3 +164,14 @@
     --sidebar-border: hsl(240 3.7% 15.9%);
     --sidebar-ring: hsl(217.2 91.2% 59.8%);
 }
+
+.primary-block {
+    color: var(--smoky-black);
+    background-color: var(--smoky-white);
+    border-color: var(--smoky-white);
+    border-radius: var(--radius-lg);
+    padding: var(--p-6);
+    box-shadow: var(--shadow-lg);
+    width: 670px;
+    margin-top: 20px;
+}

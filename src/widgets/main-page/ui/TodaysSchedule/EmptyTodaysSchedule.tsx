@@ -11,18 +11,9 @@ import { Link } from "react-router-dom";
 
 export function EmptyTodaysSchedule() {
     return (
-        <div
-            style={{
-                color: "var(--smoky-black)",
-                backgroundColor: "var(--smoky-white)",
-                borderColor: "var(--smoky-white)",
-                borderRadius: "var(--radius-lg)",
-                padding: "var(--p-6)",
-                boxShadow: "var(--shadow-lg)",
-            }}
-        >
+        <div className="primary-block">
             <Empty>
-                <EmptyHeader>
+                <EmptyHeader className="self-start text-start items-start">
                     <EmptyTitle>Расписание на сегодня</EmptyTitle>
                     <EmptyDescription>суббота, 21 февраля</EmptyDescription>
                 </EmptyHeader>
@@ -32,7 +23,7 @@ export function EmptyTodaysSchedule() {
                             <Calendar />
                         </EmptyMedia>
                     </div>
-                    <h4 className="text-base mb-0.5">Сегодня уроков нет</h4>
+                    <h4 className="text-base mb-0.5 text-muted-foreground">Сегодня уроков нет</h4>
                     <p className="text-sm text-muted-foreground">Отличный день для отдыха!</p>
                 </EmptyContent>
                 <EmptyDescription>
