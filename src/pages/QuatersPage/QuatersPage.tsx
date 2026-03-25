@@ -1,4 +1,4 @@
-import { CurrentQuater } from "@/widgets/quaters-page/CurrentQuater";
+import { CurrentQuater } from "@/widgets/quaters-page/ui/CurrentQuater";
 
 export function QuatersPage() {
     return (
