@@ -1,5 +1,8 @@
 import type { NavLinksType } from "./types";
 
-import { House } from "lucide-react";
+import { CalendarDays, House } from "lucide-react";
 
-export const links: NavLinksType[] = [{ icon: House, title: "Главная", url: "/home" }];
+export const links: NavLinksType[] = [
+    { icon: House, title: "Главная", url: "/home" },
+    { icon: CalendarDays, title: "Четверти", url: "/quarters" },
+];
