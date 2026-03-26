@@ -1,5 +1,5 @@
 import { StatsCard } from "@/shared/ui/StatsCard";
-import { CalendarDays } from "lucide-react";
+import { BookOpen, CalendarDays, TrendingUp } from "lucide-react";
 
 export const QuatersStatsGroup = () => {
     return (
@@ -12,13 +12,13 @@ export const QuatersStatsGroup = () => {
             />
             <StatsCard
                 title="Четвертных оценок"
-                icon={CalendarDays}
+                icon={TrendingUp}
                 number={32}
                 subtext="выставлено"
             />
             <StatsCard
                 title="Предметов"
-                icon={CalendarDays}
+                icon={BookOpen}
                 number={16}
                 subtext="изучается"
             />
