@@ -8,7 +8,6 @@ export function MainPage() {
         <section>
             <Hero />
             <StatsGroup />
-            <EmptyTodaysSchedule />
             <section className="grid grid-cols-2 gap-6">
                 <EmptyTodaysSchedule />
                 <LatestGrades />
