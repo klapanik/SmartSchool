@@ -3,7 +3,7 @@ import { BookOpen, CalendarDays, TrendingUp } from "lucide-react";
 
 export function QuatersStatsGroup() {
     return (
-        <div className="flex mb-5 mt-5 grid grid-cols-1 gap-5 sm:grid-cols-1 lg:grid-cols-3">
+        <div className="my-5 grid grid-cols-1 gap-5 lg:grid-cols-3">
             <StatsCard
                 title="Четвертей"
                 icon={CalendarDays}
