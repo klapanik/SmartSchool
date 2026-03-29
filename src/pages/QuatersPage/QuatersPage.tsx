@@ -1,4 +1,5 @@
 import { CurrentQuater } from "@/widgets/quaters-page/ui/CurrentQuater";
+import { QuatersStatsGroup } from "@/widgets/quaters-page/ui/QuatersStatsGroup";
 
 export function QuatersPage() {
     return (
@@ -9,6 +10,7 @@ export function QuatersPage() {
             </div>
 
             <CurrentQuater />
+            <QuatersStatsGroup />
         </section>
     );
 }
