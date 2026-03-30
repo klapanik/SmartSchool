@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 export function EmptyTodaysSchedule() {
     return (
         <div className="primary-block">
-            <Empty>
+            <Empty className="md:p-0">
                 <EmptyHeader className="self-start text-start items-start gap-0">
                     <EmptyTitle>Расписание на сегодня</EmptyTitle>
                     <EmptyDescription>суббота, 21 февраля</EmptyDescription>
