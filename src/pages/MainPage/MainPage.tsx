@@ -5,10 +5,10 @@ import { EmptyTodaysSchedule } from "@/widgets/main-page/ui/TodaysSchedule/Empty
 
 export function MainPage() {
     return (
-        <section>
+        <section className="@container">
             <Hero />
             <StatsGroup />
-            <section className="grid grid-cols-1 gap-6 md:grid-cols-2">
+            <section className="grid grid-cols-1 gap-6 @2xl:grid-cols-2">
                 <EmptyTodaysSchedule />
                 <LatestGrades />
             </section>
