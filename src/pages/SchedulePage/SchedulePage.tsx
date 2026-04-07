@@ -1,3 +1,5 @@
+import { DatePicker } from "@/features/DatePicker/DatePicker";
+
 export function SchedulePage() {
     return (
         <section>
@@ -5,6 +7,7 @@ export function SchedulePage() {
                 <h2 className="page-title">Расписание</h2>
                 <p className="page-subtitle">Управление расписанием уроков</p>
             </div>
+            <DatePicker></DatePicker>
         </section>
     );
 }
