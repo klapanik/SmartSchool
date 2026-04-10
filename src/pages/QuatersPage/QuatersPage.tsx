@@ -1,4 +1,6 @@
 import { CurrentQuater } from "@/widgets/quaters-page/ui/CurrentQuater";
+import { QuartersWidget } from "@/widgets/quaters-page/ui/QuartersWidget";
+import { quartersData } from "@/widgets/quaters-page/ui/QuartersWidget/model/quartersData";
 import { QuatersStatsGroup } from "@/widgets/quaters-page/ui/QuatersStatsGroup";
 
 export function QuatersPage() {
@@ -11,6 +13,11 @@ export function QuatersPage() {
 
             <CurrentQuater />
             <QuatersStatsGroup />
+            <div className="grid grid-cols-1 gap-6">
+                {quartersData.map((quarter) => (
+                    <QuartersWidget key={quarter.id} quarter={quarter} />
+                ))}
+            </div>
         </section>
     );
 }
