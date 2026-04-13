@@ -1,11 +1,7 @@
 import type { Quarter } from "../model/types";
 import { SubjectGrade } from "@/shared/ui/SubjectGrade";
 
-type QuarterWidgetProps = {
-    quarter: Quarter;
-};
-
-export const QuartersWidget = ({ quarter }: QuarterWidgetProps) => {
+export const QuartersWidget = (quarter: Quarter) => {
     return (
         <div className="flex flex-col gap-6 bg-smoky-white p-4 rounded-lg">
             <div className="flex flex-row justify-between">
