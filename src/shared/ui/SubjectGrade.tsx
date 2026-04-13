@@ -1,4 +1,4 @@
-import { GradeBadge } from "./GradeBadge";
+import { GradeBadge } from "./GradeBadge/ui/GradeBadge";
 
 type SubjectProps = {
     subject: string;

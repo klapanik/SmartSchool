@@ -1,8 +1,4 @@
-type Props = {
-    grade: number | string;
-};
-
-const getBadgeStyles = (grade: string | number) => {
+export const getBadgeStyles = (grade: string | number) => {
     if (!grade || grade === "-") {
         return "bg-white border-gray-200 text-gray-400";
     }
@@ -20,14 +16,3 @@ const getBadgeStyles = (grade: string | number) => {
     if (numericGrade >= 5) return "bg-orange-50 text-orange-700 border-orange-200";
     return "bg-red-50 text-red-700 border-red-200";
 };
-
-export function GradeBadge({ grade }: Props) {
-    const backStyles = getBadgeStyles(grade);
-    return (
-        <div
-            className={`min-w-7 rounded-full border flex justify-center items-center px-2 ${backStyles}`}
-        >
-            <span className="text-sm font-semibold">{grade}</span>
-        </div>
-    );
-}
