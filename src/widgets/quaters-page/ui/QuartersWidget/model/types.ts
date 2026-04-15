@@ -1,13 +1,11 @@
-type Subject = {
+export type Subject = {
     name: string;
     grade: number | string;
+    isApproximately: boolean;
 };
 
 export type Quarter = {
-    id: string;
-    title: string;
-    period?: string;
-    subjects: Subject[];
+    quarterNumber?: number;
     averageGrade: number | string;
     isApproximately: boolean;
 };
