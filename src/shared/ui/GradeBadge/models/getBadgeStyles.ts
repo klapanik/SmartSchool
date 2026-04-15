@@ -1,5 +1,5 @@
 export const getBadgeStyles = (grade: string | number) => {
-    if (!grade || grade === "-") {
+    if ((!grade && grade !== 0) || grade === "-") {
         return "bg-white border-gray-200 text-gray-400";
     }
 
