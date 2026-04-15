@@ -4,7 +4,19 @@ import { subjects } from "../model/mock";
 export const QuartersWidget = () => {
     function renderSubjects() {
         return subjects.map((s, index) => {
-            return <SubjectGrade key={index} subject={s.name} grade={s.grade} />;
+            return (
+                <SubjectGrade
+                    key={index}
+                    subject={s.name}
+                    grade={
+                        !s.grade && s.grade !== 0
+                            ? "-"
+                            : s.isApproximately
+                              ? `~${s.grade}`
+                              : s.grade
+                    }
+                />
+            );
         });
     }
 
