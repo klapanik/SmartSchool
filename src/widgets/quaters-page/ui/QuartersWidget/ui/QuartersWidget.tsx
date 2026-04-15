@@ -8,13 +8,8 @@ export const QuartersWidget = () => {
                 <SubjectGrade
                     key={index}
                     subject={s.name}
-                    grade={
-                        !s.grade && s.grade !== 0
-                            ? "-"
-                            : s.isApproximately
-                              ? `~${s.grade}`
-                              : s.grade
-                    }
+                    grade={s.grade}
+                    isApproximately={s.isApproximately}
                 />
             );
         });
