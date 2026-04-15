@@ -24,6 +24,6 @@ export const subjects: Subject[] = [
     {
         name: "Обществознание",
         grade: 6,
-        isApproximately: false,
+        isApproximately: true,
     },
 ];

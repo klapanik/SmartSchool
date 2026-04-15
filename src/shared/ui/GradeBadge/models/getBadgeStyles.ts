@@ -11,8 +11,8 @@ export const getBadgeStyles = (grade: string | number) => {
         return "bg-primary text-white";
     }
 
-    if (numericGrade >= 9) return "bg-green-50 text-green-700 border-green-200";
-    if (numericGrade >= 7) return "bg-blue-50 text-blue-700 border-blue-200";
-    if (numericGrade >= 5) return "bg-orange-50 text-orange-700 border-orange-200";
-    return "bg-red-50 text-red-700 border-red-200";
+    if (numericGrade >= 9) return "bg-[#DFF0EC] border-[#BCEADC]";
+    if (numericGrade >= 7) return "bg-[#DEE5F4] border-[#B8CBF2]";
+    if (numericGrade >= 5) return "bg-[#EFF0DF] border-[#F2FABD]";
+    return "bg-[#F4DEDE] border-[#EABEBC]";
 };

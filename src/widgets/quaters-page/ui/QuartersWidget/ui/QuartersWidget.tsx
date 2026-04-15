@@ -21,8 +21,8 @@ export const QuartersWidget = () => {
     }
 
     return (
-        <div>
-            <div className="flex flex-col gap-6 bg-smoky-white p-4 rounded-lg">
+        <div className="flex flex-col gap-4">
+            <div className="flex flex-col primary-block gap-6">
                 <div className="flex flex-row justify-between">
                     <div className="flex flex-col">
                         <h2 className="text-lg font-bold text-gray-800">
@@ -34,8 +34,8 @@ export const QuartersWidget = () => {
                             1 сентября - 1 ноября 2025
                         </span>
                     </div>
-                    <div className="flex flex-col">
-                        <p className="text-lg font-bold text-right">{q1.averageGrade}</p>
+                    <div className="flex flex-col text-right">
+                        <p className="text-lg font-bold ">{q1.averageGrade}</p>
                         <span className="text-gray-500">Средний балл</span>
                     </div>
                 </div>
@@ -44,7 +44,7 @@ export const QuartersWidget = () => {
                 </div>
             </div>
 
-            <div className="flex flex-col gap-6 bg-smoky-white p-4 rounded-lg">
+            <div className="flex flex-col primary-block gap-6">
                 <div className="flex flex-row justify-between">
                     <div className="flex flex-col">
                         <h2 className="text-lg font-bold text-gray-800">
@@ -56,8 +56,8 @@ export const QuartersWidget = () => {
                             9 ноября - 25 декабря 2025
                         </span>
                     </div>
-                    <div className="flex flex-col">
-                        <p className="text-lg font-bold text-right">{q2.averageGrade}</p>
+                    <div className="flex flex-col text-right">
+                        <p className="text-lg font-bold ">{q2.averageGrade}</p>
                         <span className="text-gray-500">Средний балл</span>
                     </div>
                 </div>
@@ -66,7 +66,7 @@ export const QuartersWidget = () => {
                 </div>
             </div>
 
-            <div className="flex flex-col gap-6 bg-smoky-white p-4 rounded-lg">
+            <div className="flex flex-col primary-block gap-6">
                 <div className="flex flex-row justify-between">
                     <div className="flex flex-col">
                         <h2 className="text-lg font-bold text-gray-800">
@@ -76,8 +76,8 @@ export const QuartersWidget = () => {
                         </h2>
                         <span className="text-sm text-gray-500 mt-1">7 января - 22 марта 2026</span>
                     </div>
-                    <div className="flex flex-col">
-                        <p className="text-lg font-bold text-right">{q3.averageGrade}</p>
+                    <div className="flex flex-col text-right">
+                        <p className="text-lg font-bold ">{q3.averageGrade}</p>
                         <span className="text-gray-500">Средний балл</span>
                     </div>
                 </div>
@@ -86,7 +86,7 @@ export const QuartersWidget = () => {
                 </div>
             </div>
 
-            <div className="flex flex-col gap-6 bg-smoky-white p-4 rounded-lg">
+            <div className="flex flex-col primary-block gap-6">
                 <div className="flex flex-row justify-between">
                     <div className="flex flex-col">
                         <h2 className="text-lg font-bold text-gray-800">
@@ -96,8 +96,8 @@ export const QuartersWidget = () => {
                         </h2>
                         <span className="text-sm text-gray-500 mt-1">29 марта - 11 июня 2026</span>
                     </div>
-                    <div className="flex flex-col">
-                        <p className="text-lg font-bold text-right">{q4.averageGrade}</p>
+                    <div className="flex flex-col text-right">
+                        <p className="text-lg font-bold ">{q4.averageGrade}</p>
                         <span className="text-gray-500">Средний балл</span>
                     </div>
                 </div>
@@ -106,7 +106,7 @@ export const QuartersWidget = () => {
                 </div>
             </div>
 
-            <div className="flex flex-col gap-6 bg-smoky-white p-4 rounded-lg">
+            <div className="flex flex-col primary-block gap-6">
                 <div className="flex flex-row justify-between">
                     <div className="flex flex-col">
                         <h2 className="text-lg font-bold text-gray-800">
@@ -115,8 +115,8 @@ export const QuartersWidget = () => {
                                 : "Годовая оценка"}
                         </h2>
                     </div>
-                    <div className="flex flex-col">
-                        <p className="text-lg font-bold text-right">{year.averageGrade}</p>
+                    <div className="flex flex-col text-right">
+                        <p className="text-lg font-bold ">{year.averageGrade}</p>
                         <span className="text-gray-500">Средний балл</span>
                     </div>
                 </div>
