@@ -30,7 +30,9 @@ export const QuartersWidget = () => {
                         </span>
                     </div>
                     <div className="flex flex-col text-right">
-                        <p className="text-lg font-bold ">{q1.averageGrade}</p>
+                        <p className="text-lg font-bold ">
+                            {q1.isApproximately ? `~${q1.averageGrade}` : q1.averageGrade}
+                        </p>
                         <span className="text-gray-500">Средний балл</span>
                     </div>
                 </div>
@@ -52,7 +54,9 @@ export const QuartersWidget = () => {
                         </span>
                     </div>
                     <div className="flex flex-col text-right">
-                        <p className="text-lg font-bold ">{q2.averageGrade}</p>
+                        <p className="text-lg font-bold ">
+                            {q2.isApproximately ? `~${q2.averageGrade}` : q2.averageGrade}
+                        </p>
                         <span className="text-gray-500">Средний балл</span>
                     </div>
                 </div>
@@ -72,7 +76,9 @@ export const QuartersWidget = () => {
                         <span className="text-sm text-gray-500 mt-1">7 января - 22 марта 2026</span>
                     </div>
                     <div className="flex flex-col text-right">
-                        <p className="text-lg font-bold ">{q3.averageGrade}</p>
+                        <p className="text-lg font-bold ">
+                            {q3.isApproximately ? `~${q3.averageGrade}` : q3.averageGrade}
+                        </p>
                         <span className="text-gray-500">Средний балл</span>
                     </div>
                 </div>
@@ -111,7 +117,9 @@ export const QuartersWidget = () => {
                         </h2>
                     </div>
                     <div className="flex flex-col text-right">
-                        <p className="text-lg font-bold ">{year.averageGrade}</p>
+                        <p className="text-lg font-bold ">
+                            {year.isApproximately ? `~${year.averageGrade}` : year.averageGrade}
+                        </p>
                         <span className="text-gray-500">Средний балл</span>
                     </div>
                 </div>

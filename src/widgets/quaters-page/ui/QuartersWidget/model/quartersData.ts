@@ -22,7 +22,7 @@ const quartersData: Quarter[] = [
         isApproximately: false,
     },
     {
-        averageGrade: "~9.3",
+        averageGrade: "9.3",
         isApproximately: true,
     },
 ];
