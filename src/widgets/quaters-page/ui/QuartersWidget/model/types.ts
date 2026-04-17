@@ -8,4 +8,5 @@ export type Quarter = {
     quarterNumber?: number;
     averageGrade: number | string;
     isApproximately: boolean;
+    period?: string;
 };

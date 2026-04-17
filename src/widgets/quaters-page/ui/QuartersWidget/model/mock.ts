@@ -34,21 +34,25 @@ const quartersData: Quarter[] = [
         quarterNumber: 1,
         averageGrade: 9.13,
         isApproximately: false,
+        period: "1 сентября - 1 ноября 2025",
     },
     {
         quarterNumber: 2,
         averageGrade: 9.56,
         isApproximately: false,
+        period: "9 ноября - 25 декабря 2025",
     },
     {
         quarterNumber: 3,
         averageGrade: 0,
         isApproximately: false,
+        period: "7 января - 22 марта 2026",
     },
     {
         quarterNumber: 4,
         averageGrade: 0,
         isApproximately: false,
+        period: "29 марта - 11 июня 2026",
     },
     {
         averageGrade: "9.3",
