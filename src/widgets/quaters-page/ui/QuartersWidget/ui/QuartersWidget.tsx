@@ -1,6 +1,5 @@
 import { SubjectGrade } from "@/shared/ui/SubjectGrade";
-import { q1, q2, q3, q4, year } from "../model/quartersData";
-import { subjects } from "../model/mock";
+import { subjects, q1, q2, q3, q4, year } from "../model/mock";
 export const QuartersWidget = () => {
     function renderSubjects() {
         return subjects.map((s, index) => {
