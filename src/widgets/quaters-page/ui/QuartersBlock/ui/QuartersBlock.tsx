@@ -7,7 +7,7 @@ type QuartersProps = {
     period?: string;
     subjectsList: ReactNode;
 };
-export const QuartersWidget = ({
+export const QuartersBlock = ({
     quarterNumber,
     averageGrade,
     isApproximately,

@@ -1,14 +1,7 @@
 import { SubjectGrade } from "@/shared/ui/SubjectGrade";
 import { CurrentQuater } from "@/widgets/quaters-page/ui/CurrentQuater";
-import { QuartersWidget } from "@/widgets/quaters-page/ui/QuartersWidget";
-import {
-    q1,
-    q2,
-    q3,
-    q4,
-    subjects,
-    year,
-} from "@/widgets/quaters-page/ui/QuartersWidget/model/mock";
+import { QuartersBlock } from "@/widgets/quaters-page/ui/QuartersBlock";
+import { q1, q2, q3, q4, subjects, year } from "@/widgets/quaters-page/ui/QuartersBlock/model/mock";
 import { QuatersStatsGroup } from "@/widgets/quaters-page/ui/QuatersStatsGroup";
 
 export function QuatersPage() {
@@ -23,7 +16,7 @@ export function QuatersPage() {
             <QuatersStatsGroup />
 
             <div className="flex flex-col gap-4">
-                <QuartersWidget
+                <QuartersBlock
                     quarterNumber={q1.quarterNumber}
                     averageGrade={q1.averageGrade}
                     isApproximately={q1.isApproximately}
@@ -37,7 +30,7 @@ export function QuatersPage() {
                         />
                     ))}
                 />
-                <QuartersWidget
+                <QuartersBlock
                     quarterNumber={q2.quarterNumber}
                     averageGrade={q2.averageGrade}
                     isApproximately={q2.isApproximately}
@@ -51,7 +44,7 @@ export function QuatersPage() {
                         />
                     ))}
                 />
-                <QuartersWidget
+                <QuartersBlock
                     quarterNumber={q3.quarterNumber}
                     averageGrade={q3.averageGrade}
                     isApproximately={q3.isApproximately}
@@ -65,7 +58,7 @@ export function QuatersPage() {
                         />
                     ))}
                 />
-                <QuartersWidget
+                <QuartersBlock
                     quarterNumber={q4.quarterNumber}
                     averageGrade={q4.averageGrade}
                     isApproximately={q4.isApproximately}
@@ -79,7 +72,7 @@ export function QuatersPage() {
                         />
                     ))}
                 />
-                <QuartersWidget
+                <QuartersBlock
                     averageGrade={year.averageGrade}
                     isApproximately={year.isApproximately}
                     subjectsList={subjects.map((s, i) => (
