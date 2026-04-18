@@ -13,7 +13,7 @@ export function AnalyticStatsCard(props: Props) {
     const { title, titleSubtext, number, prevNumber, description } = props;
 
     const statNumber =
-        prevNumber !== undefined
+        prevNumber !== undefined && description === undefined
             ? Math.round((number - prevNumber) * 100) / 100
             : null;
 
@@ -23,10 +23,10 @@ export function AnalyticStatsCard(props: Props) {
                 <div>
                     <div className="flex gap-1 mb-1 items-center">
                         <props.icon size={16} />
-                        <h3 className="text-sm font-semibold">{title}</h3>
+                        <h3 className=" font-semibold">{title}</h3>
                     </div>
                     {titleSubtext && (
-                        <p className="text-xs text-gray-500">{titleSubtext}</p>
+                        <p className="text-sm text-gray-500">{titleSubtext}</p>
                     )}
                 </div>
                 <p className="text-2xl font-bold">{number}</p>
@@ -67,10 +67,10 @@ export function AnalyticStatsCard(props: Props) {
                                     <p className="text-gray-500">0</p>
                                 </div>
                             )}
-                            {description && (
-                                <p className="text-gray-500">{description}</p>
-                            )}
                         </div>
+                    )}
+                    {description && (
+                        <p className="text-gray-500">{description}</p>
                     )}
                 </div>
             )}

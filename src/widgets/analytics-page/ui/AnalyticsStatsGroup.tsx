@@ -3,7 +3,7 @@ import { CalendarDays } from "lucide-react";
 
 export function AnalyticStatsGroup() {
     return (
-        <div className="grid grid-cols-1 lg:grid-cols-4">
+        <div className="grid grid-cols-1 gap-5 lg:grid-cols-4">
             <AnalyticStatsCard
                 title="Пропуски"
                 titleSubtext="за четверть"
@@ -18,6 +18,21 @@ export function AnalyticStatsGroup() {
                 number={9.23}
                 icon={CalendarDays}
                 prevNumber={8.93}
+            />
+            <AnalyticStatsCard
+                title="Худшая оценка"
+                titleSubtext="по Химии"
+                number={7}
+                icon={CalendarDays}
+                prevNumber={5}
+                description="по Математике"
+            />
+            <AnalyticStatsCard
+                title="Всего оценок"
+                titleSubtext="за четверть"
+                number={126}
+                icon={CalendarDays}
+                prevNumber={159}
             />
         </div>
     );
