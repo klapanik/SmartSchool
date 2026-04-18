@@ -7,13 +7,18 @@ type Props = {
     number: number;
     prevNumber?: number;
     description?: string;
+    subject?: string;
+    averageScore?: number;
 };
 
 export function AnalyticStatsCard(props: Props) {
-    const { title, titleSubtext, number, prevNumber, description } = props;
+    const { title, titleSubtext, number, prevNumber, description, subject } =
+        props;
 
     const statNumber =
-        prevNumber !== undefined && description === undefined
+        prevNumber !== undefined &&
+        number !== undefined &&
+        description === undefined
             ? Math.round((number - prevNumber) * 100) / 100
             : null;
 
@@ -29,8 +34,20 @@ export function AnalyticStatsCard(props: Props) {
                         <p className="text-sm text-gray-500">{titleSubtext}</p>
                     )}
                 </div>
-                <p className="text-2xl font-bold">{number}</p>
+                {number && subject === undefined && (
+                    <p className="text-2xl font-bold">{number}</p>
+                )}
             </div>
+
+            {subject && (
+                <div>
+                    <p className="text-xl font-bold mb-1">{subject}</p>
+                    <div className="text-gray-500 flex gap-1 mb-1">
+                        <p>средний балл:</p>
+                        <p>{number}</p>
+                    </div>
+                </div>
+            )}
 
             {prevNumber !== undefined && (
                 <div>

@@ -1,9 +1,9 @@
 import { AnalyticStatsCard } from "@/shared/ui/AnalyticStatsCard";
-import { CalendarDays } from "lucide-react";
+import { CalendarDays, TriangleAlert, Trophy } from "lucide-react";
 
 export function AnalyticStatsGroup() {
     return (
-        <div className="grid grid-cols-1 gap-5 lg:grid-cols-4">
+        <div className="grid grid-cols-1 gap-5 xl:grid-cols-4 md:grid-cols-2">
             <AnalyticStatsCard
                 title="Пропуски"
                 titleSubtext="за четверть"
@@ -34,6 +34,24 @@ export function AnalyticStatsGroup() {
                 icon={CalendarDays}
                 prevNumber={159}
             />
+            <div className="col-span-1 sm:col-span-2 lg:col-span-2">
+                <AnalyticStatsCard
+                    title="Лучший предмет"
+                    icon={Trophy}
+                    prevNumber={9.5}
+                    subject="География"
+                    number={10.0}
+                />
+            </div>
+            <div className="col-span-1 sm:col-span-2 lg:col-span-2">
+                <AnalyticStatsCard
+                    title="Трудный предмет"
+                    subject="Химия"
+                    number={7.2}
+                    icon={TriangleAlert}
+                    prevNumber={8.1}
+                />
+            </div>
         </div>
     );
 }
