@@ -14,14 +14,14 @@ export function AnalyticStatsCard(props: Props) {
 
     const statNumber =
         prevNumber !== undefined
-            ? Math.round((prevNumber - number) * 100) / 100
+            ? Math.round((number - prevNumber) * 100) / 100
             : null;
 
     return (
         <div className="primary-block">
             <div className="flex justify-between mb-2">
                 <div>
-                    <div className="flex gap-1 mb-1">
+                    <div className="flex gap-1 mb-1 items-center">
                         <props.icon size={16} />
                         <h3 className="text-sm font-semibold">{title}</h3>
                     </div>
@@ -42,20 +42,21 @@ export function AnalyticStatsCard(props: Props) {
                     {statNumber !== null && (
                         <div className="flex items-center gap-1">
                             {statNumber > 0 ? (
-                                <div className="flex items-center gap-1">
-                                    <Triangle size={16} color="green" />
-                                    <p className="text-green-600">
-                                        {statNumber}
-                                    </p>
+                                <div className="flex items-center gap-1 text-green-500">
+                                    <Triangle
+                                        size={12}
+                                        className="fill-current"
+                                    />
+                                    <p>+{statNumber}</p>
                                 </div>
                             ) : statNumber < 0 ? (
-                                <div className="flex items-center gap-1">
+                                <div className="flex items-center gap-1 text-red-500">
                                     <Triangle
-                                        size={16}
-                                        className="rotate-180"
+                                        size={12}
+                                        className="rotate-180 fill-current "
                                         color="red"
                                     />
-                                    <p className="text-red-600">{statNumber}</p>
+                                    <p>{statNumber}</p>
                                 </div>
                             ) : (
                                 <div className="flex items-center gap-1">
