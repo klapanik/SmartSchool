@@ -11,6 +11,14 @@ export function AnalyticStatsGroup() {
                 icon={CalendarDays}
                 prevNumber={3}
             />
+            <AnalyticStatsCard
+                title="Общий средний
+ балл"
+                titleSubtext="за четверть"
+                number={9.23}
+                icon={CalendarDays}
+                prevNumber={8.93}
+            />
         </div>
     );
 }

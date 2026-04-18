@@ -12,7 +12,10 @@ type Props = {
 export function AnalyticStatsCard(props: Props) {
     const { title, titleSubtext, number, prevNumber, description } = props;
 
-    const statNumber = prevNumber !== undefined ? prevNumber - number : null;
+    const statNumber =
+        prevNumber !== undefined
+            ? Math.round((prevNumber - number) * 100) / 100
+            : null;
 
     return (
         <div className="primary-block">
@@ -40,7 +43,7 @@ export function AnalyticStatsCard(props: Props) {
                         <div className="flex items-center gap-1">
                             {statNumber > 0 ? (
                                 <div className="flex items-center gap-1">
-                                    <Triangle color="green" />
+                                    <Triangle size={16} color="green" />
                                     <p className="text-green-600">
                                         {statNumber}
                                     </p>
@@ -48,6 +51,7 @@ export function AnalyticStatsCard(props: Props) {
                             ) : statNumber < 0 ? (
                                 <div className="flex items-center gap-1">
                                     <Triangle
+                                        size={16}
                                         className="rotate-180"
                                         color="red"
                                     />
