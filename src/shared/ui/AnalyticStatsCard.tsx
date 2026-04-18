@@ -4,7 +4,7 @@ type Props = {
     titleSubtext?: string;
     icon: LucideIcon;
     number: number;
-    prevNumber: number;
+    prevNumber?: number;
     statNumber?: number;
     description?: string;
 };
@@ -25,45 +25,49 @@ export function AnalyticStatsCard(props: Props) {
                 </div>
                 <p className="text-2xl font-bold">{number}</p>
             </div>
-            <div>
+            {prevNumber && (
                 <div>
-                    <p>В прошлой четверти:</p>
-                    <p>{prevNumber}</p>
-                </div>
-                {statNumber && (
-                    <div className="flex items-center gap-1">
-                        {statNumber !== 0 ? (
-                            statNumber > 0 ? (
-                                <div className="flex items-center gap-1">
-                                    <Triangle
-                                        className="fill-current"
-                                        color="green"
-                                    />
-                                    <p className="text-green-600">
-                                        {statNumber}
-                                    </p>
-                                </div>
+                    <div>
+                        <p>В прошлой четверти:</p>
+                        <p>{prevNumber}</p>
+                    </div>
+                    {statNumber && (
+                        <div className="flex items-center gap-1">
+                            {statNumber !== 0 ? (
+                                statNumber > 0 ? (
+                                    <div className="flex items-center gap-1">
+                                        <Triangle
+                                            className="fill-current"
+                                            color="green"
+                                        />
+                                        <p className="text-green-600">
+                                            {statNumber}
+                                        </p>
+                                    </div>
+                                ) : (
+                                    <div className="flex items-center gap-1">
+                                        <Triangle
+                                            className="rotate-180 fill-current"
+                                            color="red"
+                                        />
+                                        <p className="text-red-600">
+                                            {statNumber}
+                                        </p>
+                                    </div>
+                                )
                             ) : (
                                 <div className="flex items-center gap-1">
-                                    <Triangle
-                                        className="rotate-180 fill-current"
-                                        color="red"
-                                    />
-                                    <p className="text-red-600">{statNumber}</p>
+                                    <Equal className="text-gray-500" />
+                                    <p className="text-gray-500">0</p>
                                 </div>
-                            )
-                        ) : (
-                            <div className="flex items-center gap-1">
-                                <Equal className="text-gray-500" />
-                                <p className="text-gray-500">0</p>
-                            </div>
-                        )}
-                        {description && (
-                            <p className="text-gray-500">{description}</p>
-                        )}
-                    </div>
-                )}
-            </div>
+                            )}
+                            {description && (
+                                <p className="text-gray-500">{description}</p>
+                            )}
+                        </div>
+                    )}
+                </div>
+            )}
         </div>
     );
 }
