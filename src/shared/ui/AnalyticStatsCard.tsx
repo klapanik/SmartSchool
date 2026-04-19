@@ -8,7 +8,6 @@ type Props = {
     prevNumber?: number;
     description?: string;
     subject?: string;
-    averageScore?: number;
 };
 
 export function AnalyticStatsCard(props: Props) {
