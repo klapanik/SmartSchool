@@ -1,19 +1,13 @@
-import type { ReactNode } from "react";
+import { SubjectGrade } from "@/shared/ui/SubjectGrade";
+import type { Quarter, Subject } from "../model/types";
 
-type QuartersProps = {
-    quarterNumber?: number;
-    averageGrade: number | string;
-    isApproximately: boolean;
-    period?: string;
-    subjectsList: ReactNode;
+type Props = {
+    quarter: Quarter;
+    subjects: Subject[];
 };
-export const QuartersBlock = ({
-    quarterNumber,
-    averageGrade,
-    isApproximately,
-    period,
-    subjectsList,
-}: QuartersProps) => {
+export const QuartersBlock = ({ quarter, subjects }: Props) => {
+    const { quarterNumber, averageGrade, isApproximately, period } = quarter;
+
     return (
         <div className="flex flex-col primary-block gap-6">
             <div className="flex flex-row justify-between">
@@ -31,7 +25,14 @@ export const QuartersBlock = ({
                 </div>
             </div>
             <div className="grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3">
-                {subjectsList}
+                {subjects.map((s, i) => (
+                    <SubjectGrade
+                        key={i}
+                        subject={s.name}
+                        grade={s.grade}
+                        isApproximately={s.isApproximately}
+                    />
+                ))}
             </div>
         </div>
     );
