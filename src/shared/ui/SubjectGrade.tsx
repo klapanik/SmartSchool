@@ -20,7 +20,8 @@ export const SubjectGrade = ({ subject, grade, isApproximately }: SubjectProps) 
                 )}
             </div>
             <GradeBadge
-                grade={!grade && grade !== 0 ? "-" : isApproximately ? `~${grade}` : grade}
+                grade={!grade && grade !== 0 ? "-" : grade}
+                isApproximately={!!isApproximately}
             />
         </div>
     );
