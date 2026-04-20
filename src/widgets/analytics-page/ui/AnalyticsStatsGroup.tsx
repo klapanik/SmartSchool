@@ -4,7 +4,7 @@ import { CalendarDays, TriangleAlert, Trophy } from "lucide-react";
 export function AnalyticStatsGroup() {
     return (
         <section>
-            <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-4 mb-5">
+            <div className="grid grid-cols-1 gap-5 lg:grid-cols-2 2xl:grid-cols-4 mb-5">
                 <AnalyticStatsCard
                     title="Пропуски"
                     titleSubtext="за четверть"
@@ -36,7 +36,7 @@ export function AnalyticStatsGroup() {
                     prevNumber={159}
                 />
             </div>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+            <div className="grid grid-cols-1 xl:grid-cols-2 gap-5">
                 <div>
                     <AnalyticStatsCard
                         title="Лучший предмет"
