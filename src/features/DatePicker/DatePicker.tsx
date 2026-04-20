@@ -5,16 +5,18 @@ import { CalendarIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 export function DatePicker() {
     const [date, setDate] = useState<Date | undefined>(new Date(new Date().getFullYear(), 0, 20));
+    const isMobile = useIsMobile();
 
     return (
         <Popover>
             <PopoverTrigger asChild>
                 <Button
                     variant="outline"
-                    className="w-full justify-center px-3 font-normal bg-white hover:bg-smoky-white max-w-[20%] cursor-pointer"
+                    className="w-full sm:w-auto sm:min-w-44 justify-center px-3 font-normal bg-white hover:bg-smoky-white cursor-pointer"
                 >
                     <CalendarIcon className="mr-2 size-4" />
                     {date ? (
@@ -24,13 +26,13 @@ export function DatePicker() {
                     )}
                 </Button>
             </PopoverTrigger>
-            <PopoverContent className="w-auto p-0" align="start">
+            <PopoverContent className="w-auto p-0" align={isMobile ? "center" : "start"}>
                 <Calendar
                     mode="single"
                     selected={date}
                     onSelect={setDate}
                     defaultMonth={date}
-                    numberOfMonths={2}
+                    numberOfMonths={isMobile ? 1 : 2}
                     className="rounded-md border shadow-lg"
                 />
             </PopoverContent>
