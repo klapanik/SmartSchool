@@ -8,7 +8,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { useIsMobile } from "@/hooks/use-mobile";
 
 export function DatePicker() {
-    const [date, setDate] = useState<Date | undefined>(new Date(new Date().getFullYear(), 0, 20));
+    const [date, setDate] = useState<Date | undefined>();
     const isMobile = useIsMobile();
 
     return (
