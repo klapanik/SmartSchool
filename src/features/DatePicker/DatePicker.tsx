@@ -16,7 +16,7 @@ export function DatePicker() {
             <PopoverTrigger asChild>
                 <Button
                     variant="outline"
-                    className="w-full sm:w-auto sm:min-w-44 justify-center px-3 font-normal bg-white hover:bg-smoky-white cursor-pointer"
+                    className="w-full sm:w-fit lg:min-w-44 justify-start lg:justify-center px-3 font-normal bg-white hover:bg-smoky-white cursor-pointer"
                 >
                     <CalendarIcon className="mr-2 size-4" />
                     {date ? (
