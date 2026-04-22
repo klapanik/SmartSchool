@@ -3,20 +3,11 @@ import { CartesianGrid, LabelList, Line, LineChart, XAxis, YAxis } from "rechart
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart";
 
-export function ChartLineLabel() {
-    const chartData = [
-        { month: "" },
-        { month: "Сентябрь", value: 8.2 },
-        { month: "Октябрь", value: 8.5 },
-        { month: "Ноябрь", value: 8.9 },
-        { month: "Декабрь", value: 9.1 },
-        { month: "Январь", value: 9.3 },
-        { month: "Февраль", value: 9.9 },
-        { month: "Март", value: 10.0 },
-        { month: "Апрель", value: 9.8 },
-        { month: "Май", value: 8.7 },
-    ];
+type Props = {
+    chartData: { month: string; value?: number }[];
+};
 
+export function ChartLineLabel({ chartData }: Props) {
     return (
         <Card className="border-0">
             <CardHeader>

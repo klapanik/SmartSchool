@@ -9,7 +9,7 @@ import { RootLayout } from "@/layouts/RootLayout";
 import { MainPage } from "@/pages/MainPage/MainPage";
 import { QuatersPage } from "@/pages/QuatersPage/QuatersPage";
 import { SchedulePage } from "@/pages/SchedulePage/SchedulePage";
-import { AnalyticsPage } from "@/pages/AnalyticsPage/AnalyticsPage";
+import { AnalyticsPage } from "@/pages/AnalyticsPage/ui/AnalyticsPage";
 import { GradesPage } from "@/pages/GradesPage/GradesPage";
 
 import { SidebarProvider } from "@/components/ui/sidebar";
