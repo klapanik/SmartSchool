@@ -33,7 +33,6 @@ export function DatePicker() {
                     onSelect={setDate}
                     defaultMonth={date}
                     numberOfMonths={isMobile ? 1 : 2}
-                    className="rounded-md border shadow-lg"
                 />
             </PopoverContent>
         </Popover>
