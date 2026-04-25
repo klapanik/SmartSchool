@@ -23,3 +23,33 @@ export const pieChartData = [
     { grade: 2, procent: 2, fill: "var(--chart-9)" },
     { grade: 1, procent: 1, fill: "var(--chart-10)" },
 ];
+
+export const bestSubjectsChartData = [
+    { subject: "География", avarageGrade: 10.0 },
+    { subject: "Английский язык", avarageGrade: 9.9 },
+    { subject: "Математика", avarageGrade: 9.8 },
+    { subject: "Биология", avarageGrade: 9.1 },
+    { subject: "Русский язык", avarageGrade: 8.3 },
+    { subject: "Физика", avarageGrade: 8.2 },
+    { subject: "Белорусский язык", avarageGrade: 7.8 },
+];
+
+export const worstSubjectsChartData = [
+    { subject: "Белорусская литература", avarageGrade: 5.4 },
+    { subject: "История Беларуси", avarageGrade: 6.3 },
+    { subject: "Всемирная история", avarageGrade: 6.4 },
+    { subject: "Информатика", avarageGrade: 7.1 },
+    { subject: "Астрономия", avarageGrade: 7.3 },
+    { subject: "Трудовое обучение", avarageGrade: 7.4 },
+    { subject: "Физическая культура", avarageGrade: 7.7 },
+];
+
+export const workloadChartData = [
+    { subject: "Английский язык", avarageGrade: 32 },
+    { subject: "Математика", avarageGrade: 25 },
+    { subject: "Русский язык", avarageGrade: 21 },
+    { subject: "Физика", avarageGrade: 13 },
+    { subject: "Информатика", avarageGrade: 10 },
+    { subject: "Белорусский язык", avarageGrade: 6 },
+    { subject: "Биология", avarageGrade: 3 },
+];
