@@ -53,3 +53,21 @@ export const workloadChartData = [
     { subject: "Белорусский язык", avarageGrade: 6 },
     { subject: "Биология", avarageGrade: 3 },
 ];
+
+export const comparisonWithClassChartData = [
+    { subject: "География", usersGrade: 10.0, secondGrade: 8.3 },
+    { subject: "Английский язык", usersGrade: 9.9, secondGrade: 7.8 },
+    { subject: "Математика", usersGrade: 9.8, secondGrade: 7.3 },
+    { subject: "Биология", usersGrade: 9.1, secondGrade: 8.4 },
+    { subject: "Русский язык", usersGrade: 8.3, secondGrade: 7.2 },
+    { subject: "Физика", usersGrade: 8.2, secondGrade: 5.9 },
+    { subject: "Белорусский язык", usersGrade: 7.8, secondGrade: 6.1 },
+];
+
+export const comparisonWithPastChartData = [
+    { subject: "География", usersGrade: 10.0, secondGrade: 8.3 },
+    { subject: "Химия", usersGrade: 7.2, secondGrade: 8.1 },
+    { subject: "Русский язык", usersGrade: 5.7, secondGrade: 8.7 },
+    { subject: "Математика", usersGrade: 6.8, secondGrade: 7.8 },
+    { subject: "Физика", usersGrade: 6.0, secondGrade: 5.6 },
+];
