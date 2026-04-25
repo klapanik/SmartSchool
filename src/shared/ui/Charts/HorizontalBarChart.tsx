@@ -12,15 +12,16 @@ type Props = {
     chartData: { subject: string; avarageGrade: number }[];
     title: string;
     subtitle: string;
+    type: null | "avarageGrades";
 };
 
-const chartConfig = {
-    avarageGrade: {
-        label: "Средний балл",
-    },
-} satisfies ChartConfig;
+export function HorizontalBarChart({ title, subtitle, chartData, type }: Props) {
+    const chartConfig = {
+        avarageGrade: {
+            label: type === "avarageGrades" ? "Средний балл" : "Количество оценок",
+        },
+    } satisfies ChartConfig;
 
-export function HorizontalBarChart({ title, subtitle, chartData }: Props) {
     return (
         <Card className="border-0">
             <CardHeader>
@@ -43,20 +44,20 @@ export function HorizontalBarChart({ title, subtitle, chartData }: Props) {
                             dataKey="avarageGrade"
                             axisLine={false}
                             tickLine={false}
-                            domain={[0, 10]}
+                            domain={type === "avarageGrades" ? [0, 10] : [0, 0]}
                         />
                         <YAxis
                             dataKey="subject"
                             type="category"
                             tickLine={false}
-                            tickMargin={12}
+                            tickMargin={10}
                             tickFormatter={(value) => value.slice(0, 3)}
                         />
                         <ChartTooltip
                             content={
                                 <ChartTooltipContent
                                     indicator="line"
-                                    className="bg-white **:text-black min-w-35"
+                                    className={`bg-white **:text-black ${type === "avarageGrades" ? 'min-w-35' : 'min-w-40'}`}
                                 />
                             }
                         />
