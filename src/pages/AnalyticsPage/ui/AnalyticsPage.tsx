@@ -1,5 +1,6 @@
 import { ChartLineLabel } from "@/shared/ui/Charts/LineChart";
-import { avarageGradeDynamicsChartData } from "../model/mock";
+import { ChartPieLabel } from "@/shared/ui/Charts/PieChart";
+import { avarageGradeDynamicsChartData, pieChartData } from "../model/mock";
 
 export function AnalyticsPage() {
     return (
@@ -11,6 +12,7 @@ export function AnalyticsPage() {
 
             <div className="grid grid-cols-2 gap-5">
                 <ChartLineLabel chartData={avarageGradeDynamicsChartData} />
+                <ChartPieLabel chartData={pieChartData} />
             </div>
         </section>
     );
