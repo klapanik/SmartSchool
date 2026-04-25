@@ -23,9 +23,9 @@ export function AnalyticStatsCard(props: Props) {
             className={`${subject ? "block lg:flex justify-between flex-wrap " : ""} primary-block`}
         >
             <div>
-                <div className="flex justify-between ">
+                <div className="flex justify-between mb-2">
                     <div>
-                        <div className="flex gap-1 mb-1 items-center">
+                        <div className="flex gap-1 items-center">
                             <props.icon size={20} />
                             <h3 className="font-semibold">{title}</h3>
                         </div>
@@ -37,9 +37,9 @@ export function AnalyticStatsCard(props: Props) {
                 </div>
 
                 {subject && (
-                    <div>
+                    <div className="mb-1">
                         <p className="text-xl font-bold mb-1">{subject}</p>
-                        <p className="text-xs text-gray-500">средний балл: {number}</p>
+                        <p className="text-gray-500">средний балл: {number}</p>
                     </div>
                 )}
             </div>
@@ -47,7 +47,7 @@ export function AnalyticStatsCard(props: Props) {
             <div>
                 {prevNumber !== undefined && (
                     <div>
-                        <p className="text-sm">В прошлой четверти: {prevNumber}</p>
+                        <p>В прошлой четверти: {prevNumber}</p>
 
                         {statNumber !== null && (
                             <>
