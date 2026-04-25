@@ -14,7 +14,7 @@ type Props = {
 
 const chartConfig = {
     procent: {
-        label: "% от всего",
+        label: "Процент от общего количества оценок",
     },
 } satisfies ChartConfig;
 
@@ -34,7 +34,7 @@ export function ChartPieLabel({ chartData }: Props) {
                         <ChartTooltip
                             content={
                                 <ChartTooltipContent
-                                    className="bg-white **:text-black"
+                                    className="bg-white **:text-black min-w-70"
                                     nameKey="procent"
                                     hideLabel
                                 />
