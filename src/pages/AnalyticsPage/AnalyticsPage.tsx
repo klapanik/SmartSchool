@@ -2,12 +2,10 @@ import { AnalyticStatsGroup } from "@/widgets/analytics-page/ui/AnalyticsStatsGr
 
 export function AnalyticsPage() {
     return (
-        <section>
+        <section className="@container">
             <div className="mb-7">
                 <h2 className="page-title">Аналитика</h2>
-                <p className="page-subtitle">
-                    Подробная аналитика вашей успеваемости
-                </p>
+                <p className="page-subtitle">Подробная аналитика вашей успеваемости</p>
             </div>
             <AnalyticStatsGroup />
         </section>
