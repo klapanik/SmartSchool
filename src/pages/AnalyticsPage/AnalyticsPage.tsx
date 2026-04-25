@@ -1,3 +1,4 @@
+import { AnalyticStatsGroup } from "@/widgets/analytics-page/ui/AnalyticsStatsGroup";
 import { AnalyticsCharts } from "@/widgets/analytics-page/ui/AnalyticsCharts";
 
 export function AnalyticsPage() {
@@ -8,6 +9,7 @@ export function AnalyticsPage() {
                 <p className="page-subtitle">Подробная аналитика вашей успеваемости</p>
             </div>
 
+            <AnalyticStatsGroup />
             <AnalyticsCharts />
         </section>
     );
