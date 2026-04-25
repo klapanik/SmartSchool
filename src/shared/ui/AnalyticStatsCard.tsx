@@ -38,7 +38,7 @@ export function AnalyticStatsCard(props: Props) {
 
                 {subject && (
                     <div className="mb-1">
-                        <p className="text-xl font-bold mb-1">{subject}</p>
+                        <p className="text-xl font-bold">{subject}</p>
                         <p className="text-gray-500">средний балл: {number}</p>
                     </div>
                 )}
