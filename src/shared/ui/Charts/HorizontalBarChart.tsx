@@ -1,4 +1,4 @@
-import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts";
+import { Bar, BarChart, CartesianGrid, LabelList, XAxis, YAxis } from "recharts";
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import {
@@ -57,11 +57,24 @@ export function HorizontalBarChart({ title, subtitle, chartData, type }: Props) 
                             content={
                                 <ChartTooltipContent
                                     indicator="line"
-                                    className={`bg-white **:text-black ${type === "avarageGrades" ? 'min-w-35' : 'min-w-40'}`}
+                                    className={`bg-white **:text-black ${type === "avarageGrades" ? "min-w-35" : "min-w-40"}`}
                                 />
                             }
                         />
-                        <Bar dataKey="avarageGrade" fill="var(--chart-1)" radius={[0, 10, 10, 0]} />
+                        <Bar
+                            isAnimationActive={false}
+                            dataKey="avarageGrade"
+                            fill="var(--chart-1)"
+                            radius={[0, 10, 10, 0]}
+                        >
+                            <LabelList
+                                dataKey="avarageGrade"
+                                position="insideRight"
+                                offset={8}
+                                className="fill-muted"
+                                fontSize={12}
+                            />
+                        </Bar>
                     </BarChart>
                 </ChartContainer>
             </CardContent>
