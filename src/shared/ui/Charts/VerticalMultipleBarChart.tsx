@@ -18,7 +18,13 @@ export function VerticalMultipleBarChart({ title, subtitle, chartData }: Props) 
             </CardHeader>
             <CardContent>
                 <ChartContainer config={{}}>
-                    <BarChart accessibilityLayer data={chartData}>
+                    <BarChart
+                        accessibilityLayer
+                        data={chartData}
+                        margin={{
+                            left: -20,
+                        }}
+                    >
                         <CartesianGrid vertical={false} />
 
                         <YAxis
@@ -45,7 +51,7 @@ export function VerticalMultipleBarChart({ title, subtitle, chartData }: Props) 
                                 dataKey="usersGrade"
                                 position="insideTop"
                                 offset={8}
-                                className="fill-muted"
+                                className="min-[1100px]:fill-muted fill-smoky-black"
                                 fontSize={10}
                             />
                         </Bar>
@@ -59,7 +65,7 @@ export function VerticalMultipleBarChart({ title, subtitle, chartData }: Props) 
                                 dataKey="secondGrade"
                                 position="insideTop"
                                 offset={8}
-                                className="fill-muted"
+                                className="min-[1100px]:fill-muted fill-smoky-black"
                                 fontSize={10}
                             />
                         </Bar>

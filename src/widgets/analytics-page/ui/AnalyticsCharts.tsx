@@ -15,7 +15,7 @@ import { VerticalMultipleBarChart } from "@/shared/ui/Charts/VerticalMultipleBar
 
 export function AnalyticsCharts() {
     return (
-        <div className="grid grid-cols-2 gap-5">
+        <div className="grid @min-[700px]:grid-cols-2 gap-5">
             <ChartLineLabel chartData={avarageGradeDynamicsChartData} />
             <ChartPieLabel chartData={pieChartData} />
 

@@ -19,7 +19,14 @@ export function HorizontalMultipleBarChart({ title, subtitle, chartData }: Props
 
             <CardContent>
                 <ChartContainer config={{}}>
-                    <BarChart accessibilityLayer data={chartData} layout="vertical">
+                    <BarChart
+                        accessibilityLayer
+                        data={chartData}
+                        layout="vertical"
+                        margin={{
+                            left: -20,
+                        }}
+                    >
                         <CartesianGrid horizontal={false} />
 
                         <XAxis
@@ -32,7 +39,7 @@ export function HorizontalMultipleBarChart({ title, subtitle, chartData }: Props
                         <YAxis
                             type="category"
                             dataKey="subject"
-                            tickFormatter={(value) => value.slice(0, 4)}
+                            tickFormatter={(value) => value.slice(0, 3)}
                             tickLine={false}
                             tickMargin={10}
                         />
@@ -46,7 +53,7 @@ export function HorizontalMultipleBarChart({ title, subtitle, chartData }: Props
                             <LabelList
                                 dataKey="usersGrade"
                                 position="insideRight"
-                                className="fill-muted"
+                                className="min-[1100px]:fill-muted fill-smoky-black"
                                 fontSize={10}
                             />
                         </Bar>
@@ -60,7 +67,7 @@ export function HorizontalMultipleBarChart({ title, subtitle, chartData }: Props
                             <LabelList
                                 dataKey="secondGrade"
                                 position="insideRight"
-                                className="fill-muted"
+                                className="min-[1100px]:fill-muted fill-smoky-black"
                                 fontSize={10}
                             />
                         </Bar>
