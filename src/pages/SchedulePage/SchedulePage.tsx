@@ -20,7 +20,7 @@ export function SchedulePage() {
                 </div>
                 <DatePicker />
             </div>
-            <div>
+            <div className="flex flex-col gap-4">
                 <ScheduleBlock schedule={d0} subjects={subjects} />
                 <ScheduleBlock schedule={d1} subjects={subjects} />
                 <ScheduleBlock schedule={d2} subjects={subjects} />
