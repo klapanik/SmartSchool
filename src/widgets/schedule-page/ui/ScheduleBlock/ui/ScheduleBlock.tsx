@@ -2,6 +2,7 @@ import { ScheduleLesson } from "@/shared/ui/ScheduleLesson";
 import type { Schedule, Subject } from "../model/types";
 
 import { Calendar } from "lucide-react";
+import { EmptyTodaysSchedule } from "@/shared/ui/EmptyTodaysSchedule";
 
 type Props = {
     schedule: Schedule;
@@ -37,17 +38,34 @@ export function ScheduleBlock({ schedule, subjects }: Props) {
                     <span className="text-gray-600">{subjects.length} уроков</span>
                 )}
             </div>
-            <div className="flex flex-col gap-3">
-                {subjects.map((s, i) => (
-                    <ScheduleLesson
-                        key={i}
-                        number={s.number}
-                        subject={s.name}
-                        time={s.time}
-                        grade={s.grade}
-                    />
-                ))}
-            </div>
+
+            {dayNumber !== 0 ? (
+                <div className="flex flex-col gap-3">
+                    {subjects.map((s, i) => (
+                        <ScheduleLesson
+                            key={i}
+                            number={s.number}
+                            subject={s.name}
+                            time={s.time}
+                            grade={s.grade}
+                        />
+                    ))}
+                </div>
+            ) : subjects.length !== 0 ? (
+                <div className="flex flex-col gap-3">
+                    {subjects.map((s, i) => (
+                        <ScheduleLesson
+                            key={i}
+                            number={s.number}
+                            subject={s.name}
+                            time={s.time}
+                            grade={s.grade}
+                        />
+                    ))}
+                </div>
+            ) : (
+                <EmptyTodaysSchedule type="secondary" />
+            )}
         </div>
     );
 }
