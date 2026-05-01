@@ -4,14 +4,18 @@ import {
     bestSubjectsChartData,
     comparisonWithClassChartData,
     comparisonWithPastChartData,
+    monthsData,
     pieChartData,
     workloadChartData,
     worstSubjectsChartData,
 } from "../models/mock";
+
 import { ChartLineLabel } from "@/shared/ui/Charts/LineChart";
 import { HorizontalBarChart } from "@/shared/ui/Charts/HorizontalBarChart";
 import { HorizontalMultipleBarChart } from "@/shared/ui/Charts/HorizontalMultipleBarChart";
 import { VerticalMultipleBarChart } from "@/shared/ui/Charts/VerticalMultipleBarChart";
+
+import { PresenceCalendar } from "./PresenceCalendar";
 
 export function AnalyticsCharts() {
     return (
@@ -51,6 +55,8 @@ export function AnalyticsCharts() {
                 chartData={workloadChartData}
                 type={null}
             />
+
+            <PresenceCalendar monthsData={monthsData} />
         </div>
     );
 }
