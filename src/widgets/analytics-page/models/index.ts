@@ -5,3 +5,9 @@ export type CalendarDaysType = {
     dayNumber?: number;
     status?: CalendarDayStatusType;
 }[];
+
+export type MonthDataType = {
+    id: number,
+    month: string;
+    days: CalendarDaysType;
+};
