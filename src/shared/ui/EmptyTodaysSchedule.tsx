@@ -8,7 +8,7 @@ import {
 import { Calendar } from "lucide-react";
 import { Link } from "react-router-dom";
 
-export function EmptyTodaysSchedule() {
+export function EmptyTodaysSchedule({ type }: { type: "main" | "secondary" }) {
     return (
         <div className="primary-block">
             <Empty className="md:p-0 p-0">
@@ -25,12 +25,14 @@ export function EmptyTodaysSchedule() {
                     <p className="text-sm">Отличный день для отдыха!</p>
                 </EmptyContent>
 
-                <Link
-                    to="/schedule"
-                    className="bg-primary px-4 py-2 rounded-lg text-white transition-colors duration-300 hover:bg-white hover:text-primary"
-                >
-                    Перейти в расписание
-                </Link>
+                {type === "main" ? (
+                    <Link
+                        to="/schedule"
+                        className="bg-primary px-4 py-2 rounded-lg text-white transition-colors duration-300 hover:bg-white hover:text-primary"
+                    >
+                        Перейти в расписание
+                    </Link>
+                ) : null}
             </Empty>
         </div>
     );
