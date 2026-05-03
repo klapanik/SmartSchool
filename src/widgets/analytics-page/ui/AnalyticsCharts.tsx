@@ -37,6 +37,8 @@ export function AnalyticsCharts() {
                 type="avarageGrades"
             />
 
+            <PresenceCalendar monthsData={monthsData} />
+
             <VerticalMultipleBarChart
                 title="Сравнение с классом"
                 subtitle="Сравнение среднего балла по лучшим предметам с классом"
@@ -55,8 +57,6 @@ export function AnalyticsCharts() {
                 chartData={workloadChartData}
                 type={null}
             />
-
-            <PresenceCalendar monthsData={monthsData} />
         </div>
     );
 }
