@@ -1,3 +1,5 @@
+import GradesStatsGroup from "@/widgets/grades-page/ui/GradesStatsGroup";
+
 export function GradesPage() {
     return (
         <section>
@@ -5,6 +7,7 @@ export function GradesPage() {
                 <h2 className="page-title">Оценки</h2>
                 <p className="page-subtitle">Управление вашими оценками</p>
             </div>
+            <GradesStatsGroup />
         </section>
     );
 }

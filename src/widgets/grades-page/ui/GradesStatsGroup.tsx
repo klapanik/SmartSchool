@@ -3,15 +3,20 @@ import { CalendarDays, TrendingUp } from "lucide-react";
 
 export default function GradesStatsGroup() {
     return (
-        <div className="my-5 grid grid-cols-1 gap-5 lg:grid-cols-3">
-            <StatsCard title="Четвертей" icon={TrendingUp} number={4} subtext="добавлено" />
+        <div className="my-5 grid grid-cols-1 gap-5 lg:grid-cols-3 text-gray-500">
             <StatsCard
-                title="Четвертных оценок"
+                title="Общий средний балл"
                 icon={TrendingUp}
-                number={32}
-                subtext="выставлено"
+                number={9.23}
+                subtext="Из 10 оценок"
             />
-            <StatsCard title="Предметов" icon={CalendarDays} number={16} subtext="изучается" />
+            <StatsCard title="Всего оценок" icon={TrendingUp} number={10} subtext="всего оценок" />
+            <StatsCard
+                title="Предметов"
+                icon={CalendarDays}
+                number={16}
+                subtext="Активных предметов"
+            />
         </div>
     );
 }
