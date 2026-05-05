@@ -13,6 +13,10 @@
     }
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 :root {
     --radius: 0.625rem;
 
