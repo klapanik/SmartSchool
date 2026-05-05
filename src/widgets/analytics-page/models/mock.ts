@@ -1,4 +1,4 @@
-export const avarageGradeDynamicsChartData = [
+export const averageGradeDynamicsChartData = [
     { month: "" },
     { month: "Сентябрь", value: 8.2 },
     { month: "Октябрь", value: 8.5 },
@@ -25,33 +25,33 @@ export const pieChartData = [
 ];
 
 export const bestSubjectsChartData = [
-    { subject: "География", avarageGrade: 10.0 },
-    { subject: "Английский язык", avarageGrade: 9.9 },
-    { subject: "Математика", avarageGrade: 9.8 },
-    { subject: "Биология", avarageGrade: 9.1 },
-    { subject: "Русский язык", avarageGrade: 8.3 },
-    { subject: "Физика", avarageGrade: 8.2 },
-    { subject: "Белорусский язык", avarageGrade: 7.8 },
+    { subject: "География", averageGrade: 10.0 },
+    { subject: "Английский язык", averageGrade: 9.9 },
+    { subject: "Математика", averageGrade: 9.8 },
+    { subject: "Биология", averageGrade: 9.1 },
+    { subject: "Русский язык", averageGrade: 8.3 },
+    { subject: "Физика", averageGrade: 8.2 },
+    { subject: "Белорусский язык", averageGrade: 7.8 },
 ];
 
 export const worstSubjectsChartData = [
-    { subject: "Белорусская литература", avarageGrade: 5.4 },
-    { subject: "История Беларуси", avarageGrade: 6.3 },
-    { subject: "Всемирная история", avarageGrade: 6.4 },
-    { subject: "Информатика", avarageGrade: 7.1 },
-    { subject: "Астрономия", avarageGrade: 7.3 },
-    { subject: "Трудовое обучение", avarageGrade: 7.4 },
-    { subject: "Физическая культура", avarageGrade: 7.7 },
+    { subject: "Белорусская литература", averageGrade: 5.4 },
+    { subject: "История Беларуси", averageGrade: 6.3 },
+    { subject: "Всемирная история", averageGrade: 6.4 },
+    { subject: "Информатика", averageGrade: 7.1 },
+    { subject: "Астрономия", averageGrade: 7.3 },
+    { subject: "Трудовое обучение", averageGrade: 7.4 },
+    { subject: "Физическая культура", averageGrade: 7.7 },
 ];
 
 export const workloadChartData = [
-    { subject: "Английский язык", avarageGrade: 32 },
-    { subject: "Математика", avarageGrade: 25 },
-    { subject: "Русский язык", avarageGrade: 21 },
-    { subject: "Физика", avarageGrade: 13 },
-    { subject: "Информатика", avarageGrade: 10 },
-    { subject: "Белорусский язык", avarageGrade: 6 },
-    { subject: "Биология", avarageGrade: 3 },
+    { subject: "Английский язык", averageGrade: 32 },
+    { subject: "Математика", averageGrade: 25 },
+    { subject: "Русский язык", averageGrade: 21 },
+    { subject: "Физика", averageGrade: 13 },
+    { subject: "Информатика", averageGrade: 10 },
+    { subject: "Белорусский язык", averageGrade: 6 },
+    { subject: "Биология", averageGrade: 3 },
 ];
 
 export const comparisonWithClassChartData = [
