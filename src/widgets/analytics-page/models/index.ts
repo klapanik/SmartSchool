@@ -7,7 +7,8 @@ export type CalendarDaysType = {
 }[];
 
 export type MonthDataType = {
-    id: number,
+    id: number;
     month: string;
     days: CalendarDaysType;
+    monthNumber: number;
 };

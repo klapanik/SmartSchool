@@ -25,7 +25,7 @@ export function PresenceCalendar({ monthsData }: { monthsData: MonthDataType[] }
                             key={month.id}
                             days={month.days}
                             month={month.month}
-                            className={`${month.id === 1 ? "hidden @min-[558px]:block" : month.id === 2 ? "hidden @min-[380px]:block" : ""}`}
+                            className={`${month.monthNumber === 1 ? "hidden @min-[558px]:block" : month.monthNumber === 2 ? "hidden @min-[380px]:block" : ""}`}
                         />
                     ))}
                 </CardContent>

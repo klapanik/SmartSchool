@@ -76,6 +76,7 @@ export const monthsData = [
     {
         id: 1,
         month: "декабрь",
+        monthNumber: 1,
         days: [
             { id: 1, status: "none" },
             { id: 2, status: "none" },
@@ -118,6 +119,7 @@ export const monthsData = [
     {
         id: 2,
         month: "январь",
+        monthNumber: 2,
         days: [
             { id: 1, status: "none" },
             { id: 2, status: "none" },
@@ -163,6 +165,7 @@ export const monthsData = [
     {
         id: 3,
         month: "февраль",
+        monthNumber: 3,
         days: [
             { id: 1, status: "none" },
 
