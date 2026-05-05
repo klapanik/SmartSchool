@@ -9,16 +9,16 @@ import {
 } from "@/components/ui/chart";
 
 type Props = {
-    chartData: { subject: string; avarageGrade: number }[];
+    chartData: { subject: string; averageGrade: number }[];
     title: string;
     subtitle: string;
-    type: null | "avarageGrades";
+    type: null | "averageGrades";
 };
 
 export function HorizontalBarChart({ title, subtitle, chartData, type }: Props) {
     const chartConfig = {
-        avarageGrade: {
-            label: type === "avarageGrades" ? "Средний балл" : "Количество оценок",
+        averageGrade: {
+            label: type === "averageGrades" ? "Средний балл" : "Количество оценок",
         },
     } satisfies ChartConfig;
 
@@ -41,10 +41,10 @@ export function HorizontalBarChart({ title, subtitle, chartData, type }: Props) 
                         <CartesianGrid horizontal={false} />
                         <XAxis
                             type="number"
-                            dataKey="avarageGrade"
+                            dataKey="averageGrade"
                             axisLine={false}
                             tickLine={false}
-                            domain={type === "avarageGrades" ? [0, 10] : [0, 0]}
+                            domain={type === "averageGrades" ? [0, 10] : [0, 0]}
                         />
                         <YAxis
                             dataKey="subject"
@@ -57,18 +57,18 @@ export function HorizontalBarChart({ title, subtitle, chartData, type }: Props) 
                             content={
                                 <ChartTooltipContent
                                     indicator="line"
-                                    className={`bg-white **:text-black ${type === "avarageGrades" ? "min-w-35" : "min-w-40"}`}
+                                    className={`bg-white **:text-black ${type === "averageGrades" ? "min-w-35" : "min-w-40"}`}
                                 />
                             }
                         />
                         <Bar
                             isAnimationActive={false}
-                            dataKey="avarageGrade"
+                            dataKey="averageGrade"
                             fill="var(--chart-1)"
                             radius={[0, 10, 10, 0]}
                         >
                             <LabelList
-                                dataKey="avarageGrade"
+                                dataKey="averageGrade"
                                 position="insideRight"
                                 offset={8}
                                 className="fill-muted"
