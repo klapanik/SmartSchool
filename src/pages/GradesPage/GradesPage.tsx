@@ -1,3 +1,4 @@
+import GradesStatsGroup from "@/widgets/grades-page/ui/GradesStatsGroup";
 import { ScrollTopArrow } from "@/widgets/grade-page/ui/ScrollTopArrow";
 
 export function GradesPage() {
@@ -8,6 +9,7 @@ export function GradesPage() {
                 <p className="page-subtitle">Управление вашими оценками</p>
             </div>
 
+            <GradesStatsGroup />
             <ScrollTopArrow />
         </section>
     );
