@@ -39,19 +39,7 @@ export function ScheduleBlock({ dayNumber, data, subjects }: Props) {
                 )}
             </div>
 
-            {dayNumber !== 0 ? (
-                <div className="flex flex-col gap-3">
-                    {subjects.map((s, i) => (
-                        <ScheduleLesson
-                            key={i}
-                            number={s.number}
-                            subject={s.name}
-                            time={s.time}
-                            grade={s.grade}
-                        />
-                    ))}
-                </div>
-            ) : subjects.length !== 0 ? (
+            {dayNumber !== 0 || subjects.length !== 0 ? (
                 <div className="flex flex-col gap-3">
                     {subjects.map((s, i) => (
                         <ScheduleLesson
