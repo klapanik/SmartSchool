@@ -1,14 +1,6 @@
 import { DatePicker } from "@/features/DatePicker/DatePicker";
-import {
-    d0,
-    d1,
-    d2,
-    d3,
-    d4,
-    d5,
-    subjects,
-} from "@/widgets/schedule-page/ui/ScheduleBlock/model/scheduleMock";
 import { ScheduleBlock } from "@/widgets/schedule-page/ui/ScheduleBlock";
+import { subjects } from "@/widgets/schedule-page/ui/ScheduleBlock/model/scheduleMock";
 
 export function SchedulePage() {
     return (
@@ -21,12 +13,12 @@ export function SchedulePage() {
                 <DatePicker />
             </div>
             <div className="flex flex-col gap-4">
-                <ScheduleBlock schedule={d0} subjects={subjects} />
-                <ScheduleBlock schedule={d1} subjects={subjects} />
-                <ScheduleBlock schedule={d2} subjects={subjects} />
-                <ScheduleBlock schedule={d3} subjects={subjects} />
-                <ScheduleBlock schedule={d4} subjects={subjects} />
-                <ScheduleBlock schedule={d5} subjects={subjects} />
+                <ScheduleBlock dayNumber={0} data="вторник, 24 февраля" subjects={subjects} />
+                <ScheduleBlock dayNumber={1} subjects={subjects} />
+                <ScheduleBlock dayNumber={2} subjects={subjects} />
+                <ScheduleBlock dayNumber={3} subjects={subjects} />
+                <ScheduleBlock dayNumber={4} subjects={subjects} />
+                <ScheduleBlock dayNumber={5} subjects={subjects} />
             </div>
         </section>
     );

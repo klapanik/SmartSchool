@@ -1,15 +1,15 @@
 import { ScheduleLesson } from "@/shared/ui/ScheduleLesson";
-import type { Schedule, Subject } from "../model/types";
+import type { Subject } from "../model/types";
 
 import { Calendar } from "lucide-react";
 import { EmptyTodaysSchedule } from "@/shared/ui/EmptyTodaysSchedule";
 
 type Props = {
-    schedule: Schedule;
+    dayNumber: number;
+    data?: string;
     subjects: Subject[];
 };
-export function ScheduleBlock({ schedule, subjects }: Props) {
-    const { dayNumber, data } = schedule;
+export function ScheduleBlock({ dayNumber, data, subjects }: Props) {
     return (
         <div className="primary-block flex flex-col gap-5">
             <div className="flex flex-row gap-2 justify-between items-start">

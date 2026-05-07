@@ -1,4 +1,4 @@
-import type { Schedule, Subject } from "./types";
+import type { Subject } from "./types";
 
 export const subjects: Subject[] = [
     {
@@ -35,27 +35,3 @@ export const subjects: Subject[] = [
         time: "13:55 - 14:40",
     },
 ];
-
-export const scheduleData: Schedule[] = [
-    {
-        dayNumber: 0,
-        data: "вторник, 24 февраля",
-    },
-    {
-        dayNumber: 1,
-    },
-    {
-        dayNumber: 2,
-    },
-    {
-        dayNumber: 3,
-    },
-    {
-        dayNumber: 4,
-    },
-    {
-        dayNumber: 5,
-    },
-];
-
-export const [d0, d1, d2, d3, d4, d5] = scheduleData;
