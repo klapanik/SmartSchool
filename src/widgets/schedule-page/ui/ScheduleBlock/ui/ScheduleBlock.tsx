@@ -23,16 +23,18 @@ export function ScheduleBlock({ dayNumber, data, subjects }: Props) {
                             <span className="text-gray-600">{data}</span>
                         </div>
                     </div>
-                ) : dayNumber === 1 ? (
-                    <h2 className="text-xl text-black font-bold">Понедельник</h2>
-                ) : dayNumber === 2 ? (
-                    <h2 className="text-xl text-black font-bold">Вторник</h2>
-                ) : dayNumber === 3 ? (
-                    <h2 className="text-xl text-black font-bold">Среда</h2>
-                ) : dayNumber === 4 ? (
-                    <h2 className="text-xl text-black font-bold">Четверг</h2>
                 ) : (
-                    <h2 className="text-xl text-black font-bold">Пятница</h2>
+                    <h2 className="text-xl text-black font-bold">
+                        {dayNumber === 1
+                            ? "Понедельник"
+                            : dayNumber === 2
+                              ? "Вторник"
+                              : dayNumber === 3
+                                ? "Среда"
+                                : dayNumber === 4
+                                  ? "Четверг"
+                                  : "Пятница"}
+                    </h2>
                 )}
                 {dayNumber === 0 ? null : (
                     <span className="text-gray-600">{subjects.length} уроков</span>
