@@ -17,14 +17,14 @@ export function ScheduleBlock({ dayNumber, data, subjects }: Props) {
                     <div className="flex flex-row gap-2 items-start">
                         <Calendar size={20} />
                         <div className="flex flex-col items-start">
-                            <h2 className="text-xl text-black font-bold mb-2 leading-5">
+                            <h2 className="text-2xl text-black font-semibold mb-2 leading-5">
                                 Расписание на сегодня
                             </h2>
                             <span className="text-gray-600">{data}</span>
                         </div>
                     </div>
                 ) : (
-                    <h2 className="text-xl text-black font-bold">
+                    <h2 className="text-2xl text-black font-semibold">
                         {dayNumber === 1
                             ? "Понедельник"
                             : dayNumber === 2
