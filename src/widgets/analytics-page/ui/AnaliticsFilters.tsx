@@ -9,7 +9,7 @@ import {
 
 export function AnaliticsFilters() {
     return (
-        <div className="flex gap-4">
+        <div className="flex flex-col md:flex-row gap-4">
             <Select defaultValue="all subjects">
                 <SelectTrigger className="w-full max-w-48">
                     <SelectValue placeholder="Select a fruit" />
