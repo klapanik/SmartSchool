@@ -1,5 +1,4 @@
 import { StatsCard } from "@/shared/ui/StatsCard";
-import { SubjectGrade } from "@/shared/ui/SubjectGrade";
 import { CalendarDays, TrendingUp } from "lucide-react";
 
 export default function GradesStatsGroup() {
@@ -26,29 +25,6 @@ export default function GradesStatsGroup() {
                     number={16}
                     subtext="Активных предметов"
                     iconClassName="text-gray-500"
-                />
-            </div>
-
-            <div className="flex flex-col primary-block gap-5">
-                <h3 className="font-bold">История оценок</h3>
-                <SubjectGrade
-                    subject="Русский язык"
-                    grade={10}
-                    isApproximately={false}
-                    date={"тут дата"}
-                />
-                <SubjectGrade
-                    subject="Математика"
-                    grade={8}
-                    isApproximately={false}
-                    date={"тут дата"}
-                />
-
-                <SubjectGrade
-                    subject="Белорусский язык"
-                    grade={7}
-                    isApproximately={false}
-                    date={"тут дата"}
                 />
             </div>
         </div>
