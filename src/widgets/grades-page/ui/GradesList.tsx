@@ -1,9 +1,9 @@
 import { SubjectGrade } from "@/shared/ui/SubjectGrade";
 
-export const GradesList = () => {
+export function GradesList() {
     return (
-        <div className="flex flex-col primary-block gap-5">
-            <h3 className="font-bold">История оценок</h3>
+        <div className="flex flex-col primary-block gap-4">
+            <h3 className="font-semibold text-xl">История оценок</h3>
             <SubjectGrade
                 subject="Русский язык"
                 grade={10}
@@ -25,4 +25,4 @@ export const GradesList = () => {
             />
         </div>
     );
-};
+}
