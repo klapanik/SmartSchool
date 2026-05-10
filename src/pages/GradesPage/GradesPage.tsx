@@ -1,5 +1,6 @@
+import { GradesList } from "@/widgets/grades-page/ui/GradesList";
 import GradesStatsGroup from "@/widgets/grades-page/ui/GradesStatsGroup";
-import { ScrollTopArrow } from "@/widgets/grade-page/ui/ScrollTopArrow";
+import { ScrollTopArrow } from "@/widgets/grades-page/ui/ScrollTopArrow";
 
 export function GradesPage() {
     return (
@@ -10,6 +11,7 @@ export function GradesPage() {
             </div>
 
             <GradesStatsGroup />
+            <GradesList />
             <ScrollTopArrow />
         </section>
     );
