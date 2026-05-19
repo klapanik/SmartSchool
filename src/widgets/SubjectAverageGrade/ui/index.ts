@@ -1,0 +1,1 @@
+export { SubjectAverageGrade } from "./SubjectAverageGrade";
