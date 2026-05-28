@@ -1,6 +1,6 @@
 import { GradeBadge } from "./GradeBadge/ui/GradeBadge";
 
-type SubjectProps = {
+type Props = {
     subject: string;
     grade: number | string;
     isApproximately?: boolean;
@@ -8,13 +8,7 @@ type SubjectProps = {
     gradesNumber?: number;
 };
 
-export function SubjectGrade({
-    subject,
-    grade,
-    isApproximately,
-    date,
-    gradesNumber,
-}: SubjectProps) {
+export function SubjectGrade({ subject, grade, isApproximately, date, gradesNumber }: Props) {
     return (
         <div className="flex items-center justify-between px-3 py-4 w-full max-h-15 bg-smoky-white border border-gray-200 rounded-xl">
             <div className="flex flex-col">
