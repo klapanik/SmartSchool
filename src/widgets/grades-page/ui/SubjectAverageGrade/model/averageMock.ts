@@ -29,7 +29,7 @@ export const subjects: Subject[] = [
     {
         name: "Математика",
         gradesNumber: 0,
-        average: "9",
+        average: "0",
     },
     {
         name: "Информатика",
