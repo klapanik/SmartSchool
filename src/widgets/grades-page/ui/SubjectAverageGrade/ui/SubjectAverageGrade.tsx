@@ -11,7 +11,7 @@ export function SubjectAverageGrade() {
                         key={i}
                         subject={s.name}
                         grade={s.average}
-                        data={s.data}
+                        date={s.date}
                         gradesNumber={s.gradesNumber}
                     />
                 ))}

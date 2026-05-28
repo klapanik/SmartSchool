@@ -6,7 +6,6 @@ type SubjectProps = {
     isApproximately?: boolean;
     date?: string;
     gradesNumber?: number;
-    data?: string;
 };
 
 export function SubjectGrade({
@@ -15,26 +14,22 @@ export function SubjectGrade({
     isApproximately,
     date,
     gradesNumber,
-    data,
 }: SubjectProps) {
     return (
-        <div className="flex items-center justify-between px-3 py-4 w-full max-h-15 bg-white border border-gray-200 rounded-xl">
+        <div className="flex items-center justify-between px-3 py-4 w-full max-h-15 bg-smoky-white border border-gray-200 rounded-xl">
             <div className="flex flex-col">
                 <span className="font-semibold md:text-m">{subject}</span>
-                {!grade && grade !== 0 ? (
-                    <span className="text-sm text-gray-400">Нет оценок</span>
-                ) : (
-                    isApproximately && (
-                        <span className="text-sm text-gray-400">
-                            {gradesNumber
-                                ? `${gradesNumber} оценок`
-                                : gradesNumber === null
-                                  ? `${data}`
-                                  : `Примерная ${grade}`}
-                        </span>
-                    )
-                )}
-                {date ? <span className="text-sm text-gray-400">{date}</span> : ""}
+                <span className="text-sm text-gray-400">
+                    {!grade && grade !== 0
+                        ? "Нет оценок"
+                        : isApproximately
+                          ? `Примерная: ${grade}`
+                          : date
+                            ? date
+                            : gradesNumber || gradesNumber === 0
+                              ? `${gradesNumber} оценок`
+                              : ""}
+                </span>
             </div>
             <GradeBadge
                 grade={!grade && grade !== 0 ? "-" : grade}

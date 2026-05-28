@@ -13,21 +13,22 @@ export const subjects: Subject[] = [
     },
     {
         name: "Русский язык",
-        data: "30 марта 2026",
+        gradesNumber: 5,
         average: "3.7",
     },
     {
         name: "Русская литература",
+        gradesNumber: 2,
         average: "9.25",
     },
     {
         name: "Английский язык",
-        gradesNumber: 1,
+        gradesNumber: 10,
         average: "10.00",
     },
     {
         name: "Математика",
-        data: "1 апреля 2026",
+        gradesNumber: 0,
         average: "9",
     },
     {
