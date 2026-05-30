@@ -14,7 +14,7 @@ export function AnaliticsFilters() {
                 <SelectTrigger className="w-full max-w-48">
                     <SelectValue placeholder="Выберите предмет" />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent position="popper">
                     <SelectGroup>
                         <SelectItem value="all subjects">Все предметы</SelectItem>
                         <SelectItem value="bel-lang">Белорусский язык</SelectItem>
@@ -28,7 +28,7 @@ export function AnaliticsFilters() {
                 <SelectTrigger className="w-full max-w-48">
                     <SelectValue placeholder="Выберите четверть" />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent position="popper">
                     <SelectGroup>
                         <SelectItem value="current estimates">Текущие оценки</SelectItem>
                         <SelectItem value="fourth term">4 четверть (2025-2026)</SelectItem>
