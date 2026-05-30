@@ -1,37 +1,43 @@
 import { ChartPieLabel } from "@/shared/ui/Charts/PieChart";
 import {
-    avarageGradeDynamicsChartData,
+    averageGradeDynamicsChartData,
     bestSubjectsChartData,
     comparisonWithClassChartData,
     comparisonWithPastChartData,
+    monthsData,
     pieChartData,
     workloadChartData,
     worstSubjectsChartData,
 } from "../models/mock";
+
 import { ChartLineLabel } from "@/shared/ui/Charts/LineChart";
 import { HorizontalBarChart } from "@/shared/ui/Charts/HorizontalBarChart";
 import { HorizontalMultipleBarChart } from "@/shared/ui/Charts/HorizontalMultipleBarChart";
 import { VerticalMultipleBarChart } from "@/shared/ui/Charts/VerticalMultipleBarChart";
 
+import { PresenceCalendar } from "./PresenceCalendar";
+
 export function AnalyticsCharts() {
     return (
         <div className="grid @min-[700px]:grid-cols-2 gap-5">
-            <ChartLineLabel chartData={avarageGradeDynamicsChartData} />
+            <ChartLineLabel chartData={averageGradeDynamicsChartData} />
             <ChartPieLabel chartData={pieChartData} />
 
             <HorizontalBarChart
                 title="Рейтинг лучших предметов"
                 subtitle="Средние баллы по лучшим предметам"
                 chartData={bestSubjectsChartData}
-                type="avarageGrades"
+                type="averageGrades"
             />
 
             <HorizontalBarChart
                 title="Рейтинг худших предметов"
                 subtitle="Средние баллы по худшим предметам"
                 chartData={worstSubjectsChartData}
-                type="avarageGrades"
+                type="averageGrades"
             />
+
+            <PresenceCalendar monthsData={monthsData} />
 
             <VerticalMultipleBarChart
                 title="Сравнение с классом"
