@@ -22,7 +22,7 @@ export function DatePicker() {
                     {date ? (
                         format(date, "LLL dd, y")
                     ) : (
-                        <span>Выберете дату</span>
+                        <span>Выберите дату</span>
                     )}
                 </Button>
             </PopoverTrigger>
