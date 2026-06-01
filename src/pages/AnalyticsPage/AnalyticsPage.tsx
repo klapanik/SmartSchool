@@ -1,6 +1,6 @@
 import { AnalyticStatsGroup } from "@/widgets/analytics-page/ui/AnalyticsStatsGroup";
 import { AnalyticsCharts } from "@/widgets/analytics-page/ui/AnalyticsCharts";
-import { AnaliticsFilters } from "@/widgets/analytics-page/ui/AnaliticsFilters";
+import { AnalyticsFilters } from "@/widgets/analytics-page/ui/AnalyticsFilters";
 
 export function AnalyticsPage() {
     return (
@@ -10,7 +10,7 @@ export function AnalyticsPage() {
                 <p className="page-subtitle">Подробная аналитика вашей успеваемости</p>
             </div>
             
-            <AnaliticsFilters />
+            <AnalyticsFilters />
             <AnalyticStatsGroup />
             <AnalyticsCharts />
         </section>

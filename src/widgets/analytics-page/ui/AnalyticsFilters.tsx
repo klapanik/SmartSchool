@@ -7,7 +7,7 @@ import {
     SelectValue,
 } from "@/components/ui/select";
 
-export function AnaliticsFilters() {
+export function AnalyticsFilters() {
     return (
         <div className="flex flex-col md:flex-row gap-4">
             <Select defaultValue="all subjects">
