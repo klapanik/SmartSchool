@@ -43,10 +43,10 @@ export function AnalyticsFilters() {
                     <SelectContent position="popper">
                         <SelectGroup>
                             <SelectItem value="current">Текущие оценки</SelectItem>
-                            <SelectItem value="q4">4 четверть (2025-2026)</SelectItem>
-                            <SelectItem value="q3">3 четверть (2025-2026)</SelectItem>
-                            <SelectItem value="q2">2 четверть (2025-2026)</SelectItem>
                             <SelectItem value="q1">1 четверть (2025-2026)</SelectItem>
+                            <SelectItem value="q2">2 четверть (2025-2026)</SelectItem>
+                            <SelectItem value="q3">3 четверть (2025-2026)</SelectItem>
+                            <SelectItem value="q4">4 четверть (2025-2026)</SelectItem>
                         </SelectGroup>
                     </SelectContent>
                 </Select>
