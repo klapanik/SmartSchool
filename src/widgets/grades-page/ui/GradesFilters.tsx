@@ -45,7 +45,7 @@ function FilterField({
 
 export function GradesFilters() {
     return (
-        <div className="primary-block mb-5 flex flex-col gap-5">
+        <div className="primary-block flex flex-col gap-5">
             <div className="flex items-center gap-2">
                 <Filter className="size-5 shrink-0" aria-hidden />
                 <h2 className="text-xl font-bold">Фильтры и сортировка</h2>
