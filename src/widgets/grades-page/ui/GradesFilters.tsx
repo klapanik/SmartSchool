@@ -15,7 +15,7 @@ const filterTriggerClassName = cn(
     "md:h-9 md:rounded-md md:text-smoky-black md:shadow-xs",
 );
 
-const filterLabelClassName = "mb-2 text-sm font-medium text-smoky-black";
+const filterLabelClassName = "mb-2 text-base font-medium text-smoky-black";
 
 function FilterField({
     id,
@@ -48,7 +48,7 @@ export function GradesFilters() {
         <div className="primary-block mb-5 flex flex-col gap-5">
             <div className="flex items-center gap-2">
                 <Filter className="size-5 shrink-0" aria-hidden />
-                <h3 className="text-lg font-bold">Фильтры и сортировка</h3>
+                <h2 className="text-xl font-bold">Фильтры и сортировка</h2>
             </div>
 
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-4">
