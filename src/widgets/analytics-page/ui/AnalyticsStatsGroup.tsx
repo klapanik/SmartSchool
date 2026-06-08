@@ -13,7 +13,7 @@ export function AnalyticStatsGroup() {
                     prevNumber={3}
                 />
                 <AnalyticStatsCard
-                    title="Общий средний балл"
+                    title="Средний балл"
                     titleSubtext="за четверть"
                     number={9.23}
                     icon={CalendarDays}
