@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
 
-import { AppHeader } from "@/widgets/AppHeader";
 import { AppSidebar } from "@/features/AppSidebar";
+import { AppHeader } from "@/widgets/AppHeader/AppHeader";
 
 export function RootLayout() {
     return (
