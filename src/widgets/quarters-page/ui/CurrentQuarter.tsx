@@ -1,6 +1,6 @@
 import { CalendarDays } from "lucide-react";
 
-export function CurrentQuater() {
+export function CurrentQuarter() {
     return (
         <div className="primary-block">
             <div className="flex gap-2 mb-4 sm:mb-5">

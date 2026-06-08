@@ -1,7 +1,7 @@
 import { StatsCard } from "@/shared/ui/StatsCard";
 import { BookOpen, CalendarDays, TrendingUp } from "lucide-react";
 
-export function QuatersStatsGroup() {
+export function QuartersStatsGroup() {
     return (
         <div className="my-5 grid grid-cols-1 gap-5 lg:grid-cols-3">
             <StatsCard
