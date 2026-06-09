@@ -51,7 +51,7 @@ export function GradesFilters() {
                 <h2 className="text-xl font-bold">Фильтры и сортировка</h2>
             </div>
 
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-4">
+            <div className="grid grid-cols-1 gap-4 @min-[720px]:grid-cols-2 md:gap-x-6 md:gap-y-4">
                 <FilterField
                     id="grades-filter-quarter"
                     label="Фильтр по четверти"
