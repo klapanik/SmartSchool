@@ -35,7 +35,7 @@ export function AnalyticStatsGroup() {
                     prevNumber={159}
                 />
             </div>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+            <div className="grid grid-cols-1 @min-[550px]:grid-cols-2 gap-5">
                 <div>
                     <AnalyticStatsCard
                         title="Лучший предмет"
