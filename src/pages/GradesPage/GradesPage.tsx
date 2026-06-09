@@ -13,8 +13,8 @@ export function GradesPage() {
             </div>
 
             <GradesStatsGroup />
-            <GradesFilters />
             <SubjectAverageGrade />
+            <GradesFilters />
             <GradesList />
             <ScrollTopArrow />
         </section>
