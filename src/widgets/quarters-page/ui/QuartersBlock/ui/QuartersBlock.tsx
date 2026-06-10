@@ -24,7 +24,7 @@ export const QuartersBlock = ({ quarter, subjects }: Props) => {
                     <span className="text-gray-500">Средний балл</span>
                 </div>
             </div>
-            <div className="grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid grid-cols-1 gap-2 @min-[720px]:grid-cols-2 @min-[800px]:grid-cols-3">
                 {subjects.map((s, i) => (
                     <SubjectGrade
                         key={i}

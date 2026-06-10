@@ -7,7 +7,7 @@ import {
 
 import { RootLayout } from "@/layouts/RootLayout";
 import { MainPage } from "@/pages/MainPage/MainPage";
-import { QuatersPage } from "@/pages/QuatersPage/QuatersPage";
+import { QuartersPage } from "@/pages/QuartersPage/QuartersPage";
 import { SchedulePage } from "@/pages/SchedulePage/SchedulePage";
 import { AnalyticsPage } from "@/pages/AnalyticsPage/AnalyticsPage";
 import { GradesPage } from "@/pages/GradesPage/GradesPage";
@@ -22,7 +22,7 @@ export function App() {
             <Route path='/home' element={<MainPage />} />
             <Route path='/schedule' element={<SchedulePage />} />
             <Route path='/grades' element={<GradesPage />} />
-            <Route path='/quarters' element={<QuatersPage />} />
+            <Route path='/quarters' element={<QuartersPage />} />
             <Route path='/analytics' element={<AnalyticsPage />} />
         </Route>
     );

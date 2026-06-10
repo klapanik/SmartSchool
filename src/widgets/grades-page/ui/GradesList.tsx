@@ -2,7 +2,7 @@ import { SubjectGrade } from "@/shared/ui/SubjectGrade";
 
 export function GradesList() {
     return (
-        <div className="flex flex-col primary-block gap-4">
+        <div className="flex flex-col primary-block gap-3">
             <h3 className="font-semibold text-xl">История оценок</h3>
             <SubjectGrade
                 subject="Русский язык"

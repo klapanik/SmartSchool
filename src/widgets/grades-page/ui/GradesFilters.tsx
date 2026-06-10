@@ -45,13 +45,13 @@ function FilterField({
 
 export function GradesFilters() {
     return (
-        <div className="primary-block mb-5 flex flex-col gap-5">
+        <div className="primary-block flex flex-col gap-5">
             <div className="flex items-center gap-2">
                 <Filter className="size-5 shrink-0" aria-hidden />
                 <h2 className="text-xl font-bold">Фильтры и сортировка</h2>
             </div>
 
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-4">
+            <div className="grid grid-cols-1 gap-4 @min-[720px]:grid-cols-2 md:gap-x-6 md:gap-y-4">
                 <FilterField
                     id="grades-filter-quarter"
                     label="Фильтр по четверти"

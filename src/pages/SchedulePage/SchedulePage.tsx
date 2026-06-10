@@ -5,7 +5,7 @@ import { subjects } from "@/widgets/schedule-page/ui/ScheduleBlock/model/schedul
 export function SchedulePage() {
     return (
         <section>
-            <div className="mb-7 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div className="mb-5 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
                 <div className="space-y-1">
                     <h2 className="page-title">Расписание</h2>
                     <p className="page-subtitle">Управление расписанием уроков</p>
