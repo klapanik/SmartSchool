@@ -2,19 +2,26 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { UserRound } from "lucide-react";
 
 export function AppHeader() {
     return (
-        <header className="h-14 flex border-b w-full">
-            <div>
-                <h1 className="ml-11 my-auto font-semibold text-xl text-primary-foreground sm:ml-12 sm:text-2xl">
+        <header className="h-14 flex items-center justify-between border-b w-full px-4 sm:px-6">
+            <div className="my-auto">
+                <h1 className="font-semibold text-xl text-primary-foreground sm:text-2xl">
                     Дневник Оценок
                 </h1>
             </div>
-            <div>
+            <div className="my-auto">
                 <Popover>
                     <PopoverTrigger asChild>
-                        <Button variant="outline">Open popover</Button>
+                        <Button
+                            variant="ghost"
+                            className="flex items-center gap-2 border-0 bg-transparent px-0 text-[15px] font-medium text-[#6B7280] shadow-none hover:bg-transparent hover:text-[#6B7280]"
+                        >
+                            <span>Личный кабинет</span>
+                            <UserRound className="h-4.5 w-4.5" />
+                        </Button>
                     </PopoverTrigger>
                     <PopoverContent className="w-80">
                         <div className="grid gap-4">
