@@ -2,8 +2,8 @@ import { GraduationCap } from "lucide-react";
 
 export function AuthPage() {
     return (
-        <section>
-            <div className="flex flex-col gap-5 justify-center items-center">
+        <section className="h-screen w-full flex flex-col justify-center items-center">
+            <div className="flex flex-col gap-5 items-center">
                 <GraduationCap
                     size={60}
                     strokeWidth={1}
