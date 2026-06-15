@@ -1,4 +1,4 @@
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { BookOpen } from "lucide-react";
 
 export function AuthBox() {
@@ -12,7 +12,7 @@ export function AuthBox() {
                 <span className="text-gray-500">Войдите или создайте новый аккаунт</span>
             </div>
 
-            <div className="w-full">
+            <div className="w-full ">
                 <Tabs defaultValue="login">
                     <TabsList className="w-full flex justify-between">
                         <TabsTrigger
@@ -28,6 +28,12 @@ export function AuthBox() {
                             Регистрация
                         </TabsTrigger>
                     </TabsList>
+                    <TabsContent value="login">
+                        <span className="text-gray-500">Тут можно будет войти</span>
+                    </TabsContent>
+                    <TabsContent value="register">
+                        <span className="text-gray-500">Тут можно будет зарегестрироваться</span>
+                    </TabsContent>
                 </Tabs>
             </div>
         </div>
