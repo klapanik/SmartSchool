@@ -21,12 +21,12 @@ export function EmptyCurrentQuarter() {
                     <EmptyTitle>Сейчас каникулы!</EmptyTitle>
                 </div>
 
-                <EmptyDescription className="text-muted-foreground">
+                <EmptyDescription className="text-muted-foreground hidden sm:inline">
                     Четверть не активна
                 </EmptyDescription>
             </EmptyHeader>
 
-            <EmptyContent className="max-w-none pl-5 text-muted-foreground text-start text-wrap items-start gap-0">
+            <EmptyContent className="max-w-none pl-5 text-muted-foreground text-start text-wrap items-start gap-0 md:text-base">
                 <p>
                     В настоящее время учебный процесс приостановлен. Информация о новой четверти
                     появится после начала занятий. В свободное время рекомендуем ознакомиться с
