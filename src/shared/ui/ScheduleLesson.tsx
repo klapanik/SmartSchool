@@ -1,16 +1,23 @@
 import { Clock4 } from "lucide-react";
 import { GradeBadge } from "./GradeBadge/ui/GradeBadge";
+import { cn } from "@/lib/utils";
 
 type Props = {
     subject: string;
     number: number;
     time: string;
     grade?: string | number;
+    isCurrentLesson: boolean;
 };
 
-export function ScheduleLesson({ subject, number, time, grade }: Props) {
+export function ScheduleLesson({ subject, number, time, grade, isCurrentLesson }: Props) {
     return (
-        <div className="border rounded-xl border-gray-300 w-full flex px-6 py-4 justify-between items-center">
+        <div
+            className={cn(
+                "border rounded-xl border-gray-300 w-full flex px-6 py-4 justify-between items-center",
+                { "bg-[#E6E1F5] border border-primary": isCurrentLesson },
+            )}
+        >
             <div className="flex gap-3.5">
                 <div className="flex flex-col justify-center items-center leading-5">
                     <span className="font-semibold">{number}</span>

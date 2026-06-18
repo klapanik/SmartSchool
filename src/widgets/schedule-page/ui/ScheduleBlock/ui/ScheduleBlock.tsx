@@ -50,6 +50,7 @@ export function ScheduleBlock({ dayNumber, data, subjects }: Props) {
                             subject={s.name}
                             time={s.time}
                             grade={s.grade}
+                            isCurrentLesson={true}
                         />
                     ))}
                 </div>
