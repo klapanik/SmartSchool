@@ -1,7 +1,7 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { BookOpen } from "lucide-react";
 
-export function AuthBox() {
+export function AuthTabs() {
     return (
         <div className="bg-smoky-white p-6 flex flex-col rounded-lg gap-5">
             <div className="flex flex-col items-center">
@@ -11,7 +11,6 @@ export function AuthBox() {
                 </div>
                 <span className="text-gray-500">Войдите или создайте новый аккаунт</span>
             </div>
-
             <div className="w-full ">
                 <Tabs defaultValue="login">
                     <TabsList className="w-full flex justify-between">

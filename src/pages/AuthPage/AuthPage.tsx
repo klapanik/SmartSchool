@@ -1,4 +1,4 @@
-import { AuthBox } from "@/widgets/AuthBox/AuthTabs";
+import { AuthTabs } from "@/widgets/AuthTabs/AuthTabs";
 import { GraduationCap } from "lucide-react";
 
 export function AuthPage() {
@@ -11,7 +11,7 @@ export function AuthPage() {
                 />
                 <h2 className="page-title text-primary">SmartSchool</h2>
             </div>
-            <AuthBox />
+            <AuthTabs />
         </section>
     );
 }
