@@ -25,7 +25,7 @@ export function ScheduleLesson({ subject, number, time, grade, isCurrentLesson }
                 </div>
                 <div className="flex flex-col text-left leading-5">
                     <span className="font-semibold">{subject}</span>
-                    <div className="flex items-center">
+                    <div className="flex items-center flex-wrap gap-y-1">
                         <Clock4 size={13} className="text-gray-500 mr-1" />
                         <span className="text-gray-500 text-sm mr-2">{time}</span>
                         {isCurrentLesson && (
