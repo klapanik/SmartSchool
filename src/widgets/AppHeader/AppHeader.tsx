@@ -17,7 +17,7 @@ export function AppHeader() {
                     </Button>
                 </PopoverTrigger>
 
-                <PopoverContent className="w-80">
+                <PopoverContent className="w-80 p-0 border-0 mr-5">
                     <Profile />
                 </PopoverContent>
             </Popover>
