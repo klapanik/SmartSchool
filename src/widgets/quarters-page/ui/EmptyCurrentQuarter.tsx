@@ -11,7 +11,7 @@ import { CalendarDays } from "lucide-react";
 
 export function EmptyCurrentQuarter() {
     return (
-        <Empty className="md:p-0 p-0 gap-3">
+        <Empty className="gap-3">
             <EmptyHeader className="max-w-none w-full flex-row justify-between">
                 <div className="flex gap-1">
                     <EmptyMedia className="my-auto">
