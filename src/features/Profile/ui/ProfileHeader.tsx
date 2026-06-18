@@ -9,7 +9,7 @@ export function ProfileHeader() {
                 <AvatarFallback className="bg-accent text-white">
                     <UserRound />
                 </AvatarFallback>
-                <AvatarBadge className="bg-white text-primary ">
+                <AvatarBadge className="bg-white text-primary duration-150 hover:scale-110 hover:rotate-90">
                     <PlusIcon />
                 </AvatarBadge>
             </Avatar>
