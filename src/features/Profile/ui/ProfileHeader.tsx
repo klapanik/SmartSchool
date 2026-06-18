@@ -16,7 +16,7 @@ export function ProfileHeader() {
 
             <div className="my-auto">
                 <h3 className="mb-1.5 font-semibold">Константин Лапаник</h3>
-                <div className="w-min font-semibold rounded-xl flex gap-1 text-xs bg-accent px-2.5 py-1">
+                <div className="w-min font-semibold rounded-xl flex gap-1 text-xs bg-accent px-2.5 py-1 cursor-pointer">
                     <GraduationCap size={15} className="my-auto mr-0.5" />
                     <span>9А</span>
                     <span>класс</span>
