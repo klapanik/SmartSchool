@@ -14,17 +14,21 @@ import { GradesPage } from "@/pages/GradesPage/GradesPage";
 
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { AuthPage } from "@/pages/AuthPage/AuthPage";
 
 export function App() {
     const routes = createRoutesFromElements(
-        <Route path="/" element={<RootLayout />}>
-            <Route index element={<MainPage />} />
-            <Route path='/home' element={<MainPage />} />
-            <Route path='/schedule' element={<SchedulePage />} />
-            <Route path='/grades' element={<GradesPage />} />
-            <Route path='/quarters' element={<QuartersPage />} />
-            <Route path='/analytics' element={<AnalyticsPage />} />
-        </Route>
+        <>
+            <Route path="/" element={<RootLayout />}>
+                <Route index element={<MainPage />} />
+                <Route path="/home" element={<MainPage />} />
+                <Route path="/schedule" element={<SchedulePage />} />
+                <Route path="/grades" element={<GradesPage />} />
+                <Route path="/quarters" element={<QuartersPage />} />
+                <Route path="/analytics" element={<AnalyticsPage />} />
+            </Route>
+            <Route path="/auth" element={<AuthPage />} />
+        </>,
     );
     const router = createBrowserRouter(routes);
 
