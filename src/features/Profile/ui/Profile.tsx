@@ -1,3 +1,9 @@
+import { ProfileHeader } from "./ProfileHeader";
+
 export function Profile() {
-    return <div>Profile</div>;
+    return (
+        <section>
+            <ProfileHeader />
+        </section>
+    );
 }
