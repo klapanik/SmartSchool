@@ -1,11 +1,21 @@
-import { GraduationCap } from "lucide-react";
+import { GraduationCap, PlusIcon, UserRound } from "lucide-react";
+import { Avatar, AvatarFallback, AvatarImage, AvatarBadge } from "@/components/ui/avatar";
 
 export function ProfileHeader() {
     return (
-        <div className="bg-primary rounded-t-md p-5 text-white">
-            <div></div>
-            <div>
-                <h3 className="mb-2 font-semibold">Константин Лапаник</h3>
+        <div className="flex gap-3 bg-primary rounded-t-md p-5 text-white">
+            <Avatar className="border-3 border-[#B897F1]" size="lg">
+                <AvatarImage src="" alt="SS" />
+                <AvatarFallback className="bg-accent text-white">
+                    <UserRound />
+                </AvatarFallback>
+                <AvatarBadge className="bg-white text-primary ">
+                    <PlusIcon />
+                </AvatarBadge>
+            </Avatar>
+
+            <div className="my-auto">
+                <h3 className="mb-1.5 font-semibold">Константин Лапаник</h3>
                 <div className="w-min font-semibold rounded-xl flex gap-1 text-xs bg-accent px-2.5 py-1">
                     <GraduationCap size={15} className="my-auto mr-0.5" />
                     <span>9А</span>
