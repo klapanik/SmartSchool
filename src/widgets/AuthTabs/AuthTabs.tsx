@@ -18,7 +18,7 @@ export function AuthTabs() {
                             value="login"
                             className="text-black w-full data-[state=active]:bg-white cursor-pointer"
                         >
-                            Войти
+                            Вход
                         </TabsTrigger>
                         <TabsTrigger
                             value="register"
