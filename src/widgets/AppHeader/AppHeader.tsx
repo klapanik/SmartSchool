@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Profile } from "@/features/Profile";
 import { UserRound } from "lucide-react";
 
 export function AppHeader() {
@@ -17,7 +18,7 @@ export function AppHeader() {
                 </PopoverTrigger>
 
                 <PopoverContent className="w-80">
-                    <span>Тут будет личный кабинет</span>
+                    <Profile />
                 </PopoverContent>
             </Popover>
         </header>
