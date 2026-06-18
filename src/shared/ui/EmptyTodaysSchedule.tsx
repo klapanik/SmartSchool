@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 export function EmptyTodaysSchedule({ type }: { type: "main" | "secondary" }) {
     return (
         <div className={type === "main" ? "primary-block" : ""}>
-            <Empty className="md:p-0 p-0">
+            <Empty>
                 {type === "main" ? (
                     <EmptyHeader className="self-start text-start items-start gap-0">
                         <EmptyTitle>Расписание на сегодня</EmptyTitle>
