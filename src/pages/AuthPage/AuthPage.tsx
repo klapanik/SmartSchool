@@ -1,4 +1,4 @@
-import { AuthBox } from "@/widgets/AuthBox/AuthBox";
+import { AuthBox } from "@/widgets/AuthBox/AuthTabs";
 import { GraduationCap } from "lucide-react";
 
 export function AuthPage() {
