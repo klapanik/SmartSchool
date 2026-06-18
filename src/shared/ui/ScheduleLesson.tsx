@@ -27,7 +27,10 @@ export function ScheduleLesson({ subject, number, time, grade, isCurrentLesson }
                     <span className="font-semibold">{subject}</span>
                     <div className="flex items-center">
                         <Clock4 size={13} className="text-gray-500 mr-1" />
-                        <span className="text-gray-500 text-sm">{time}</span>
+                        <span className="text-gray-500 text-sm mr-2">{time}</span>
+                        <div className="bg-primary rounded-full px-2.5 py-0.5 text-white text-xs">
+                            <span>Сейчас</span>
+                        </div>
                     </div>
                 </div>
             </div>
