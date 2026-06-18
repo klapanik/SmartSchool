@@ -29,8 +29,8 @@ export function EmptyCurrentQuarter() {
             <EmptyContent className="max-w-none pl-5 text-muted-foreground text-start text-wrap items-start gap-0 md:text-base">
                 <p>
                     В настоящее время учебный процесс приостановлен. Информация о новой четверти
-                    появится после начала занятий. В свободное время рекомендуем ознакомиться с
-                    заданной на лето литературой:
+                    появится после начала занятий. В свободное время рекомендуем прочитать
+                    произведения из списка литературы на лето:
                 </p>
                 <Button variant="link" className="px-0 underline cursor-pointer">
                     Литература на лето
