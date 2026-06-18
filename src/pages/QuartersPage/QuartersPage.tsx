@@ -1,18 +1,25 @@
-import { CurrentQuater } from "@/widgets/quaters-page/ui/CurrentQuater";
-import { QuartersBlock } from "@/widgets/quaters-page/ui/QuartersBlock";
-import { q1, q2, q3, q4, subjects, year } from "@/widgets/quaters-page/ui/QuartersBlock/model/mock";
-import { QuatersStatsGroup } from "@/widgets/quaters-page/ui/QuatersStatsGroup";
+import { CurrentQuarter } from "@/widgets/quarters-page/ui/CurrentQuarter";
+import { QuartersBlock } from "@/widgets/quarters-page/ui/QuartersBlock";
+import {
+    q1,
+    q2,
+    q3,
+    q4,
+    subjects,
+    year,
+} from "@/widgets/quarters-page/ui/QuartersBlock/model/mock";
+import { QuartersStatsGroup } from "@/widgets/quarters-page/ui/QuartersStatsGroup";
 
-export function QuatersPage() {
+export function QuartersPage() {
     return (
-        <section>
+        <section className="@container">
             <div className="mb-7">
                 <h2 className="page-title">Четверти</h2>
                 <p className="page-subtitle">Итоговые оценки по четвертям</p>
             </div>
 
-            <CurrentQuater />
-            <QuatersStatsGroup />
+            <CurrentQuarter />
+            <QuartersStatsGroup />
 
             <div className="flex flex-col gap-4">
                 <QuartersBlock quarter={q1} subjects={subjects} />

@@ -1,9 +1,9 @@
 import { StatsCard } from "@/shared/ui/StatsCard";
 import { CalendarDays, TrendingUp } from "lucide-react";
 
-export default function GradesStatsGroup() {
+export function GradesStatsGroup() {
     return (
-        <div className="my-5 grid grid-cols-1 gap-5 lg:grid-cols-3 ">
+        <div className="grid grid-cols-1 gap-5 lg:grid-cols-3 ">
             <StatsCard
                 title="Общий средний балл"
                 icon={TrendingUp}
