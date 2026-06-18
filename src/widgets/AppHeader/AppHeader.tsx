@@ -12,11 +12,12 @@ export function AppHeader() {
                 <PopoverTrigger asChild>
                     <Button className="cursor-pointer bg-transparent text-base text-muted-foreground hover:bg-transparent">
                         <span className="hidden lg:inline text-xl font-normal">Личный кабинет</span>
-                        <UserRound className="size-8 bg-primary text-white rounded-full p-1.5 md:bg-transparent md:text-muted-foreground md:size-9 lg:size-6 lg:p-0" />
+                        <UserRound className="size-8 bg-primary text-white rounded-full p-1.5 md:bg-transparent md:text-gray-500 md:size-9 lg:size-6 lg:p-0" />
                     </Button>
                 </PopoverTrigger>
+
                 <PopoverContent className="w-80">
-                    <span>тут будет личный кобинет</span>
+                    <span>Тут будет личный кабинет</span>
                 </PopoverContent>
             </Popover>
         </header>
