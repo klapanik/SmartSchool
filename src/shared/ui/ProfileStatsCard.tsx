@@ -9,7 +9,7 @@ type Props = {
 export const ProfileStatsCard = (props: Props) => {
   const { number, title } = props;
   return (
-    <div className="flex items-center justify-center">
+    <div className="flex items-center justify-center bg-[#f7f8fa]">
       <props.icon size={11} />
       <p className="text-xl font-bold">{number}</p>
       <p className="text-xs text-gray-500">{title}</p>
