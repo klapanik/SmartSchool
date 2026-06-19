@@ -28,16 +28,18 @@ export function ScheduleLesson({ subject, number, time, grade, isCurrentLesson }
                     <div className="flex items-center flex-wrap gap-y-1">
                         <Clock4 size={13} className="text-gray-500 mr-1" />
                         <span className="text-gray-500 text-sm mr-2">{time}</span>
-                        {isCurrentLesson && (
-                            <div className="bg-primary rounded-full px-2.5 py-0.5 text-white text-xs">
-                                <span>Сейчас</span>
-                            </div>
-                        )}
                     </div>
                 </div>
             </div>
 
-            {grade != null && <GradeBadge grade={grade} isApproximately={false} />}
+            <div className="flex gap-5">
+                {grade != null && <div className="w-min my-auto"><GradeBadge grade={grade} isApproximately={false} /></div>}
+                {isCurrentLesson && (
+                    <div className="bg-primary rounded px-2.5 py-1 text-white text-sm">
+                        <span>Сейчас</span>
+                    </div>
+                )}
+            </div>
         </div>
     );
 }
