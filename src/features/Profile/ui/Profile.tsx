@@ -5,7 +5,9 @@ export function Profile() {
   return (
     <section className="rounded-md">
       <ProfileHeader />
-      <ProfileStatsCards />
+      <div className="px-5">
+        <ProfileStatsCards />
+      </div>
     </section>
   );
 }
