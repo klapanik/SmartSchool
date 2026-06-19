@@ -1,5 +1,5 @@
-import { ProfileStatsCards } from "@/widgets/AppHeader/ui/ProfileStatsCards";
 import { ProfileHeader } from "./ProfileHeader";
+import { ProfileStatsCards } from "./ProfileStatsCards";
 
 export function Profile() {
     return (
