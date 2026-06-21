@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import type { SubmitHandler } from "react-hook-form";
 import { loginFormSchema, type LoginFormType } from "./zod";
@@ -13,12 +14,15 @@ import {
     FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Eye, EyeOff } from "lucide-react";
 
 type Props = {
     onSubmit: SubmitHandler<LoginFormType>;
 };
 
 export function LoginForm({ onSubmit }: Props) {
+    const [isPassword, setIsPassword] = useState(true);
+
     const form = useForm<LoginFormType>({
         resolver: zodResolver(loginFormSchema),
     });
@@ -56,14 +60,25 @@ export function LoginForm({ onSubmit }: Props) {
                     render={({ field }) => (
                         <FormItem>
                             <FormLabel>Пароль</FormLabel>
-                            <FormControl>
-                                <Input
-                                    className={`primary-input ${errors.password ? "invalid" : ""}`}
-                                    placeholder="Введите пароль"
-                                    type="password"
-                                    {...field}
-                                />
-                            </FormControl>
+                            <div className="flex gap-2">
+                                <FormControl>
+                                    <Input
+                                        className={`primary-input ${errors.password ? "invalid" : ""}`}
+                                        placeholder="Введите пароль"
+                                        type={isPassword ? "password" : "text"}
+                                        {...field}
+                                    />
+                                </FormControl>
+
+                                <Button
+                                    onClick={() => setIsPassword((prev) => !prev)}
+                                    variant="ghost"
+                                    type="button"
+                                    className="hover:bg-white cursor-pointer my-auto"
+                                >
+                                    {isPassword ? <Eye /> : <EyeOff />}
+                                </Button>
+                            </div>
                             <FormMessage>{errors.password?.message && ""}</FormMessage>
                         </FormItem>
                     )}
