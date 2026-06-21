@@ -1,9 +1,10 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { LoginForm } from "@/features/LoginForm/LoginForm";
 import { BookOpen } from "lucide-react";
 
 export function AuthTabs() {
     return (
-        <div className="bg-smoky-white p-6 flex flex-col rounded-lg gap-5">
+        <div className="sm:w-md bg-smoky-white p-6 flex flex-col rounded-lg gap-5">
             <div className="flex flex-col items-center">
                 <div className="flex gap-2 items-center justify-center">
                     <BookOpen />
@@ -28,7 +29,7 @@ export function AuthTabs() {
                         </TabsTrigger>
                     </TabsList>
                     <TabsContent value="login">
-                        <span className="text-gray-500">Тут можно будет войти</span>
+                        <LoginForm onSubmit={() => {}} />
                     </TabsContent>
                     <TabsContent value="register">
                         <span className="text-gray-500">Тут можно будет зарегестрироваться</span>
