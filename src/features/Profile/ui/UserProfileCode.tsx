@@ -7,7 +7,6 @@ export function UserProfileCode() {
     async function copyToClipboard() {
         try {
             await navigator.clipboard.writeText(input);
-            console.log(input);
         } catch (err) {
             console.error(err);
         }
