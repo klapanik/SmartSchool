@@ -4,9 +4,9 @@ import { ProfileStatsCards } from "./ProfileStatsCards";
 
 export function Profile() {
     return (
-        <section className="rounded-md p-5">
+        <section className="rounded-md">
             <ProfileHeader />
-            <div className="flex flex-col gap-4">
+            <div className="p-5 flex flex-col gap-4">
                 <ProfileStatsCards />
                 <div className="bg-smoky-white w-full h-[1px]"></div>
                 <PersonalData />
