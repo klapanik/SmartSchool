@@ -16,12 +16,12 @@ export function UserProfileCode() {
             <div className="flex flex-col gap-1">
                 <p className="text-[#6B7280] text-[10px] font-medium">КОД ПОЛЬЗОВАТЕЛЯ</p>
 
-                <input
-                    type="text"
-                    value={input}
-                    onChange={(e) => setInput(e.target.value)}
+                <p
+                    onChange={(e) => setInput(e.target.textContent)}
                     className="text-black text-[10px] font-medium bg-transparent outline-none w-full"
-                />
+                >
+                    {input}
+                </p>
             </div>
             <button onClick={copyToClipboard}>
                 <Copy color="black" size={18} cursor="pointer" />
