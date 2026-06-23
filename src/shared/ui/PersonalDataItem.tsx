@@ -53,7 +53,10 @@ export const PersonalDataItem = ({ Icon, title, value, isMutable }: Props) => {
                         <button className=" mr-1" onClick={handleEndEditing}>
                             <X className="size-3" />
                         </button>
-                        <button className=" text-white p-1 rounded-md bg-primary">
+                        <button
+                            className=" text-white p-1 rounded-md bg-primary"
+                            onClick={handleEndEditing}
+                        >
                             <Save className="size-3" />
                         </button>
                     </div>
