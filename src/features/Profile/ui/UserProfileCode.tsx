@@ -13,7 +13,7 @@ export function UserProfileCode() {
     }
     return (
         <div className="bg-white rounded-xl flex p-3 justify-between items-center">
-            <div className="">
+            <div className="flex flex-col gap-1">
                 <p className="text-[#6B7280] text-[10px] font-medium">КОД ПОЛЬЗОВАТЕЛЯ</p>
 
                 <input

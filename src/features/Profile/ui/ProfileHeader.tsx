@@ -4,7 +4,7 @@ import { UserProfileCode } from "./UserProfileCode";
 
 export function ProfileHeader() {
     return (
-        <div className="flex-col bg-primary rounded-t-md p-5 text-white ">
+        <div className="flex-col bg-linear-to-b from-[#8141ED] to-[#9257ED] rounded-t-md p-5 text-white ">
             <div className="flex gap-3 mb-2.5">
                 <Avatar className="border-3 border-[#B897F1]" size="lg">
                     <AvatarImage src="" alt="SS" />
