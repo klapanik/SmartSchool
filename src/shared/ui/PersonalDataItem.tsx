@@ -1,4 +1,5 @@
-import { Pencil, type LucideIcon } from "lucide-react";
+import { Pencil, Save, X, type LucideIcon } from "lucide-react";
+import { useState } from "react";
 
 type Props = {
     Icon: LucideIcon;
@@ -8,20 +9,56 @@ type Props = {
 };
 
 export const PersonalDataItem = ({ Icon, title, value, isMutable }: Props) => {
+    const [isEditing, setIsEditing] = useState(false);
+
+    const handleStarEditing = () => {
+        setIsEditing(true);
+    };
+    const handleEndEditing = () => {
+        setIsEditing(false);
+    };
+
     return (
-        <div className="flex justify-between items-center gap-4">
+        <div
+            className={`flex  ${isEditing ? "flex-col items-start gap-1.5" : "flex-row justify-between items-center gap-4"}`}
+        >
             <div className="flex gap-1">
-                <Icon className="text-gray-500 size-3.5 m-auto" />
-                <span className="text-gray-500 text-sm">{title}</span>
+                <Icon
+                    className={`size-3.5 m-auto ${isEditing ? "text-smoky-black" : "text-gray-500"}`}
+                />
+                <span className={`text-sm ${isEditing ? "text-smoky-black" : "text-gray-500"}`}>
+                    {title}
+                </span>
             </div>
-            <div className="flex items-center">
-                <span className="text-sm text-smoky-black mr-1">{value}</span>
-                {isMutable && (
-                    <button>
-                        <Pencil className="size-3 text-primary" />
-                    </button>
-                )}
-            </div>
+
+            {isEditing === false && (
+                <div className="flex items-center">
+                    <span className="text-sm text-smoky-black mr-1">{value}</span>
+                    {isMutable && (
+                        <button onClick={handleStarEditing}>
+                            <Pencil className="size-3 text-primary" />
+                        </button>
+                    )}
+                </div>
+            )}
+
+            {isEditing === true && (
+                <div className="relative w-full">
+                    <input
+                        type="text"
+                        className="bg-smoky-white border border-gray-300 rounded-lg px-2.5 py-2 w-full"
+                        placeholder={value}
+                    />
+                    <div className="absolute  flex right-[10px] top-1/2 -translate-y-1/2">
+                        <button className=" mr-1" onClick={handleEndEditing}>
+                            <X className="size-5" />
+                        </button>
+                        <button className=" text-white p-1 rounded-md bg-primary">
+                            <Save className="size-5" />
+                        </button>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };
