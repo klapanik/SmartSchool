@@ -46,15 +46,15 @@ export const PersonalDataItem = ({ Icon, title, value, isMutable }: Props) => {
                 <div className="relative w-full">
                     <input
                         type="text"
-                        className="bg-smoky-white border border-gray-300 rounded-lg px-2.5 py-2 w-full"
+                        className="bg-smoky-white border border-gray-300 rounded-lg px-2.5 py-2 w-full text-sm"
                         placeholder={value}
                     />
                     <div className="absolute  flex right-[10px] top-1/2 -translate-y-1/2">
                         <button className=" mr-1" onClick={handleEndEditing}>
-                            <X className="size-5" />
+                            <X className="size-3" />
                         </button>
                         <button className=" text-white p-1 rounded-md bg-primary">
-                            <Save className="size-5" />
+                            <Save className="size-3" />
                         </button>
                     </div>
                 </div>
