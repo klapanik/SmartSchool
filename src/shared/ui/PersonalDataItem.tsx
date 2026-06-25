@@ -1,4 +1,5 @@
-import { Pencil, Save, X, type LucideIcon } from "lucide-react";
+import { PersonalDataForm } from "@/features/Profile/ui/PersonalDataForm/PersonalDataForm";
+import { Pencil, type LucideIcon } from "lucide-react";
 import { useState } from "react";
 
 type Props = {
@@ -42,26 +43,7 @@ export const PersonalDataItem = ({ Icon, title, value, isMutable }: Props) => {
                 </div>
             )}
 
-            {isEditing === true && (
-                <div className="relative w-full">
-                    <input
-                        type="text"
-                        className="bg-smoky-white border border-gray-300 rounded-lg px-2.5 py-2 w-full text-sm"
-                        placeholder={value}
-                    />
-                    <div className="absolute  flex right-[10px] top-1/2 -translate-y-1/2">
-                        <button className=" mr-1" onClick={handleEndEditing}>
-                            <X className="size-3" />
-                        </button>
-                        <button
-                            className=" text-white p-1 rounded-md bg-primary"
-                            onClick={handleEndEditing}
-                        >
-                            <Save className="size-3" />
-                        </button>
-                    </div>
-                </div>
-            )}
+            {isEditing === true && <PersonalDataForm value={value} onClick={handleEndEditing} />}
         </div>
     );
 };
