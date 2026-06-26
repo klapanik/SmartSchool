@@ -12,14 +12,11 @@ export function UserProfileCode() {
         }
     }
     return (
-        <div className="bg-white rounded-xl flex p-3 justify-between items-center border border-[#BFDBFE]">
-            <div className="flex flex-col gap-1">
-                <p className="text-[#6B7280] text-[10px] font-medium">КОД ПОЛЬЗОВАТЕЛЯ</p>
+        <div className="bg-[#EFF6FF] rounded-[10px] flex p-3 justify-between items-center border border-[#BFDBFE]">
+            <div className="flex flex-col gap-1 text-xs font-medium">
+                <p className="text-muted-foreground">КОД ПОЛЬЗОВАТЕЛЯ</p>
 
-                <p
-                    onChange={(e) => setInput(e.target.textContent)}
-                    className="text-black text-[10px] font-medium bg-transparent outline-none w-full"
-                >
+                <p onChange={(e) => setInput(e.target.textContent)} className="text-black">
                     {input}
                 </p>
             </div>
