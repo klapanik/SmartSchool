@@ -1,4 +1,4 @@
-import { PersonalDataForm } from "@/features/Profile/ui/PersonalDataForm/PersonalDataForm";
+import { PersonalDataForm } from "@/features/Profile/ui/PersonalDataForm";
 import { Pencil, type LucideIcon } from "lucide-react";
 import { useState } from "react";
 
