@@ -8,7 +8,7 @@ export function Profile() {
             <ProfileHeader />
             <div className="p-5 flex flex-col gap-4">
                 <ProfileStatsCards />
-                <div className="bg-smoky-white w-full h-[1px]"></div>
+                <div className="bg-smoky-white w-full h-px"></div>
                 <PersonalData />
             </div>
         </section>

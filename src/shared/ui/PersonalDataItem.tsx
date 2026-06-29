@@ -23,13 +23,9 @@ export const PersonalDataItem = ({ Icon, title, value, isMutable }: Props) => {
         <div
             className={`flex  ${isEditing ? "flex-col items-start gap-1.5" : "flex-row justify-between items-center gap-4"}`}
         >
-            <div className="flex gap-1">
-                <Icon
-                    className={`size-3.5 m-auto ${isEditing ? "text-smoky-black" : "text-gray-500"}`}
-                />
-                <span className={`text-sm ${isEditing ? "text-smoky-black" : "text-gray-500"}`}>
-                    {title}
-                </span>
+            <div className={`flex gap-1 ${isEditing ? "text-smoky-black" : "text-gray-500"}`}>
+                <Icon className="size-3.5 m-auto" />
+                <span className="text-sm">{title}</span>
             </div>
 
             {isEditing === false && (
@@ -37,7 +33,7 @@ export const PersonalDataItem = ({ Icon, title, value, isMutable }: Props) => {
                     <span className="text-sm text-smoky-black mr-1">{value}</span>
                     {isMutable && (
                         <button onClick={handleStarEditing}>
-                            <Pencil className="size-3 text-primary" />
+                            <Pencil className="size-3 text-primary cursor-pointer" />
                         </button>
                     )}
                 </div>
