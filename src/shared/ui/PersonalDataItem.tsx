@@ -6,10 +6,10 @@ type Props = {
     Icon: LucideIcon;
     title: string;
     value: string;
-    isMutable?: boolean;
+    isChangeable?: boolean;
 };
 
-export const PersonalDataItem = ({ Icon, title, value, isMutable }: Props) => {
+export const PersonalDataItem = ({ Icon, title, value, isChangeable }: Props) => {
     const [isEditing, setIsEditing] = useState(false);
 
     const handleStarEditing = () => {
@@ -31,7 +31,7 @@ export const PersonalDataItem = ({ Icon, title, value, isMutable }: Props) => {
             {isEditing === false && (
                 <div className="flex items-center">
                     <span className="text-sm text-smoky-black mr-1">{value}</span>
-                    {isMutable && (
+                    {isChangeable && (
                         <button onClick={handleStarEditing}>
                             <Pencil className="size-3 text-primary cursor-pointer" />
                         </button>
