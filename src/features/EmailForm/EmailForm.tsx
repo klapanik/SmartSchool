@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import type { SubmitHandler } from "react-hook-form";
-import { loginFormSchema, type LoginFormType } from "./zod";
+import { emailFormSchema, type EmailFormType } from "./zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { Button } from "@/components/ui/button";
@@ -17,14 +17,14 @@ import { Input } from "@/components/ui/input";
 import { Eye, EyeOff } from "lucide-react";
 
 type Props = {
-    onSubmit: SubmitHandler<LoginFormType>;
+    onSubmit: SubmitHandler<EmailFormType>;
 };
 
-export function LoginForm({ onSubmit }: Props) {
+export function EmailForm({ onSubmit }: Props) {
     const [isPassword, setIsPassword] = useState(true);
 
-    const form = useForm<LoginFormType>({
-        resolver: zodResolver(loginFormSchema),
+    const form = useForm<EmailFormType>({
+        resolver: zodResolver(emailFormSchema),
     });
 
     const {

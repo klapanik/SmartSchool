@@ -1,5 +1,4 @@
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { LoginForm } from "@/features/LoginForm/LoginForm";
+import { EmailForm } from "@/features/EmailForm/EmailForm";
 import { BookOpen } from "lucide-react";
 
 export function AuthTabs() {
@@ -13,28 +12,7 @@ export function AuthTabs() {
                 <span className="text-gray-500">Войдите или создайте новый аккаунт</span>
             </div>
             <div className="w-full ">
-                <Tabs defaultValue="login">
-                    <TabsList className="w-full flex justify-between">
-                        <TabsTrigger
-                            value="login"
-                            className="text-black w-full data-[state=active]:bg-white cursor-pointer"
-                        >
-                            Вход
-                        </TabsTrigger>
-                        <TabsTrigger
-                            value="register"
-                            className="text-black w-full data-[state=active]:bg-white cursor-pointer"
-                        >
-                            Регистрация
-                        </TabsTrigger>
-                    </TabsList>
-                    <TabsContent value="login">
-                        <LoginForm onSubmit={() => {}} />
-                    </TabsContent>
-                    <TabsContent value="register">
-                        <span className="text-gray-500">Тут можно будет зарегестрироваться</span>
-                    </TabsContent>
-                </Tabs>
+                <EmailForm onSubmit={() => {}} />
             </div>
         </div>
     );
