@@ -88,7 +88,7 @@ export function EmailForm({ onSubmit }: Props) {
                     disabled={isSubmitting}
                     className="text-white w-full cursor-pointer"
                 >
-                    Войти
+                    Привязать email
                 </Button>
             </form>
         </Form>
