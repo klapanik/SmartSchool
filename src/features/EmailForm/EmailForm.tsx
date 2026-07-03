@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { useForm } from "react-hook-form";
-import type { SubmitHandler } from "react-hook-form";
+import { useForm, type SubmitHandler } from "react-hook-form";
 import { emailFormSchema, type EmailFormType } from "./zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -49,7 +48,7 @@ export function EmailForm({ onSubmit }: Props) {
                                     {...field}
                                 />
                             </FormControl>
-                            <FormMessage>{errors.email?.message && ""}</FormMessage>
+                            <FormMessage>{errors.email?.message}</FormMessage>
                         </FormItem>
                     )}
                 />
@@ -79,7 +78,7 @@ export function EmailForm({ onSubmit }: Props) {
                                     {isPassword ? <Eye /> : <EyeOff />}
                                 </Button>
                             </div>
-                            <FormMessage>{errors.password?.message && ""}</FormMessage>
+                            <FormMessage>{errors.password?.message}</FormMessage>
                         </FormItem>
                     )}
                 />
