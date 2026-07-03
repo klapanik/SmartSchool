@@ -1,5 +1,5 @@
-import { AuthTabs } from "@/widgets/AuthTabs/AuthTabs";
-import { GraduationCap } from "lucide-react";
+import { EmailForm } from "@/features/EmailForm/EmailForm";
+import { BookOpen, GraduationCap } from "lucide-react";
 
 export function AuthPage() {
     return (
@@ -11,7 +11,18 @@ export function AuthPage() {
                 />
                 <h2 className="page-title text-primary">SmartSchool</h2>
             </div>
-            <AuthTabs />
+            <div className="sm:w-md bg-smoky-white p-6 flex flex-col rounded-lg gap-5">
+                <div className="flex flex-col items-center">
+                    <div className="flex gap-2 items-center justify-center">
+                        <BookOpen />
+                        <p className="text-2xl font-bold">Добро пожаловать</p>
+                    </div>
+                    <span className="text-gray-500">Войдите или создайте новый аккаунт</span>
+                </div>
+                <div className="w-full">
+                    <EmailForm onSubmit={() => {}} />
+                </div>
+            </div>
         </section>
     );
 }
