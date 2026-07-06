@@ -11,10 +11,11 @@ import { QuartersPage } from "@/pages/QuartersPage/QuartersPage";
 import { SchedulePage } from "@/pages/SchedulePage/SchedulePage";
 import { AnalyticsPage } from "@/pages/AnalyticsPage/AnalyticsPage";
 import { GradesPage } from "@/pages/GradesPage/GradesPage";
+import { AuthPage } from "@/pages/AuthPage/AuthPage";
 
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { AuthPage } from "@/pages/AuthPage/AuthPage";
+import { Toaster } from "@/components/ui/sonner"
 
 export function App() {
     const routes = createRoutesFromElements(
@@ -36,6 +37,7 @@ export function App() {
         <TooltipProvider>
             <SidebarProvider>
                 <RouterProvider router={router} />
+                <Toaster />
             </SidebarProvider>
         </TooltipProvider>
     );
