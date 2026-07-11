@@ -27,3 +27,7 @@ dist-ssr
 .env
 .env.local
 *.env
+# Frontend
+frontend/dist/
+frontend/node_modules/
+frontend/.env*
