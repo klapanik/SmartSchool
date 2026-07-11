@@ -31,3 +31,68 @@ dist-ssr
 frontend/dist/
 frontend/node_modules/
 frontend/.env*
+
+# ============= BACKEND =============
+# Python virtual environment
+backend/.venv/
+backend/venv/
+backend/env/
+backend/ENV/
+
+# Python cache files
+backend/core/__pycache__/
+backend/core/*/__pycache__/
+backend/core/*/*/__pycache__/
+backend/core/*.pyc
+backend/core/*.pyo
+backend/core/*.pyd
+
+# Database
+backend/core/db.sqlite3
+backend/core/*.db
+backend/core/*.sqlite3
+
+# Environment variables
+backend/core/.env
+backend/core/.env.local
+backend/core/.env.*.local
+
+# IDE and OS files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Logs
+backend/logs/
+backend/*.log
+
+# Django specific
+backend/media/
+backend/staticfiles/
+backend/static/
+
+# Python packaging
+backend/*.egg-info/
+backend/*.egg
+backend/dist/
+backend/build/
+
+# Coverage and testing
+backend/.coverage
+backend/htmlcov/
+backend/.pytest_cache/
+backend/.tox/
+
+# Jupyter notebooks
+backend/.ipynb_checkpoints/
+
+# ============= ROOT =============
+# Don't commit these
+*.tmp
+*.temp
+.env
+.env.local
