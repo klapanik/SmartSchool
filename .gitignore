@@ -1,98 +1,73 @@
-# Logs
-logs
+# ---- Root / general ----
+logs/
 *.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
-
-node_modules
-dist
-dist-ssr
+node_modules/
+dist/
+dist-ssr/
 *.local
-
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
-.DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
-
-# Secret keys
-.env
-.env.local
-*.env
-# Frontend
-frontend/dist/
-frontend/node_modules/
-frontend/.env*
-
-# ============= BACKEND =============
-# Python virtual environment
-backend/.venv/
-backend/venv/
-backend/env/
-backend/ENV/
-
-# Python cache files
-backend/core/__pycache__/
-backend/core/*/__pycache__/
-backend/core/*/*/__pycache__/
-backend/core/*.pyc
-backend/core/*.pyo
-backend/core/*.pyd
-
-# Database
-backend/core/db.sqlite3
-backend/core/*.db
-backend/core/*.sqlite3
-
-# Environment variables
-backend/core/.env
-backend/core/.env.local
-backend/core/.env.*.local
-
-# IDE and OS files
-.vscode/
-.idea/
+*.tmp
+*.temp
 *.swp
 *.swo
 *~
 .DS_Store
 Thumbs.db
 
-# Logs
-backend/logs/
-backend/*.log
+# ---- Editor / IDE ----
+.vscode/
+!.vscode/extensions.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
 
-# Django specific
-backend/media/
-backend/staticfiles/
-backend/static/
+# ---- Secrets / environment ----
+.env
+.env.local
+.env.*
+*.env
+frontend/.env*
+backend/core/.env
+backend/core/.env.local
+backend/core/.env.*.local
 
-# Python packaging
-backend/*.egg-info/
-backend/*.egg
-backend/dist/
-backend/build/
+# ---- Frontend ----
+frontend/dist/
+frontend/node_modules/
+frontend/.vite/
 
-# Coverage and testing
+# ---- Backend / Python ----
+backend/.venv/
+backend/venv/
+backend/env/
+backend/ENV/
+backend/__pycache__/
+backend/**/__pycache__/
+backend/**/*.py[cod]
+backend/**/*.pyo
+backend/**/*.pyd
 backend/.coverage
 backend/htmlcov/
 backend/.pytest_cache/
 backend/.tox/
-
-# Jupyter notebooks
 backend/.ipynb_checkpoints/
+backend/*.egg-info/
+backend/*.egg
+backend/dist/
+backend/build/
+backend/logs/
+backend/*.log
+backend/media/
+backend/staticfiles/
+backend/static/
 
-# ============= ROOT =============
-# Don't commit these
-*.tmp
-*.temp
-.env
-.env.local
+# ---- Django / database ----
+backend/core/db.sqlite3
+backend/core/*.db
+backend/core/*.sqlite3
