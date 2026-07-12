@@ -20,7 +20,7 @@ export function AuthPage() {
                     <span className="text-gray-500">Войдите или создайте новый аккаунт</span>
                 </div>
                 <div className="w-full">
-                    <LoginForm />
+                    <LoginForm onSubmit={() => {}} />
                 </div>
             </div>
         </section>
