@@ -13,6 +13,10 @@ import {
     FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Separator } from "@/components/ui/separator";
+
+import { GoogleIcon } from "@/shared/ui/GoogleIcon";
+import { Mail } from "lucide-react";
 
 type Props = {
     onSubmit: SubmitHandler<LoginFormType>;
@@ -74,6 +78,24 @@ export function LoginForm({ onSubmit }: Props) {
                     </Button>
                 </form>
             </Form>
+
+            <Separator className="bg-ring my-2" />
+
+            <Button
+                variant="secondary"
+                className="bg-white w-full cursor-pointer hover:text-primary"
+            >
+                <GoogleIcon />
+                <span>Продолжить с Google</span>
+            </Button>
+
+            <Button
+                variant="secondary"
+                className="bg-white w-full cursor-pointer hover:text-primary"
+            >
+                <Mail className="size-5" />
+                <span>Продолжить с Email</span>
+            </Button>
         </div>
     );
 }
