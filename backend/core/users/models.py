@@ -7,7 +7,7 @@ class Grade(models.Model):
     date = models.DateField()
     grade = models.IntegerField()
 
-class QuarterGrade(models.Model):
+class Quarter_grade(models.Model):
     quarter = models.CharField(max_length=20)
     grade = models.IntegerField()
 
@@ -39,7 +39,7 @@ class User(models.Model):
     grades = models.JSONField(default=list, blank=True)
     quarter_grades = models.JSONField(default=list, blank=True)
 
-class Login_Request(models.Model):
+class Login_request(models.Model):
     email = models.EmailField()
     password = models.CharField(max_length=100)
 
