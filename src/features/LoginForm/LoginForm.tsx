@@ -45,8 +45,7 @@ export function LoginForm({ onSubmit }: Props) {
                                 <FormLabel>Код</FormLabel>
                                 <FormControl>
                                     <Input
-                                        className={`primary-input caret-black
-                                        ${errors.code ? "invalid" : ""}`}
+                                        className={`primary-input caret-black ${errors.code ? "invalid" : ""}`}
                                         {...field}
                                         onChange={(e) => {
                                             const formatedCode = e.target.value
@@ -61,11 +60,11 @@ export function LoginForm({ onSubmit }: Props) {
 
                                             field.onChange(formatedCode);
                                         }}
-                                        placeholder="****-****-*****"
+                                        placeholder="Введите код, выданный учителем"
                                     />
                                 </FormControl>
                                 <FormMessage>{errors.code?.message && ""}</FormMessage>
-                            </FormItem> 
+                            </FormItem>
                         )}
                     />
 
