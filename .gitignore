@@ -33,9 +33,9 @@ Thumbs.db
 .env.*
 *.env
 frontend/.env*
-backend/core/.env
-backend/core/.env.local
-backend/core/.env.*.local
+backend/.env
+backend/.env.local
+backend/.env.*.local
 
 # ---- Frontend ----
 frontend/dist/
@@ -68,6 +68,6 @@ backend/staticfiles/
 backend/static/
 
 # ---- Django / database ----
-backend/core/db.sqlite3
-backend/core/*.db
-backend/core/*.sqlite3
+backend/db.sqlite3
+backend/*.db
+backend/*.sqlite3
