@@ -1,0 +1,18 @@
+import type { LucideIcon } from "lucide-react";
+
+type Props = {
+    icon: LucideIcon;
+    number: number;
+    title: string;
+};
+
+export function ProfileStatsCard(props: Props) {
+    const { number, title } = props;
+    return (
+        <div className="flex flex-col items-center justify-center bg-[#f7f8fa] rounded-[10px] gap-0.5 py-2">
+            <props.icon size={16} className="text-primary" />
+            <p className="text-sm font-bold">{number}</p>
+            <p className="text-xs text-gray-500">{title}</p>
+        </div>
+    );
+}
