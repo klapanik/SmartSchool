@@ -13,7 +13,6 @@ import {
     FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Separator } from "@/components/ui/separator";
 
 import { GoogleIcon } from "@/shared/ui/GoogleIcon";
 import { Mail } from "lucide-react";
@@ -34,9 +33,9 @@ export function LoginForm({ onSubmit }: Props) {
     } = form;
 
     return (
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-3.5">
             <Form {...form}>
-                <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5">
+                <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-3">
                     <FormField
                         control={control}
                         name="code"
@@ -78,23 +77,25 @@ export function LoginForm({ onSubmit }: Props) {
                 </form>
             </Form>
 
-            <Separator className="bg-ring my-2" />
+            <div className="orSeparator"></div>
 
-            <Button
-                variant="secondary"
-                className="bg-white w-full cursor-pointer hover:text-primary"
-            >
-                <GoogleIcon />
-                <span>Продолжить с Google</span>
-            </Button>
+            <div>
+                <Button
+                    variant="secondary"
+                    className="bg-white w-full cursor-pointer hover:text-primary mb-2"
+                >
+                    <GoogleIcon />
+                    <span>Продолжить с Google</span>
+                </Button>
 
-            <Button
-                variant="secondary"
-                className="bg-white w-full cursor-pointer hover:text-primary"
-            >
-                <Mail className="size-5" />
-                <span>Продолжить с Email</span>
-            </Button>
+                <Button
+                    variant="secondary"
+                    className="bg-white w-full cursor-pointer hover:text-primary"
+                >
+                    <Mail className="size-5" />
+                    <span>Продолжить с Email</span>
+                </Button>
+            </div>
         </div>
     );
 }
