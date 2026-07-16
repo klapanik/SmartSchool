@@ -1,14 +1,9 @@
-# ---- Root / general ----
-logs/
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
+# Root
 node_modules/
 dist/
 dist-ssr/
+logs/
+*.log
 *.local
 *.tmp
 *.temp
@@ -18,56 +13,44 @@ dist-ssr/
 .DS_Store
 Thumbs.db
 
-# ---- Editor / IDE ----
+# IDE
 .vscode/
 !.vscode/extensions.json
 .idea/
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
 
-# ---- Secrets / environment ----
+# Environment
 .env
-.env.local
 .env.*
 *.env
-frontend/.env*
-backend/.env
-backend/.env.local
-backend/.env.*.local
 
-# ---- Frontend ----
-frontend/dist/
-frontend/node_modules/
+# Frontend
 frontend/.vite/
+frontend/coverage/
+frontend/.eslintcache
 
-# ---- Backend / Python ----
+# Backend
 backend/.venv/
 backend/venv/
 backend/env/
 backend/ENV/
-backend/__pycache__/
+
 backend/**/__pycache__/
 backend/**/*.py[cod]
-backend/**/*.pyo
-backend/**/*.pyd
 backend/.coverage
-backend/htmlcov/
 backend/.pytest_cache/
 backend/.tox/
-backend/.ipynb_checkpoints/
+backend/.mypy_cache/
+backend/.ruff_cache/
+backend/htmlcov/
+
+backend/build/
+backend/dist/
 backend/*.egg-info/
 backend/*.egg
-backend/dist/
-backend/build/
-backend/logs/
-backend/*.log
+
+backend/db.sqlite3
+backend/*.sqlite3
+backend/*.db
+
 backend/media/
 backend/staticfiles/
-backend/static/
-
-# ---- Django / database ----
-backend/db.sqlite3
-backend/*.db
-backend/*.sqlite3
