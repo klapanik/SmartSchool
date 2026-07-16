@@ -3,25 +3,29 @@ import {
     EmptyContent,
     EmptyDescription,
     EmptyHeader,
+    EmptyMedia,
     EmptyTitle,
 } from "@/components/ui/empty";
-import { Calendar } from "lucide-react";
+import { Calendar, CalendarDays } from "lucide-react";
 import { Link } from "react-router-dom";
 
 export function EmptyTodaysSchedule({ type }: { type: "main" | "secondary" }) {
     return (
-        <div className={type === "main" ? "primary-block" : ""}>
-            <Empty className="md:p-0 p-0">
-                {type === "main" ? (
-                    <EmptyHeader className="self-start text-start items-start gap-0">
-                        <EmptyTitle>Расписание на сегодня</EmptyTitle>
-                        <EmptyDescription>суббота, 21 февраля</EmptyDescription>
-                    </EmptyHeader>
-                ) : null}
+        <div className="primary-block">
+            <Empty>
+                <EmptyHeader className="self-start text-start items-start gap-0">
+                    <div className="flex gap-1">
+                        <EmptyMedia className="my-auto">
+                            <Calendar size={20} />
+                        </EmptyMedia>
+                        <EmptyTitle className="text-xl">Расписание на сегодня</EmptyTitle>
+                    </div>
+                    <EmptyDescription>суббота, 21 февраля</EmptyDescription>
+                </EmptyHeader>
 
                 <EmptyContent className="gap-0 text-muted-foreground">
                     <div className="mb-4 mx-auto">
-                        <Calendar size={48} />
+                        <CalendarDays size={48} />
                     </div>
                     <h4 className="text-base mb-0.5">Сегодня уроков нет</h4>
                     <p className="text-sm">Отличный день для отдыха!</p>
