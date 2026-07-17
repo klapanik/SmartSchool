@@ -1,4 +1,4 @@
-import { AnalyticStatsCard } from "@/shared/ui/AnalyticStatsCard";
+import { AnalyticStatsCard } from "@/widgets/analytics-page/ui/AnalyticStatsCard";
 import { CalendarDays, TriangleAlert, Trophy } from "lucide-react";
 
 export function AnalyticStatsGroup() {
