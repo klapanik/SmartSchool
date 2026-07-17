@@ -62,7 +62,7 @@ export function LoginForm({ onSubmit }: Props) {
                                         placeholder="Введите код, выданный учителем"
                                     />
                                 </FormControl>
-                                <FormMessage>{errors.code?.message && ""}</FormMessage>
+                                <FormMessage>{errors.code?.message}</FormMessage>
                             </FormItem>
                         )}
                     />
