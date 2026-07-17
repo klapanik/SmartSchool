@@ -13,7 +13,7 @@ import type { MonthDataType } from "../models";
 
 export function PresenceCalendar({ monthsData }: { monthsData: MonthDataType[] }) {
     return (
-        <Card className="border-0 @container">
+        <Card className="@container">
             <CardHeader>
                 <CardTitle>Календарь посещаемости</CardTitle>
                 <CardDescription>Визуальное отображение посещаемости</CardDescription>
