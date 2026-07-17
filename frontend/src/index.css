@@ -192,3 +192,11 @@ html {
 .page-subtitle {
     @apply text-sm sm:text-base text-muted-foreground
 }
+
+.primary-input {
+    @apply focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-2 selection:text-white bg-white mt-1
+}
+
+.primary-input.invalid {
+    @apply focus-visible:ring-destructive
+}

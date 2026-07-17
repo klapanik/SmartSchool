@@ -20,7 +20,7 @@ const chartConfig = {
 
 export function ChartLineLabel({ chartData }: Props) {
     return (
-        <Card className="border-0">
+        <Card>
             <CardHeader>
                 <CardTitle>Динамика среднего балла</CardTitle>
                 <CardDescription>Как менялась успеваемость по месяцам</CardDescription>

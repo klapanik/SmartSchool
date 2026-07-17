@@ -1,4 +1,5 @@
 import { CurrentQuarter } from "@/widgets/quarters-page/ui/CurrentQuarter";
+import { EmptyCurrentQuarter } from "@/widgets/quarters-page/ui/EmptyCurrentQuarter";
 import { QuartersBlock } from "@/widgets/quarters-page/ui/QuartersBlock";
 import {
     q1,
@@ -11,6 +12,8 @@ import {
 import { QuartersStatsGroup } from "@/widgets/quarters-page/ui/QuartersStatsGroup";
 
 export function QuartersPage() {
+    const currentQuarter: { isOver: boolean } = { isOver: true };
+
     return (
         <section className="@container">
             <div className="mb-7">
@@ -18,7 +21,9 @@ export function QuartersPage() {
                 <p className="page-subtitle">Итоговые оценки по четвертям</p>
             </div>
 
-            <CurrentQuarter />
+            <div className="primary-block">
+                {currentQuarter.isOver ? <EmptyCurrentQuarter /> : <CurrentQuarter />}
+            </div>
             <QuartersStatsGroup />
 
             <div className="flex flex-col gap-4">

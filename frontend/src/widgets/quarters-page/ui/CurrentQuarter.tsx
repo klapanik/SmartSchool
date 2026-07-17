@@ -2,7 +2,7 @@ import { CalendarDays } from "lucide-react";
 
 export function CurrentQuarter() {
     return (
-        <div className="primary-block">
+        <>
             <div className="flex gap-2 mb-4 sm:mb-5">
                 <CalendarDays className="my-auto size-4.5 sm:size-5" />
                 <h2 className="font-bold text-lg md:text-xl">Текущая четверть</h2>
@@ -18,6 +18,6 @@ export function CurrentQuarter() {
                     <p className="text-xs sm:text-sm md:text-base text-muted-foreground">Средний балл</p>
                 </div>
             </div>
-        </div>
+        </>
     );
 }
