@@ -11,7 +11,7 @@ type Props = {
 
 export function VerticalMultipleBarChart({ title, subtitle, chartData }: Props) {
     return (
-        <Card className="border-0">
+        <Card>
             <CardHeader>
                 <CardTitle>{title}</CardTitle>
                 <CardDescription>{subtitle}</CardDescription>

@@ -1,29 +1,56 @@
-# Logs
-logs
+# Root
+node_modules/
+dist/
+dist-ssr/
+logs/
 *.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
-
-node_modules
-dist
-dist-ssr
 *.local
-
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
 .DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
+Thumbs.db
 
-# Secret keys
+# IDE
+.vscode/
+!.vscode/extensions.json
+.idea/
+
+# Environment
 .env
-.env.local
+.env.*
 *.env
+
+# Frontend
+frontend/.vite/
+frontend/coverage/
+frontend/.eslintcache
+
+# Backend
+backend/.venv/
+backend/venv/
+backend/env/
+backend/ENV/
+
+backend/**/__pycache__/
+backend/**/*.py[cod]
+backend/.coverage
+backend/.pytest_cache/
+backend/.tox/
+backend/.mypy_cache/
+backend/.ruff_cache/
+backend/htmlcov/
+
+backend/build/
+backend/dist/
+backend/*.egg-info/
+backend/*.egg
+
+backend/db.sqlite3
+backend/*.sqlite3
+backend/*.db
+
+backend/media/
+backend/staticfiles/
