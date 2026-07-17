@@ -23,7 +23,7 @@ export function EmptyTodaysSchedule({ type }: { type: "main" | "secondary" }) {
                     <EmptyDescription>суббота, 21 февраля</EmptyDescription>
                 </EmptyHeader>
 
-                <EmptyContent className="gap-0 text-muted-foreground">
+                <EmptyContent>
                     <div className="mb-4 mx-auto">
                         <CalendarDays size={48} />
                     </div>

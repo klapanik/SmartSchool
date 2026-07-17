@@ -26,7 +26,7 @@ export function EmptyCurrentQuarter() {
                 </EmptyDescription>
             </EmptyHeader>
 
-            <EmptyContent className="max-w-none pl-5 text-muted-foreground text-start text-wrap items-start gap-0 md:text-base">
+            <EmptyContent className="max-w-none pl-5 text-start text-wrap items-start md:text-base">
                 <p>
                     В настоящее время учебный процесс приостановлен. Информация о новой четверти
                     появится после начала занятий. В свободное время рекомендуем прочитать
