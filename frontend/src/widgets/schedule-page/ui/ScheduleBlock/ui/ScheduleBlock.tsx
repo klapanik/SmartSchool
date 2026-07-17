@@ -1,4 +1,4 @@
-import { ScheduleLesson } from "@/shared/ui/ScheduleLesson";
+import { ScheduleLesson } from "./ScheduleLesson";
 import type { Subject } from "../model/types";
 
 import { Calendar } from "lucide-react";
