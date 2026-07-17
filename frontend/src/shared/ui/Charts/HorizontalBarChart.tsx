@@ -57,7 +57,7 @@ export function HorizontalBarChart({ title, subtitle, chartData, type }: Props) 
                             content={
                                 <ChartTooltipContent
                                     indicator="line"
-                                    className={`bg-white **:text-black ${type === "averageGrades" ? "min-w-35" : "min-w-40"}`}
+                                    className={` ${type === "averageGrades" ? "min-w-35" : "min-w-40"}`}
                                 />
                             }
                         />

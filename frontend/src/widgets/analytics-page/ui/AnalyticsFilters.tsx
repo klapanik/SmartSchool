@@ -8,13 +8,9 @@ import {
 } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
 
-const filterWrapperClassName =
-    "w-full min-w-0 md:flex-1 lg:flex-none lg:max-w-52";
+const filterWrapperClassName = "w-full min-w-0 md:flex-1 lg:flex-none lg:max-w-52";
 
-const filterTriggerClassName = cn(
-    "h-11 w-full rounded-xl border-input bg-white px-4 text-base shadow-sm",
-    "md:h-9 md:rounded-md md:text-sm md:shadow-xs",
-);
+const filterTriggerClassName = cn("text-base md:text-sm");
 
 export function AnalyticsFilters() {
     return (
