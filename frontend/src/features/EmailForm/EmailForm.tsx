@@ -86,7 +86,7 @@ export function EmailForm({ onSubmit }: Props) {
                 <Button
                     type="submit"
                     disabled={isSubmitting}
-                    className="text-white w-full cursor-pointer"
+                    className="text-white w-full"
                 >
                     Привязать email
                 </Button>
