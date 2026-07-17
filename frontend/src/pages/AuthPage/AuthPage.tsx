@@ -1,4 +1,4 @@
-import { EmailForm } from "@/features/EmailForm/EmailForm";
+import { LoginForm } from "@/features/LoginForm/LoginForm";
 import { BookOpen, GraduationCap } from "lucide-react";
 
 export function AuthPage() {
@@ -20,7 +20,7 @@ export function AuthPage() {
                     <span className="text-gray-500">Войдите или создайте новый аккаунт</span>
                 </div>
                 <div className="w-full">
-                    <EmailForm onSubmit={() => {}} />
+                    <LoginForm onSubmit={() => {}} />
                 </div>
             </div>
         </section>
