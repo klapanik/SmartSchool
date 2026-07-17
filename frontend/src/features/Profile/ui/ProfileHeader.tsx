@@ -8,10 +8,10 @@ export function ProfileHeader() {
             <div className="flex gap-3 mb-2.5">
                 <Avatar className="border-3 border-[#B897F1]" size="lg">
                     <AvatarImage src="" alt="SS" />
-                    <AvatarFallback className="bg-accent text-white">
+                    <AvatarFallback>
                         <UserRound />
                     </AvatarFallback>
-                    <AvatarBadge className="bg-white text-primary duration-150 hover:scale-110 hover:rotate-90">
+                    <AvatarBadge className="duration-150 hover:scale-110 hover:rotate-90">
                         <PlusIcon />
                     </AvatarBadge>
                 </Avatar>
