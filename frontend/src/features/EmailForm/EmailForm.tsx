@@ -73,7 +73,7 @@ export function EmailForm({ onSubmit }: Props) {
                                     onClick={() => setIsPassword((prev) => !prev)}
                                     variant="ghost"
                                     type="button"
-                                    className="hover:bg-white cursor-pointer my-auto"
+                                    className="hover:bg-white my-auto"
                                 >
                                     {isPassword ? <Eye /> : <EyeOff />}
                                 </Button>

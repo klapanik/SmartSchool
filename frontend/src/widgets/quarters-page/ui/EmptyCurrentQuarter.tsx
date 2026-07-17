@@ -32,7 +32,7 @@ export function EmptyCurrentQuarter() {
                     появится после начала занятий. В свободное время рекомендуем прочитать
                     произведения из списка литературы на лето:
                 </p>
-                <Button variant="link" className="px-0 underline cursor-pointer">
+                <Button variant="link" className="px-0 underline">
                     Литература на лето
                 </Button>
             </EmptyContent>

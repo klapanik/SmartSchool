@@ -27,7 +27,7 @@ export function ScrollTopArrow() {
     return (
         <Button
             className={`${isVisible ? "fixed" : "hidden"} 
-                bottom-8 right-10 rounded-full size-12 text-white cursor-pointer`}
+                bottom-8 right-10 rounded-full size-12 text-white`}
             onClick={scrollToTop}
         >
             <MoveUp className="size-5" />
