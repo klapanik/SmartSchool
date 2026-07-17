@@ -20,7 +20,7 @@ const chartConfig = {
 
 export function ChartLineLabel({ chartData }: Props) {
     return (
-        <Card className="border-0">
+        <Card>
             <CardHeader>
                 <CardTitle>Динамика среднего балла</CardTitle>
                 <CardDescription>Как менялась успеваемость по месяцам</CardDescription>
@@ -42,15 +42,15 @@ export function ChartLineLabel({ chartData }: Props) {
                             tickMargin={5}
                             tickFormatter={(value: string) => value.slice(0, 3)}
                         />
-                        <YAxis domain={[0, 10]} dataKey="value" tickLine={false} axisLine={false} tickMargin={8} />
+                        <YAxis
+                            domain={[0, 10]}
+                            dataKey="value"
+                            tickLine={false}
+                            axisLine={false}
+                            tickMargin={8}
+                        />
                         <ChartTooltip
-                            content={
-                                <ChartTooltipContent
-                                    indicator="line"
-                                    nameKey="value"
-                                    className="bg-white **:text-black"
-                                />
-                            }
+                            content={<ChartTooltipContent indicator="line" nameKey="value" />}
                         />
                         <Line
                             isAnimationActive={false}

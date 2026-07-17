@@ -16,14 +16,10 @@ export function DatePicker() {
             <PopoverTrigger asChild>
                 <Button
                     variant="outline"
-                    className="w-full sm:w-fit lg:min-w-44 justify-start lg:justify-center px-3 font-normal bg-white hover:bg-smoky-white cursor-pointer"
+                    className="w-full sm:w-fit lg:min-w-44 justify-start lg:justify-center px-3 font-normal bg-white hover:bg-smoky-white"
                 >
                     <CalendarIcon className="mr-2 size-4" />
-                    {date ? (
-                        format(date, "LLL dd, y")
-                    ) : (
-                        <span>Выберите дату</span>
-                    )}
+                    {date ? format(date, "LLL dd, y") : <span>Выберите дату</span>}
                 </Button>
             </PopoverTrigger>
             <PopoverContent className="w-auto p-0" align={isMobile ? "center" : "start"}>

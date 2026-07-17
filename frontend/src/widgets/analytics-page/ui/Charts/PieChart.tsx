@@ -20,7 +20,7 @@ const chartConfig = {
 
 export function ChartPieLabel({ chartData }: Props) {
     return (
-        <Card className="border-0">
+        <Card>
             <CardHeader>
                 <CardTitle>Распределение оценок</CardTitle>
                 <CardDescription>Процентное соотношение оценок</CardDescription>
@@ -34,7 +34,7 @@ export function ChartPieLabel({ chartData }: Props) {
                         <ChartTooltip
                             content={
                                 <ChartTooltipContent
-                                    className="bg-white **:text-black min-w-70"
+                                    className="min-w-70"
                                     nameKey="procent"
                                     hideLabel
                                 />

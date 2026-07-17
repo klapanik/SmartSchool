@@ -11,7 +11,7 @@ export function AppHeader() {
             </h1>
             <Popover>
                 <PopoverTrigger asChild>
-                    <Button className="cursor-pointer bg-transparent text-base text-muted-foreground hover:bg-transparent">
+                    <Button className="bg-transparent text-base text-muted-foreground hover:bg-transparent">
                         <span className="hidden lg:inline text-lg font-normal">Личный кабинет</span>
                         <UserRound className="size-8 bg-primary text-white rounded-full p-1.5 md:bg-transparent md:text-gray-500 md:size-9 lg:size-6 lg:p-0" />
                     </Button>

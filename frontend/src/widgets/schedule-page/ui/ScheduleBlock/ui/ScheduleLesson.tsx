@@ -1,5 +1,5 @@
 import { Clock4 } from "lucide-react";
-import { GradeBadge } from "./GradeBadge/ui/GradeBadge";
+import { GradeBadge } from "@/shared/ui/GradeBadge/ui/GradeBadge";
 import { cn } from "@/lib/utils";
 
 type Props = {
@@ -33,7 +33,11 @@ export function ScheduleLesson({ subject, number, time, grade, isCurrentLesson }
             </div>
 
             <div className="flex gap-5">
-                {grade != null && <div className="w-min my-auto"><GradeBadge grade={grade} isApproximately={false} /></div>}
+                {grade != null && (
+                    <div className="w-min my-auto">
+                        <GradeBadge grade={grade} isApproximately={false} />
+                    </div>
+                )}
                 {isCurrentLesson && (
                     <div className="bg-primary rounded px-2.5 py-1 text-white text-sm">
                         <span>Сейчас</span>

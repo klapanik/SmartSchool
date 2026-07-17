@@ -10,10 +10,7 @@ import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
 import { Filter } from "lucide-react";
 
-const filterTriggerClassName = cn(
-    "h-11 w-full rounded-xl border-input bg-white px-4 text-smoky-black shadow-sm",
-    "md:h-9 md:rounded-md md:text-smoky-black md:shadow-xs",
-);
+const filterTriggerClassName = cn("text-smoky-black md:text-smoky-black");
 
 const filterLabelClassName = "mb-2 text-base font-medium text-smoky-black";
 
