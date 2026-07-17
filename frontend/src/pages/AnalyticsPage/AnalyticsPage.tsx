@@ -9,7 +9,7 @@ export function AnalyticsPage() {
                 <h2 className="page-title">Аналитика</h2>
                 <p className="page-subtitle">Подробная аналитика вашей успеваемости</p>
             </div>
-            
+
             <AnalyticsFilters />
             <AnalyticStatsGroup />
             <AnalyticsCharts />

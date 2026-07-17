@@ -1,4 +1,4 @@
-import { ChartPieLabel } from "@/shared/ui/Charts/PieChart";
+import { ChartPieLabel } from "@/widgets/analytics-page/ui/Charts/PieChart";
 import {
     averageGradeDynamicsChartData,
     bestSubjectsChartData,
@@ -10,10 +10,10 @@ import {
     worstSubjectsChartData,
 } from "../models/mock";
 
-import { ChartLineLabel } from "@/shared/ui/Charts/LineChart";
-import { HorizontalBarChart } from "@/shared/ui/Charts/HorizontalBarChart";
-import { HorizontalMultipleBarChart } from "@/shared/ui/Charts/HorizontalMultipleBarChart";
-import { VerticalMultipleBarChart } from "@/shared/ui/Charts/VerticalMultipleBarChart";
+import { ChartLineLabel } from "@/widgets/analytics-page/ui/Charts/LineChart";
+import { HorizontalBarChart } from "@/widgets/analytics-page/ui/Charts/HorizontalBarChart";
+import { HorizontalMultipleBarChart } from "@/widgets/analytics-page/ui/Charts/HorizontalMultipleBarChart";
+import { VerticalMultipleBarChart } from "@/widgets/analytics-page/ui/Charts/VerticalMultipleBarChart";
 
 import { PresenceCalendar } from "./PresenceCalendar";
 
