@@ -1,4 +1,4 @@
-h1 align="center">Welcome to SmartSchool</h1>
+<h1 align="center">Welcome to SmartSchool</h1>
 
 <p align="center">
 A modern school management platform built with React, Django and TypeScript.
