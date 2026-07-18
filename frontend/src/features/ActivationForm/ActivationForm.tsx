@@ -1,4 +1,5 @@
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import type { SubmitHandler } from "react-hook-form";
 import { activationFormSchema, type ActivationFormType } from "./zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -22,6 +23,8 @@ type Props = {
 };
 
 export function ActivationForm({ onSubmit }: Props) {
+    const navigate = useNavigate();
+
     const form = useForm<ActivationFormType>({
         resolver: zodResolver(activationFormSchema),
     });
@@ -73,21 +76,22 @@ export function ActivationForm({ onSubmit }: Props) {
                 </form>
             </Form>
 
-            <div>
-                <Button
-                    type="button"
-                    variant="outline"
-                    className="w-full mb-2 bg-white hover:bg-muted"
-                >
-                    <GoogleIcon />
-                    <span>Войти с Google</span>
-                </Button>
+            <Button type="button" variant="outline" className="w-full mb-2 bg-white hover:bg-muted">
+                <GoogleIcon />
+                <span>Войти с Google</span>
+            </Button>
 
-                <Button type="button" variant="outline" className="w-full bg-white hover:bg-muted">
-                    <Mail className="size-5" />
-                    <span>Войти с Email</span>
-                </Button>
-            </div>
+            <Button
+                type="button"
+                variant="outline"
+                className="w-full bg-white hover:bg-muted"
+                onClick={() => {
+                    navigate("/auth/login");
+                }}
+            >
+                <Mail className="size-5" />
+                <span>Войти с Email</span>
+            </Button>
         </div>
     );
 }
