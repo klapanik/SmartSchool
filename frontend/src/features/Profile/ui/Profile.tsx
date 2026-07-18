@@ -1,3 +1,4 @@
+import { Settings } from "@/features/Settings/Settings";
 import { PersonalData } from "./PersonalData";
 import { ProfileHeader } from "./ProfileHeader";
 import { ProfileStatsCards } from "./ProfileStatsCards";
@@ -10,6 +11,7 @@ export function Profile() {
                 <ProfileStatsCards />
                 <div className="bg-smoky-white w-full h-px"></div>
                 <PersonalData />
+                <Settings />
             </div>
         </section>
     );
