@@ -13,6 +13,7 @@ import {
     FormLabel,
     FormMessage,
 } from "@/components/ui/form";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { Input } from "@/components/ui/input";
 import { Eye, EyeOff, KeyRound } from "lucide-react";
 
@@ -95,17 +96,27 @@ export function EmailForm({ onSubmit, type }: Props) {
                 </form>
             </Form>
 
-            <Button
-                type="button"
-                variant="outline"
-                className="w-full bg-white hover:bg-muted"
-                onClick={() => {
-                    navigate("/auth/activate");
-                }}
-            >
-                <KeyRound />
-                <span>Зарегистрироваться с кодом активации</span>
-            </Button>
+            <Tooltip>
+                <TooltipTrigger className="w-full">
+                    <Button
+                        type="button"
+                        variant="outline"
+                        className="w-full bg-white hover:bg-muted"
+                        onClick={() => {
+                            navigate("/auth/activate");
+                        }}
+                    >
+                        <KeyRound />
+                        <span>Активировать аккаунт</span>
+                    </Button>
+                </TooltipTrigger>
+                <TooltipContent side="right" className="border border-primary">
+                    <p>
+                        Вы можете активировать свой аккаунт с помощью кода <br /> активации, который
+                        вы получили от своего классного руководителя
+                    </p>
+                </TooltipContent>
+            </Tooltip>
         </div>
     );
 }

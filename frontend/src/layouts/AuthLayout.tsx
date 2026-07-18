@@ -1,8 +1,9 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import { BookOpen, GraduationCap } from "lucide-react";
 
 export function AuthLayout() {
-    const fullUrl = window.location.href;
+    const location = useLocation();
+    const currentUrl = location.pathname;
 
     return (
         <section className="h-screen w-full flex flex-col justify-center items-center bg-[url('/auth_background.png')] bg-cover bg-no-repeat bg-center">
@@ -20,11 +21,11 @@ export function AuthLayout() {
                         <p className="text-2xl font-bold">Добро пожаловать</p>
                     </div>
                     <span className="text-gray-500 text-center">
-                        {fullUrl.includes("login")
+                        {currentUrl.includes("login")
                             ? "Введите электронную почту и пароль для входа."
-                            : fullUrl.includes("register")
+                            : currentUrl.includes("register")
                               ? "Заполните несколько полей, чтобы начать пользоваться SmartSchool."
-                              : fullUrl.includes("activate")
+                              : currentUrl.includes("activate")
                                 ? "Введите код активации, полученный от вашей школы."
                                 : ""}
                     </span>
