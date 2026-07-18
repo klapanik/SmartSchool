@@ -14,7 +14,7 @@ import { SchedulePage } from "@/pages/SchedulePage/SchedulePage";
 import { AnalyticsPage } from "@/pages/AnalyticsPage/AnalyticsPage";
 import { GradesPage } from "@/pages/GradesPage/GradesPage";
 
-import { LoginForm } from "@/features/LoginForm/LoginForm";
+import { ActivationForm } from "@/features/ActivationForm/ActivationForm";
 import { EmailForm } from "@/features/EmailForm/EmailForm";
 
 import { SidebarProvider } from "@/components/ui/sidebar";
@@ -34,7 +34,7 @@ export function App() {
             </Route>
 
             <Route path="/auth" element={<AuthLayout />}>
-                <Route path="/auth/activate" element={<LoginForm onSubmit={() => {}} />} />
+                <Route path="/auth/activate" element={<ActivationForm onSubmit={() => {}} />} />
                 <Route path="/auth/register" element={<EmailForm onSubmit={() => {}} type="registration" />} />
                 <Route path="/auth/login" element={<EmailForm onSubmit={() => {}} type="login" />} />
             </Route>

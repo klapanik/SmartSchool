@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import type { SubmitHandler } from "react-hook-form";
-import { loginFormSchema, type LoginFormType } from "./zod";
+import { activationFormSchema, type ActivationFormType } from "./zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { Button } from "@/components/ui/button";
@@ -18,12 +18,12 @@ import { GoogleIcon } from "@/shared/ui/GoogleIcon";
 import { Mail } from "lucide-react";
 
 type Props = {
-    onSubmit: SubmitHandler<LoginFormType>;
+    onSubmit: SubmitHandler<ActivationFormType>;
 };
 
-export function LoginForm({ onSubmit }: Props) {
-    const form = useForm<LoginFormType>({
-        resolver: zodResolver(loginFormSchema),
+export function ActivationForm({ onSubmit }: Props) {
+    const form = useForm<ActivationFormType>({
+        resolver: zodResolver(activationFormSchema),
     });
 
     const {
