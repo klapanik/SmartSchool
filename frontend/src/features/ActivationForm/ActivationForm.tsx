@@ -70,9 +70,9 @@ export function ActivationForm({ onSubmit }: Props) {
                     <Button
                         type="submit"
                         disabled={isSubmitting}
-                        className="text-white w-full cursor-pointer"
+                        className="w-full text-white"
                     >
-                        Войти
+                        Активировать аккаунт
                     </Button>
                 </form>
             </Form>
@@ -81,19 +81,21 @@ export function ActivationForm({ onSubmit }: Props) {
 
             <div>
                 <Button
-                    variant="secondary"
-                    className="bg-white w-full cursor-pointer hover:text-primary mb-2"
+                    type="button"
+                    variant="outline"
+                    className="w-full mb-2 bg-white hover:bg-muted"
                 >
                     <GoogleIcon />
-                    <span>Продолжить с Google</span>
+                    <span>Войти с Google</span>
                 </Button>
 
                 <Button
-                    variant="secondary"
-                    className="bg-white w-full cursor-pointer hover:text-primary"
+                    type="button"
+                    variant="outline"
+                    className="w-full bg-white hover:bg-muted"
                 >
                     <Mail className="size-5" />
-                    <span>Продолжить с Email</span>
+                    <span>Войти с Email</span>
                 </Button>
             </div>
         </div>
