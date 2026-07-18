@@ -24,6 +24,8 @@ type Props = {
 
 export function EmailForm({ onSubmit, type }: Props) {
     const [isPassword, setIsPassword] = useState(true);
+    const [isConfirmPassword, setIsConfirmPassword] = useState(true);
+
     const navigate = useNavigate();
 
     const form = useForm<EmailFormType>({
@@ -53,7 +55,7 @@ export function EmailForm({ onSubmit, type }: Props) {
                                         {...field}
                                     />
                                 </FormControl>
-                                <FormMessage>{errors.email?.message}</FormMessage>
+                                <FormMessage />
                             </FormItem>
                         )}
                     />
@@ -83,12 +85,40 @@ export function EmailForm({ onSubmit, type }: Props) {
                                         {isPassword ? <Eye /> : <EyeOff />}
                                     </Button>
                                 </div>
-                                <FormMessage>{errors.password?.message}</FormMessage>
+                                <FormMessage />
                             </FormItem>
                         )}
                     />
 
-                    {/* // TODO: добавить поле потверждение пароля  */}
+                    <FormField
+                        control={control}
+                        name="confirmPassword"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>Потверждение пароля</FormLabel>
+                                <div className="flex gap-2">
+                                    <FormControl>
+                                        <Input
+                                            className={`primary-input ${errors.confirmPassword ? "invalid" : ""}`}
+                                            placeholder="Потвердите свой пароль"
+                                            type={isConfirmPassword ? "password" : "text"}
+                                            {...field}
+                                        />
+                                    </FormControl>
+
+                                    <Button
+                                        onClick={() => setIsConfirmPassword((prev) => !prev)}
+                                        variant="ghost"
+                                        type="button"
+                                        className="hover:bg-white my-auto"
+                                    >
+                                        {isConfirmPassword ? <Eye /> : <EyeOff />}
+                                    </Button>
+                                </div>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
 
                     <Button type="submit" disabled={isSubmitting} className="w-full text-white">
                         Войти
