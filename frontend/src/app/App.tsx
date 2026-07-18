@@ -6,16 +6,20 @@ import {
 } from "react-router-dom";
 
 import { RootLayout } from "@/layouts/RootLayout";
+import { AuthLayout } from "@/layouts/AuthLayout";
+
 import { MainPage } from "@/pages/MainPage/MainPage";
 import { QuartersPage } from "@/pages/QuartersPage/QuartersPage";
 import { SchedulePage } from "@/pages/SchedulePage/SchedulePage";
 import { AnalyticsPage } from "@/pages/AnalyticsPage/AnalyticsPage";
 import { GradesPage } from "@/pages/GradesPage/GradesPage";
-import { AuthPage } from "@/pages/AuthPage/AuthPage";
+
+import { LoginForm } from "@/features/LoginForm/LoginForm";
+import { EmailForm } from "@/features/EmailForm/EmailForm";
 
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { Toaster } from "@/components/ui/sonner"
+import { Toaster } from "@/components/ui/sonner";
 
 export function App() {
     const routes = createRoutesFromElements(
@@ -28,7 +32,12 @@ export function App() {
                 <Route path="/quarters" element={<QuartersPage />} />
                 <Route path="/analytics" element={<AnalyticsPage />} />
             </Route>
-            <Route path="/auth" element={<AuthPage />} />
+
+            <Route path="/auth" element={<AuthLayout />}>
+                <Route path="/auth/activate" element={<LoginForm onSubmit={() => {}} />} />
+                <Route path="/auth/register" element={<EmailForm onSubmit={() => {}} type="registration" />} />
+                <Route path="/auth/login" element={<EmailForm onSubmit={() => {}} type="login" />} />
+            </Route>
         </>,
     );
     const router = createBrowserRouter(routes);

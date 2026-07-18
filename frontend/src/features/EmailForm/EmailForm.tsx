@@ -16,10 +16,11 @@ import { Input } from "@/components/ui/input";
 import { Eye, EyeOff } from "lucide-react";
 
 type Props = {
-    onSubmit: SubmitHandler<EmailFormType>;
+    onSubmit: SubmitHandler<EmailFormType>,
+    type?: 'registration' | 'login'
 };
 
-export function EmailForm({ onSubmit }: Props) {
+export function EmailForm({ onSubmit, type }: Props) {
     const [isPassword, setIsPassword] = useState(true);
 
     const form = useForm<EmailFormType>({
@@ -82,6 +83,8 @@ export function EmailForm({ onSubmit }: Props) {
                         </FormItem>
                     )}
                 />
+
+                {/* // TODO: добавить поле потверждение пароля  */}
 
                 <Button
                     type="submit"
