@@ -41,7 +41,10 @@ export function EmailForm({ onSubmit, type }: Props) {
     return (
         <div>
             <Form {...form}>
-                <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-3 mb-4">
+                <form
+                    onSubmit={handleSubmit(onSubmit)}
+                    className={`flex flex-col gap-3 ${type === "login" ? "mb-4" : ""}`}
+                >
                     <FormField
                         control={control}
                         name="email"
@@ -89,64 +92,71 @@ export function EmailForm({ onSubmit, type }: Props) {
                             </FormItem>
                         )}
                     />
+                    {type === "login" ? (
+                        ""
+                    ) : (
+                        <FormField
+                            control={control}
+                            name="confirmPassword"
+                            render={({ field }) => (
+                                <FormItem>
+                                    <FormLabel>Потверждение пароля</FormLabel>
+                                    <div className="flex gap-2">
+                                        <FormControl>
+                                            <Input
+                                                className={`primary-input ${errors.confirmPassword ? "invalid" : ""}`}
+                                                placeholder="Потвердите свой пароль"
+                                                type={isConfirmPassword ? "password" : "text"}
+                                                {...field}
+                                            />
+                                        </FormControl>
 
-                    <FormField
-                        control={control}
-                        name="confirmPassword"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Потверждение пароля</FormLabel>
-                                <div className="flex gap-2">
-                                    <FormControl>
-                                        <Input
-                                            className={`primary-input ${errors.confirmPassword ? "invalid" : ""}`}
-                                            placeholder="Потвердите свой пароль"
-                                            type={isConfirmPassword ? "password" : "text"}
-                                            {...field}
-                                        />
-                                    </FormControl>
-
-                                    <Button
-                                        onClick={() => setIsConfirmPassword((prev) => !prev)}
-                                        variant="ghost"
-                                        type="button"
-                                        className="hover:bg-white my-auto"
-                                    >
-                                        {isConfirmPassword ? <Eye /> : <EyeOff />}
-                                    </Button>
-                                </div>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
+                                        <Button
+                                            onClick={() => setIsConfirmPassword((prev) => !prev)}
+                                            variant="ghost"
+                                            type="button"
+                                            className="hover:bg-white my-auto"
+                                        >
+                                            {isConfirmPassword ? <Eye /> : <EyeOff />}
+                                        </Button>
+                                    </div>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                    )}
 
                     <Button type="submit" disabled={isSubmitting} className="w-full text-white">
-                        Войти
+                        {type === "registration" ? "Зарегистрироваться" : "Войти"}
                     </Button>
                 </form>
             </Form>
 
-            <Tooltip>
-                <TooltipTrigger className="w-full">
-                    <Button
-                        type="button"
-                        variant="outline"
-                        className="w-full bg-white hover:bg-muted"
-                        onClick={() => {
-                            navigate("/auth/activate");
-                        }}
-                    >
-                        <KeyRound />
-                        <span>Активировать аккаунт</span>
-                    </Button>
-                </TooltipTrigger>
-                <TooltipContent side="right" className="border border-primary">
-                    <p>
-                        Вы можете активировать свой аккаунт с помощью кода <br /> активации, который
-                        вы получили от своего классного руководителя
-                    </p>
-                </TooltipContent>
-            </Tooltip>
+            {type === "login" ? (
+                <Tooltip>
+                    <TooltipTrigger className="w-full">
+                        <Button
+                            type="button"
+                            variant="outline"
+                            className="w-full bg-white hover:bg-muted"
+                            onClick={() => {
+                                navigate("/auth/activate");
+                            }}
+                        >
+                            <KeyRound />
+                            <span>Активировать аккаунт</span>
+                        </Button>
+                    </TooltipTrigger>
+                    <TooltipContent side="right" className="border border-primary">
+                        <p>
+                            Вы можете активировать свой аккаунт с помощью кода <br /> активации,
+                            который вы получили от своего классного руководителя
+                        </p>
+                    </TooltipContent>
+                </Tooltip>
+            ) : (
+                ""
+            )}
         </div>
     );
 }
