@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { emailFormSchema, type EmailFormType } from "./zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -13,15 +14,16 @@ import {
     FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Eye, EyeOff } from "lucide-react";
+import { Eye, EyeOff, KeyRound } from "lucide-react";
 
 type Props = {
-    onSubmit: SubmitHandler<EmailFormType>,
-    type?: 'registration' | 'login'
+    onSubmit: SubmitHandler<EmailFormType>;
+    type?: "registration" | "login";
 };
 
 export function EmailForm({ onSubmit, type }: Props) {
     const [isPassword, setIsPassword] = useState(true);
+    const navigate = useNavigate();
 
     const form = useForm<EmailFormType>({
         resolver: zodResolver(emailFormSchema),
@@ -34,66 +36,76 @@ export function EmailForm({ onSubmit, type }: Props) {
     } = form;
 
     return (
-        <Form {...form}>
-            <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-3 mb-2">
-                <FormField
-                    control={control}
-                    name="email"
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormLabel>Email</FormLabel>
-                            <FormControl>
-                                <Input
-                                    className={`primary-input ${errors.email ? "invalid" : ""}`}
-                                    placeholder="your@email.com"
-                                    {...field}
-                                />
-                            </FormControl>
-                            <FormMessage>{errors.email?.message}</FormMessage>
-                        </FormItem>
-                    )}
-                />
-
-                <FormField
-                    control={control}
-                    name="password"
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormLabel>Пароль</FormLabel>
-                            <div className="flex gap-2">
+        <div>
+            <Form {...form}>
+                <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-3 mb-4">
+                    <FormField
+                        control={control}
+                        name="email"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>Email</FormLabel>
                                 <FormControl>
                                     <Input
-                                        className={`primary-input ${errors.password ? "invalid" : ""}`}
-                                        placeholder="Введите пароль"
-                                        type={isPassword ? "password" : "text"}
+                                        className={`primary-input ${errors.email ? "invalid" : ""}`}
+                                        placeholder="your@email.com"
                                         {...field}
                                     />
                                 </FormControl>
+                                <FormMessage>{errors.email?.message}</FormMessage>
+                            </FormItem>
+                        )}
+                    />
 
-                                <Button
-                                    onClick={() => setIsPassword((prev) => !prev)}
-                                    variant="ghost"
-                                    type="button"
-                                    className="hover:bg-white my-auto"
-                                >
-                                    {isPassword ? <Eye /> : <EyeOff />}
-                                </Button>
-                            </div>
-                            <FormMessage>{errors.password?.message}</FormMessage>
-                        </FormItem>
-                    )}
-                />
+                    <FormField
+                        control={control}
+                        name="password"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>Пароль</FormLabel>
+                                <div className="flex gap-2">
+                                    <FormControl>
+                                        <Input
+                                            className={`primary-input ${errors.password ? "invalid" : ""}`}
+                                            placeholder="Введите пароль"
+                                            type={isPassword ? "password" : "text"}
+                                            {...field}
+                                        />
+                                    </FormControl>
 
-                {/* // TODO: добавить поле потверждение пароля  */}
+                                    <Button
+                                        onClick={() => setIsPassword((prev) => !prev)}
+                                        variant="ghost"
+                                        type="button"
+                                        className="hover:bg-white my-auto"
+                                    >
+                                        {isPassword ? <Eye /> : <EyeOff />}
+                                    </Button>
+                                </div>
+                                <FormMessage>{errors.password?.message}</FormMessage>
+                            </FormItem>
+                        )}
+                    />
 
-                <Button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="text-white w-full"
-                >
-                    Привязать email
-                </Button>
-            </form>
-        </Form>
+                    {/* // TODO: добавить поле потверждение пароля  */}
+
+                    <Button type="submit" disabled={isSubmitting} className="w-full text-white">
+                        Войти
+                    </Button>
+                </form>
+            </Form>
+
+            <Button
+                type="button"
+                variant="outline"
+                className="w-full bg-white hover:bg-muted"
+                onClick={() => {
+                    navigate("/auth/activate");
+                }}
+            >
+                <KeyRound />
+                <span>Зарегистрироваться с кодом активации</span>
+            </Button>
+        </div>
     );
 }
