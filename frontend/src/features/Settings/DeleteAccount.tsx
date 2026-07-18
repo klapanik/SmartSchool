@@ -16,10 +16,7 @@ export const DeleteAccount = () => {
         <div className="w-full">
             <AlertDialog>
                 <AlertDialogTrigger asChild>
-                    <Button
-                        variant="destructive"
-                        className="w-full cursor-pointer"
-                    >
+                    <Button variant="destructive" className="w-full">
                         Выйти из аккаунта
                     </Button>
                 </AlertDialogTrigger>
@@ -31,8 +28,7 @@ export const DeleteAccount = () => {
                         </AlertDialogTitle>
                         <AlertDialogDescription className="text-xs sm:text-sm text-gray-500 leading-relaxed">
                             Все ваши данные, оценки и прогресс будут сохранены.
-                            Вы сможете восстановить аккаунт или войти в него
-                            снова.
+                            Вы сможете войти в него снова.
                         </AlertDialogDescription>
                     </AlertDialogHeader>
 
@@ -42,7 +38,7 @@ export const DeleteAccount = () => {
                         </AlertDialogCancel>
                         <AlertDialogAction
                             variant="destructive"
-                            className="w-full sm:w-auto bg-distructive hover:bg-[#EF6B6B] text-white border-none rounded-lg px-4 sm:px-6 py-2.5 sm:py-2 text-sm font-medium transition-colors cursor-pointer order-1 sm:order-2"
+                            className="w-full sm:w-auto bg-destructive hover:bg-[#EF6B6B] text-white border-none rounded-lg px-4 sm:px-6 py-2.5 sm:py-2 text-sm font-medium transition-colors cursor-pointer order-1 sm:order-2"
                         >
                             Выйти
                         </AlertDialogAction>
