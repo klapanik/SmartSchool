@@ -35,7 +35,7 @@ export function EmailForm({ onSubmit, type }: Props) {
 
     return (
         <Form {...form}>
-            <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-5 mb-2">
+            <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-3 mb-2">
                 <FormField
                     control={control}
                     name="email"

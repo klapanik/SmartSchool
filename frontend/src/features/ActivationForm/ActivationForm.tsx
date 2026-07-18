@@ -33,9 +33,9 @@ export function ActivationForm({ onSubmit }: Props) {
     } = form;
 
     return (
-        <div className="flex flex-col gap-3.5">
+        <div>
             <Form {...form}>
-                <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-3">
+                <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-3 mb-4">
                     <FormField
                         control={control}
                         name="code"
@@ -67,17 +67,11 @@ export function ActivationForm({ onSubmit }: Props) {
                         )}
                     />
 
-                    <Button
-                        type="submit"
-                        disabled={isSubmitting}
-                        className="w-full text-white"
-                    >
+                    <Button type="submit" disabled={isSubmitting} className="w-full text-white">
                         Активировать аккаунт
                     </Button>
                 </form>
             </Form>
-
-            <div className="orSeparator"></div>
 
             <div>
                 <Button
@@ -89,11 +83,7 @@ export function ActivationForm({ onSubmit }: Props) {
                     <span>Войти с Google</span>
                 </Button>
 
-                <Button
-                    type="button"
-                    variant="outline"
-                    className="w-full bg-white hover:bg-muted"
-                >
+                <Button type="button" variant="outline" className="w-full bg-white hover:bg-muted">
                     <Mail className="size-5" />
                     <span>Войти с Email</span>
                 </Button>

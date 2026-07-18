@@ -200,12 +200,3 @@ html {
 .primary-input.invalid {
     @apply focus-visible:ring-destructive
 }
-
-.orSeparator {
-    @apply relative overflow-visible text-center text-xs my-1.75 border-t-[3px] border-double border-muted-foreground text-muted-foreground;
-}
-
-.orSeparator::after {
-    content: "или";
-    @apply absolute left-1/2 -translate-x-1/2 -top-2.75 px-0.75 bg-smoky-white;
-}
