@@ -4,11 +4,10 @@ export const emailFormSchema = z
     .object({
         email: z.email("Введите корректный email"),
         password: z
-            .string()
-            .min(1, "Введите пароль")
+            .string("Введите пароль")
             .min(8, "Минимум 8 символов")
             .max(25, "Максимум 25 символов"),
-        confirmPassword: z.string().min(1, "Подтвердите пароль"),
+        confirmPassword: z.string("Подтвердите пароль"),
     })
     .refine((data) => data.password === data.confirmPassword, {
         message: "Пароли не совпадают",
