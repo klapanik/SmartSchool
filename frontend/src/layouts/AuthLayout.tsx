@@ -1,0 +1,37 @@
+import { Outlet, useLocation } from "react-router-dom";
+import { BookOpen, GraduationCap } from "lucide-react";
+
+export function AuthLayout() {
+    const location = useLocation();
+    const currentUrl = location.pathname;
+
+    return (
+        <section className="h-screen w-full px-3 flex flex-col justify-center items-center bg-[url('/auth_background.png')] bg-cover bg-no-repeat bg-center">
+            <div className="flex flex-col gap-5 items-center mb-7.5">
+                <GraduationCap
+                    strokeWidth={1.5}
+                    className="size-14 bg-primary text-white rounded-full p-3"
+                />
+                <h2 className="page-title text-primary">SmartSchool</h2>
+            </div>
+            <div className="sm:w-md bg-smoky-white p-6 flex flex-col rounded-lg gap-5">
+                <div className="flex flex-col items-center">
+                    <div className="flex gap-2 items-center justify-center">
+                        <BookOpen />
+                        <p className="text-2xl font-bold">Добро пожаловать</p>
+                    </div>
+                    <span className="text-gray-500 text-center">
+                        {currentUrl.includes("login")
+                            ? "Введите электронную почту и пароль для входа."
+                            : currentUrl.includes("register")
+                              ? "Заполните несколько полей, чтобы начать пользоваться SmartSchool."
+                              : currentUrl.includes("activate")
+                                ? "Введите код активации, полученный от вашей школы."
+                                : ""}
+                    </span>
+                </div>
+                <Outlet />
+            </div>
+        </section>
+    );
+}
