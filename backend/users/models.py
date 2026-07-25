@@ -46,3 +46,28 @@ class User(AbstractUser):
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
+
+class UserActivation(models.Model):
+    user = models.OneToOneField(
+        User,
+        on_delete=models.CASCADE
+    )
+
+    code = models.CharField(
+        max_length=20,
+        unique=True
+    )
+
+    activation_token = models.CharField(
+        max_length=255,
+        null=True
+    )
+
+    expires_at = models.DateTimeField()
+
+    is_active = models.BooleanField(
+        default=False
+    )
+
+    def __str__(self):
+        return f"{self.user.last_name}: {self.code}"
