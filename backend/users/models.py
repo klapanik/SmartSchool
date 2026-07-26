@@ -109,3 +109,23 @@ class Parent(models.Model):
 
     def __str__(self):
         return self.user.get_full_name()
+
+class Teacher(models.Model):
+    user = models.OneToOneField(
+        User,
+        on_delete=models.CASCADE,
+        related_name="teacher_profile",
+    )
+
+    # school = models.ForeignKey(
+    #     "smart_school.School",
+    #     on_delete=models.CASCADE,
+    # )
+
+    # subjects = models.ManyToManyField(
+    #     "smart_school.Subject",
+    #     related_name="teachers",
+    # )
+        
+    def __str__(self):
+        return self.user.get_full_name()
