@@ -6,12 +6,6 @@ class School(models.Model):
     city = models.CharField(max_length=100)
     address = models.CharField(max_length=255)
 
-    director = models.ForeignKey(
-        "users.Teacher",
-        on_delete=models.SET_NULL,
-        null=True,
-    )
-
     def __str__(self):
         return self.name
 
