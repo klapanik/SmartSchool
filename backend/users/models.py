@@ -73,3 +73,39 @@ class UserActivation(models.Model):
 
     def __str__(self):
         return f"{self.user.last_name}: {self.code}"
+
+
+class Student(models.Model):
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="student_profile",
+    )
+
+    # school_class = models.ForeignKey(
+    #     "smart_school.SchoolClass",
+    #     on_delete=models.CASCADE,
+    #     related_name="students",
+    # )
+
+    parent = models.ForeignKey(
+        "users.Parent",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="children",
+    )
+
+    def __str__(self):
+        return self.user.get_full_name()
+
+
+class Parent(models.Model):
+    user = models.OneToOneField(
+        User,
+        on_delete=models.CASCADE,
+        related_name="parent_profile",
+    )
+
+    def __str__(self):
+        return self.user.get_full_name()
