@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.conf import settings
 
 
 class UserRole(models.TextChoices):
@@ -10,7 +11,7 @@ class UserRole(models.TextChoices):
 
 
 class User(AbstractUser):
-    # id, is_active, fisrt_name, last_name from AbstractUser
+    # id, is_active, fisrt_name, last_name, date_joined from AbstractUser
     email = models.EmailField(
         unique=True,
         verbose_name="Email"
@@ -41,31 +42,32 @@ class User(AbstractUser):
         null=True,
     )
 
-    created_at = models.DateTimeField(auto_now_add=True)
-    activated_at = models.DateTimeField(null=True, blank=True)
-
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
+
 
 class UserActivation(models.Model):
     user = models.OneToOneField(
         User,
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
+        related_name="activation",
     )
 
     code = models.CharField(
-        max_length=20,
+        max_length=15,
         unique=True
     )
 
-    activation_token = models.CharField(
-        max_length=255,
-        null=True
+    activation_token = models.UUIDField(
+        unique=True,
+        null=True,
+        blank=True,
     )
 
+    activated_at = models.DateTimeField(null=True, blank=True)
     expires_at = models.DateTimeField()
 
-    is_active = models.BooleanField(
+    is_used = models.BooleanField(
         default=False
     )
 
