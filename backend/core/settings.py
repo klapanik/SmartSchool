@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'users',
+    'smart_school',
     'rest_framework',
     'corsheaders',
 ]
