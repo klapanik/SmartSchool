@@ -1,3 +1,4 @@
-export { AccentColor } from "./AccentColor";
-export { TimeFormat } from "./TimeFormat";
-export { WeekBegin } from "./WeekBegin";
+export { AccentColor } from "./ui/AccentColor";
+export { TimeFormat } from "./ui/TimeFormat";
+export { WeekBegin } from "./ui/WeekBegin";
+export { Settings } from "./ui/Settings";

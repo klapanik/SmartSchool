@@ -11,11 +11,13 @@ import {
 
 export function WeekBegin() {
     return (
-        <div>
-            <CalendarDays />
-            <span>Начало недели</span>
+        <div className="flex justify-between">
+            <div className="text-gray-500 flex gap-1 items-center">
+                <CalendarDays className="size-3.5 m-auto" />
+                <span className="text-sm">Начало недели</span>
+            </div>
             <Select defaultValue="monday">
-                <SelectTrigger>
+                <SelectTrigger className="border-none !shadow-none p-0 w-auto">
                     <SelectValue placeholder="Выберите день" />
                 </SelectTrigger>
                 <SelectContent position="popper">
