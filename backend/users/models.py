@@ -82,11 +82,13 @@ class Student(models.Model):
         related_name="student_profile",
     )
 
-    # school_class = models.ForeignKey(
-    #     "smart_school.SchoolClass",
-    #     on_delete=models.CASCADE,
-    #     related_name="students",
-    # )
+    school_class = models.ForeignKey(
+        "smart_school.SchoolClass",
+        on_delete=models.CASCADE,
+        related_name="students",
+        null=True, # ! временно (сделано для облегчение миграций)
+        blank=True,
+    )
 
     parent = models.ForeignKey(
         "users.Parent",
@@ -110,6 +112,7 @@ class Parent(models.Model):
     def __str__(self):
         return self.user.get_full_name()
 
+
 class Teacher(models.Model):
     user = models.OneToOneField(
         User,
@@ -117,15 +120,20 @@ class Teacher(models.Model):
         related_name="teacher_profile",
     )
 
-    # school = models.ForeignKey(
-    #     "smart_school.School",
-    #     on_delete=models.CASCADE,
-    # )
+    school = models.ForeignKey(
+        "smart_school.School",
+        on_delete=models.CASCADE,
+        related_name="teachers",
+        null=True, # ! временно (сделано для облегчение миграций)
+        blank=True,
+    )
 
-    # subjects = models.ManyToManyField(
-    #     "smart_school.Subject",
-    #     related_name="teachers",
-    # )
-        
+    subjects = models.ManyToManyField(
+        "smart_school.Subject",
+        related_name="teachers",
+        null=True, # ! временно (сделано для облегчение миграций)
+        blank=True,
+    )
+
     def __str__(self):
         return self.user.get_full_name()
