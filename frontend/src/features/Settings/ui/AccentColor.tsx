@@ -21,10 +21,30 @@ export function AccentColor() {
                 </SelectTrigger>
                 <SelectContent position="popper">
                     <SelectGroup>
-                        <SelectItem value="purple">Фиолетовый</SelectItem>
-                        <SelectItem value="blue">Синий</SelectItem>
-                        <SelectItem value="green">Зеленый</SelectItem>
-                        <SelectItem value="pink">Розовый</SelectItem>
+                        <SelectItem value="purple">
+                            <div className="flex gap-1 items-center">
+                                <div className="size-2.5 bg-primary rounded-[2px]"></div>
+                                <span>Фиолетовый</span>
+                            </div>
+                        </SelectItem>
+                        <SelectItem value="blue">
+                            <div className="flex gap-1 items-center">
+                                <div className="size-2.5 bg-[#2B70FA] rounded-[2px]"></div>
+                                <span>Синий</span>
+                            </div>
+                        </SelectItem>
+                        <SelectItem value="green">
+                            <div className="flex gap-1 items-center">
+                                <div className="size-2.5 bg-[#00DD1A] rounded-[2px]"></div>
+                                <span>Зелёный</span>
+                            </div>
+                        </SelectItem>
+                        <SelectItem value="pink">
+                            <div className="flex gap-1 items-center">
+                                <div className="size-2.5 bg-[#F94AE7] rounded-[2px]"></div>
+                                <span>Розовый</span>
+                            </div>
+                        </SelectItem>
                     </SelectGroup>
                 </SelectContent>
             </Select>
