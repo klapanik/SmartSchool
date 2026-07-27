@@ -48,7 +48,7 @@ class User(AbstractUser):
 
 class UserActivation(models.Model):
     user = models.OneToOneField(
-        User,
+        settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
         related_name="activation",
     )
@@ -104,7 +104,7 @@ class Student(models.Model):
 
 class Parent(models.Model):
     user = models.OneToOneField(
-        User,
+        settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
         related_name="parent_profile",
     )
@@ -115,7 +115,7 @@ class Parent(models.Model):
 
 class Teacher(models.Model):
     user = models.OneToOneField(
-        User,
+        settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
         related_name="teacher_profile",
     )
