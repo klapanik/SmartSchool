@@ -6,9 +6,11 @@ export function Settings() {
     return (
         <div className="flex flex-col gap-3.5">
             <p className="text-sm text-smoky-black">Настройки</p>
-            <AccentColor />
-            <TimeFormat />
-            <WeekBegin />
+            <div className="flex flex-col gap-4">
+                <AccentColor />
+                <TimeFormat />
+                <WeekBegin />
+            </div>
         </div>
     );
 }

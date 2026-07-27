@@ -11,13 +11,13 @@ import {
 
 export function TimeFormat() {
     return (
-        <div className="flex justify-between">
-            <div className="text-gray-500 flex gap-1 items-center">
+        <div className="flex justify-between items-center">
+            <div className="text-gray-500 flex gap-1 ">
                 <Clock4 className="size-3.5 m-auto" />
                 <span className="text-sm">Формат времени</span>
             </div>
             <Select defaultValue="24h">
-                <SelectTrigger className="border-none !shadow-none p-0 w-auto">
+                <SelectTrigger className="border-none !shadow-none p-0 w-auto !h-fit">
                     <SelectValue placeholder="Выберите формат" />
                 </SelectTrigger>
                 <SelectContent position="popper">
