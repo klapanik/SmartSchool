@@ -20,7 +20,7 @@ export function WeekBegin() {
                 <SelectTrigger className="border-none !shadow-none p-0 w-auto !h-fit">
                     <SelectValue placeholder="Выберите день" />
                 </SelectTrigger>
-                <SelectContent position="popper">
+                <SelectContent position="popper" className="shadow-gray-300 border-none">
                     <SelectGroup>
                         <SelectItem value="monday">Понедельник</SelectItem>
                         <SelectItem value="tuesday">Вторник</SelectItem>

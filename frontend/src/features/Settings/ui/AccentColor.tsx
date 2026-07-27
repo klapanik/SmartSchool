@@ -19,7 +19,7 @@ export function AccentColor() {
                 <SelectTrigger className="border-none !shadow-none p-0 w-auto !h-fit">
                     <SelectValue placeholder="Выберите цвет" />
                 </SelectTrigger>
-                <SelectContent position="popper">
+                <SelectContent position="popper" className="shadow-gray-300 border-none">
                     <SelectGroup>
                         <SelectItem value="purple">
                             <div className="flex gap-1 items-center">

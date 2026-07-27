@@ -20,7 +20,7 @@ export function TimeFormat() {
                 <SelectTrigger className="border-none !shadow-none p-0 w-auto !h-fit">
                     <SelectValue placeholder="Выберите формат" />
                 </SelectTrigger>
-                <SelectContent position="popper">
+                <SelectContent position="popper" className="shadow-gray-300 border-none">
                     <SelectGroup>
                         <SelectItem value="24h">24 часа</SelectItem>
                         <SelectItem value="12h">12 часов</SelectItem>
