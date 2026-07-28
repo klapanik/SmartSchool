@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import type { SubmitHandler } from "react-hook-form";
-import { loginFormSchema, type LoginFormType } from "./zod";
+import { activationFormSchema, type ActivationFormType } from "./zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { Button } from "@/components/ui/button";
@@ -18,12 +19,14 @@ import { GoogleIcon } from "@/shared/ui/GoogleIcon";
 import { Mail } from "lucide-react";
 
 type Props = {
-    onSubmit: SubmitHandler<LoginFormType>;
+    onSubmit: SubmitHandler<ActivationFormType>;
 };
 
-export function LoginForm({ onSubmit }: Props) {
-    const form = useForm<LoginFormType>({
-        resolver: zodResolver(loginFormSchema),
+export function ActivationForm({ onSubmit }: Props) {
+    const navigate = useNavigate();
+
+    const form = useForm<ActivationFormType>({
+        resolver: zodResolver(activationFormSchema),
     });
 
     const {
@@ -33,9 +36,9 @@ export function LoginForm({ onSubmit }: Props) {
     } = form;
 
     return (
-        <div className="flex flex-col gap-3.5">
+        <div>
             <Form {...form}>
-                <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-3">
+                <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-3 mb-4">
                     <FormField
                         control={control}
                         name="code"
@@ -67,35 +70,28 @@ export function LoginForm({ onSubmit }: Props) {
                         )}
                     />
 
-                    <Button
-                        type="submit"
-                        disabled={isSubmitting}
-                        className="text-white w-full cursor-pointer"
-                    >
-                        Войти
+                    <Button type="submit" disabled={isSubmitting} className="w-full text-white">
+                        Активировать аккаунт
                     </Button>
                 </form>
             </Form>
 
-            <div className="orSeparator"></div>
+            <Button type="button" variant="outline" className="w-full mb-2 bg-white hover:bg-muted">
+                <GoogleIcon />
+                <span>Войти с Google</span>
+            </Button>
 
-            <div>
-                <Button
-                    variant="secondary"
-                    className="bg-white w-full cursor-pointer hover:text-primary mb-2"
-                >
-                    <GoogleIcon />
-                    <span>Продолжить с Google</span>
-                </Button>
-
-                <Button
-                    variant="secondary"
-                    className="bg-white w-full cursor-pointer hover:text-primary"
-                >
-                    <Mail className="size-5" />
-                    <span>Продолжить с Email</span>
-                </Button>
-            </div>
+            <Button
+                type="button"
+                variant="outline"
+                className="w-full bg-white hover:bg-muted"
+                onClick={() => {
+                    navigate("/auth/login");
+                }}
+            >
+                <Mail className="size-5" />
+                <span>Войти с Email</span>
+            </Button>
         </div>
     );
 }
