@@ -2,29 +2,29 @@ from uuid import uuid4
 
 from django.utils import timezone
 from rest_framework import status
-from rest_framework.decorators import action
+from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework.viewsets import GenericViewSet
+from rest_framework_simplejwt.tokens import RefreshToken
+
+import bcrypt
 
 from ..models import UserActivation
 from .serializers import UserActivationSerializer
 
 
-class UserActivationViewSet(GenericViewSet):
-    queryset = UserActivation.objects.all()
-    serializer_class = UserActivationSerializer
-
-    @action(detail=False, methods=["post"], url_path="activate")
-    def activate(self, request):
-        serializer = self.get_serializer(data=request.data)
+class UserActivationView(APIView):
+    def post(self, request):
+        serializer = UserActivationSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
         code = serializer.validated_data["code"]
+        email = serializer.validated_data["email"]
+        password = serializer.validated_data["password"]
 
         try:
-            activation = self.get_queryset().get(code=code)
+            activation = UserActivation.objects.select_related("user").get(code=code)
         except UserActivation.DoesNotExist:
-            return Response({"detail": "Invalid activation code."}, status=status.HTTP_404_NOT_FOUND,)
+            return Response({"detail": "Invalid activation code."}, status=status.HTTP_404_NOT_FOUND)
 
         if activation.is_used:
             return Response({"detail": "Activation code has already been used."}, status=status.HTTP_400_BAD_REQUEST)
@@ -32,7 +32,21 @@ class UserActivationViewSet(GenericViewSet):
         if activation.expires_at < timezone.now():
             return Response({"detail": "Activation code has expired."}, status=status.HTTP_400_BAD_REQUEST)
 
-        activation.activation_token = uuid4()
-        activation.save(update_fields=["activation_token"])
+        activation.activated_at = timezone.now()
+        activation.is_used = True
 
-        return Response({"activationToken": activation.activation_token}, status=status.HTTP_200_OK,)
+        user = activation.user
+        user.email = email
+        user.password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
+        user.is_active = True
+        user.date_joined = timezone.now()
+
+        user.save()
+        activation.save()
+
+        refresh = RefreshToken.for_user(user)
+
+        access_token = str(refresh.access_token)
+        refresh_token = str(refresh)
+
+        return Response({"access": access_token, "refresh": refresh_token}, status=status.HTTP_200_OK)
