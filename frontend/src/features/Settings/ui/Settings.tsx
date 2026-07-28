@@ -1,4 +1,5 @@
 import { AccentColor } from "./AccentColor";
+import { DeleteAccount } from "./DeleteAccount";
 import { TimeFormat } from "./TimeFormat";
 import { WeekBegin } from "./WeekBegin";
 
@@ -11,6 +12,7 @@ export function Settings() {
                 <TimeFormat />
                 <WeekBegin />
             </div>
+            <DeleteAccount />
         </div>
     );
 }
