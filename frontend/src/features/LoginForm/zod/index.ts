@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const emailFormSchema = z.object({
+export const loginFormSchema = z.object({
     email: z.email("Введите корректный email"),
     password: z
         .string("Введите пароль")
@@ -8,4 +8,4 @@ export const emailFormSchema = z.object({
         .max(25, "Максимум 25 символов"),
 });
 
-export type EmailFormType = z.infer<typeof emailFormSchema>;
+export type LoginFormType = z.infer<typeof loginFormSchema>;

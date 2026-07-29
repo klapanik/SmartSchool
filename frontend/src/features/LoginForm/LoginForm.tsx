@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { emailFormSchema, type EmailFormType } from "./zod";
+import { loginFormSchema, type LoginFormType } from "./zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { Button } from "@/components/ui/button";
@@ -18,15 +18,15 @@ import { Input } from "@/components/ui/input";
 import { Eye, EyeOff, KeyRound } from "lucide-react";
 
 type Props = {
-    onSubmit: SubmitHandler<EmailFormType>;
+    onSubmit: SubmitHandler<LoginFormType>;
 };
 
-export function EmailForm({ onSubmit }: Props) {
+export function LoginForm({ onSubmit }: Props) {
     const navigate = useNavigate();
     const [isPassword, setIsPassword] = useState(true);
 
-    const form = useForm<EmailFormType>({
-        resolver: zodResolver(emailFormSchema),
+    const form = useForm<LoginFormType>({
+        resolver: zodResolver(loginFormSchema),
     });
 
     const {

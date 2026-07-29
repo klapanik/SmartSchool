@@ -15,7 +15,7 @@ import { AnalyticsPage } from "@/pages/AnalyticsPage/AnalyticsPage";
 import { GradesPage } from "@/pages/GradesPage/GradesPage";
 
 import { ActivationForm } from "@/features/ActivationForm/ActivationForm";
-import { EmailForm } from "@/features/EmailForm/EmailForm";
+import { LoginForm } from "@/features/LoginForm/LoginForm";
 
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -35,7 +35,7 @@ export function App() {
 
             <Route path="/auth" element={<AuthLayout />}>
                 <Route path="/auth/activate" element={<ActivationForm onSubmit={() => {}} />} />
-                <Route path="/auth/login" element={<EmailForm onSubmit={() => {}} />} />
+                <Route path="/auth/login" element={<LoginForm onSubmit={() => {}} />} />
             </Route>
         </>,
     );
