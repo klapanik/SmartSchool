@@ -1,4 +1,4 @@
-import { Settings } from "@/features/Settings/Settings";
+import { Settings } from "@/features/Settings";
 import { PersonalData } from "./PersonalData";
 import { ProfileHeader } from "./ProfileHeader";
 import { ProfileStatsCards } from "./ProfileStatsCards";
