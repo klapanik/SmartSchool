@@ -17,7 +17,7 @@ export function WeekBegin() {
                 <span className="text-sm">Начало недели</span>
             </div>
             <Select defaultValue="monday">
-                <SelectTrigger className="border-none !shadow-none p-0 w-auto !h-fit">
+                <SelectTrigger className="border-none p-0 w-auto">
                     <SelectValue placeholder="Выберите день" />
                 </SelectTrigger>
                 <SelectContent position="popper" className="shadow-gray-300 border-none">

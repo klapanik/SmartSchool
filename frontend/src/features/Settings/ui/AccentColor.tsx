@@ -16,7 +16,7 @@ export function AccentColor() {
                 <span className="text-sm">Акцентный цвет</span>
             </div>
             <Select defaultValue="purple">
-                <SelectTrigger className="border-none !shadow-none p-0 w-auto !h-fit">
+                <SelectTrigger className="border-none p-0 w-auto">
                     <SelectValue placeholder="Выберите цвет" />
                 </SelectTrigger>
                 <SelectContent position="popper" className="shadow-gray-300 border-none">

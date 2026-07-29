@@ -17,7 +17,7 @@ export function TimeFormat() {
                 <span className="text-sm">Формат времени</span>
             </div>
             <Select defaultValue="24h">
-                <SelectTrigger className="border-none !shadow-none p-0 w-auto !h-fit">
+                <SelectTrigger className="border-none p-0 w-auto">
                     <SelectValue placeholder="Выберите формат" />
                 </SelectTrigger>
                 <SelectContent position="popper" className="shadow-gray-300 border-none">
