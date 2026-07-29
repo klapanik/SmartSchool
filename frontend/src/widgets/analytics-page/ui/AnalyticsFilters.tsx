@@ -6,18 +6,15 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
-import { cn } from "@/lib/utils";
 
 const filterWrapperClassName = "w-full min-w-0 md:flex-1 lg:flex-none lg:max-w-52";
-
-const filterTriggerClassName = cn("text-base md:text-sm");
 
 export function AnalyticsFilters() {
     return (
         <div className="flex flex-col gap-3 md:flex-row md:gap-4">
             <div className={filterWrapperClassName}>
                 <Select defaultValue="all">
-                    <SelectTrigger className={filterTriggerClassName}>
+                    <SelectTrigger>
                         <SelectValue placeholder="Выберите предмет" />
                     </SelectTrigger>
                     <SelectContent position="popper">
@@ -33,7 +30,7 @@ export function AnalyticsFilters() {
             </div>
             <div className={filterWrapperClassName}>
                 <Select defaultValue="current">
-                    <SelectTrigger className={filterTriggerClassName}>
+                    <SelectTrigger>
                         <SelectValue placeholder="Выберите четверть" />
                     </SelectTrigger>
                     <SelectContent position="popper">
