@@ -1,6 +1,7 @@
+import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
 import type { SubmitHandler } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import { activationFormSchema, type ActivationFormType } from "./zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -16,7 +17,7 @@ import {
 import { Input } from "@/components/ui/input";
 
 import { GoogleIcon } from "@/shared/ui/GoogleIcon";
-import { Mail } from "lucide-react";
+import { Mail, Eye, EyeOff } from "lucide-react";
 
 type Props = {
     onSubmit: SubmitHandler<ActivationFormType>;
@@ -24,6 +25,9 @@ type Props = {
 
 export function ActivationForm({ onSubmit }: Props) {
     const navigate = useNavigate();
+
+    const [isPassword, setIsPassword] = useState(true);
+    const [isConfirmPassword, setIsConfirmPassword] = useState(true);
 
     const form = useForm<ActivationFormType>({
         resolver: zodResolver(activationFormSchema),
@@ -38,7 +42,7 @@ export function ActivationForm({ onSubmit }: Props) {
     return (
         <div>
             <Form {...form}>
-                <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-3 mb-4">
+                <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-3 sm:gap-4 mb-4">
                     <FormField
                         control={control}
                         name="code"
@@ -66,6 +70,84 @@ export function ActivationForm({ onSubmit }: Props) {
                                     />
                                 </FormControl>
                                 <FormMessage>{errors.code?.message}</FormMessage>
+                            </FormItem>
+                        )}
+                    />
+
+                    <FormField
+                        control={control}
+                        name="email"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>Email</FormLabel>
+                                <FormControl>
+                                    <Input
+                                        className={`primary-input ${errors.email ? "invalid" : ""}`}
+                                        placeholder="your@email.com"
+                                        {...field}
+                                    />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+
+                    <FormField
+                        control={control}
+                        name="password"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>Пароль</FormLabel>
+                                <div className="flex gap-2 relative">
+                                    <FormControl>
+                                        <Input
+                                            className={`primary-input ${errors.password ? "invalid" : ""}`}
+                                            placeholder="Создайте надёжный пароль"
+                                            type={isPassword ? "password" : "text"}
+                                            {...field}
+                                        />
+                                    </FormControl>
+
+                                    <Button
+                                        onClick={() => setIsPassword((prev) => !prev)}
+                                        variant="ghost"
+                                        type="button"
+                                        className="hover:bg-transparent absolute bottom-0 right-0"
+                                    >
+                                        {isPassword ? <Eye /> : <EyeOff />}
+                                    </Button>
+                                </div>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+
+                    <FormField
+                        control={control}
+                        name="confirmPassword"
+                        render={({ field }) => (
+                            <FormItem>
+                                <FormLabel>Потверждение пароля</FormLabel>
+                                <div className="flex gap-2">
+                                    <FormControl>
+                                        <Input
+                                            className={`primary-input ${errors.confirmPassword ? "invalid" : ""}`}
+                                            placeholder="Потвердите свой пароль"
+                                            type={isConfirmPassword ? "password" : "text"}
+                                            {...field}
+                                        />
+                                    </FormControl>
+
+                                    <Button
+                                        onClick={() => setIsConfirmPassword((prev) => !prev)}
+                                        variant="ghost"
+                                        type="button"
+                                        className="hover:bg-transparent absolute bottom-0 right-0"
+                                    >
+                                        {isConfirmPassword ? <Eye /> : <EyeOff />}
+                                    </Button>
+                                </div>
+                                <FormMessage />
                             </FormItem>
                         )}
                     />

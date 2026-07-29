@@ -35,8 +35,7 @@ export function App() {
 
             <Route path="/auth" element={<AuthLayout />}>
                 <Route path="/auth/activate" element={<ActivationForm onSubmit={() => {}} />} />
-                <Route path="/auth/register" element={<EmailForm onSubmit={() => {}} type="registration" />} />
-                <Route path="/auth/login" element={<EmailForm onSubmit={() => {}} type="login" />} />
+                <Route path="/auth/login" element={<EmailForm onSubmit={() => {}} />} />
             </Route>
         </>,
     );

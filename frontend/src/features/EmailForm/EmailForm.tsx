@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { useForm, type SubmitHandler } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import { emailFormSchema, type EmailFormType } from "./zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -13,20 +13,17 @@ import {
     FormLabel,
     FormMessage,
 } from "@/components/ui/form";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { Input } from "@/components/ui/input";
+
 import { Eye, EyeOff, KeyRound } from "lucide-react";
 
 type Props = {
     onSubmit: SubmitHandler<EmailFormType>;
-    type?: "registration" | "login";
 };
 
-export function EmailForm({ onSubmit, type }: Props) {
-    const [isPassword, setIsPassword] = useState(true);
-    const [isConfirmPassword, setIsConfirmPassword] = useState(true);
-
+export function EmailForm({ onSubmit }: Props) {
     const navigate = useNavigate();
+    const [isPassword, setIsPassword] = useState(true);
 
     const form = useForm<EmailFormType>({
         resolver: zodResolver(emailFormSchema),
@@ -41,10 +38,7 @@ export function EmailForm({ onSubmit, type }: Props) {
     return (
         <div>
             <Form {...form}>
-                <form
-                    onSubmit={handleSubmit(onSubmit)}
-                    className={`flex flex-col gap-3 ${type === "login" ? "mb-4" : ""}`}
-                >
+                <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-3 mb-4">
                     <FormField
                         control={control}
                         name="email"
@@ -83,7 +77,7 @@ export function EmailForm({ onSubmit, type }: Props) {
                                         onClick={() => setIsPassword((prev) => !prev)}
                                         variant="ghost"
                                         type="button"
-                                        className="hover:bg-white my-auto"
+                                        className="hover:bg-transparent absolute bottom-0 right-0"
                                     >
                                         {isPassword ? <Eye /> : <EyeOff />}
                                     </Button>
@@ -92,71 +86,24 @@ export function EmailForm({ onSubmit, type }: Props) {
                             </FormItem>
                         )}
                     />
-                    {type === "login" ? (
-                        ""
-                    ) : (
-                        <FormField
-                            control={control}
-                            name="confirmPassword"
-                            render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Потверждение пароля</FormLabel>
-                                    <div className="flex gap-2">
-                                        <FormControl>
-                                            <Input
-                                                className={`primary-input ${errors.confirmPassword ? "invalid" : ""}`}
-                                                placeholder="Потвердите свой пароль"
-                                                type={isConfirmPassword ? "password" : "text"}
-                                                {...field}
-                                            />
-                                        </FormControl>
-
-                                        <Button
-                                            onClick={() => setIsConfirmPassword((prev) => !prev)}
-                                            variant="ghost"
-                                            type="button"
-                                            className="hover:bg-white my-auto"
-                                        >
-                                            {isConfirmPassword ? <Eye /> : <EyeOff />}
-                                        </Button>
-                                    </div>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
-                    )}
 
                     <Button type="submit" disabled={isSubmitting} className="w-full text-white">
-                        {type === "registration" ? "Зарегистрироваться" : "Войти"}
+                        Войти
                     </Button>
                 </form>
             </Form>
 
-            {type === "login" ? (
-                <Tooltip>
-                    <TooltipTrigger className="w-full">
-                        <Button
-                            type="button"
-                            variant="outline"
-                            className="w-full bg-white hover:bg-muted"
-                            onClick={() => {
-                                navigate("/auth/activate");
-                            }}
-                        >
-                            <KeyRound />
-                            <span>Активировать аккаунт</span>
-                        </Button>
-                    </TooltipTrigger>
-                    <TooltipContent side="right" className="border border-primary">
-                        <p>
-                            Вы можете активировать свой аккаунт с помощью кода <br /> активации,
-                            который вы получили от своего классного руководителя
-                        </p>
-                    </TooltipContent>
-                </Tooltip>
-            ) : (
-                ""
-            )}
+            <Button
+                type="button"
+                variant="outline"
+                className="w-full bg-white hover:bg-muted"
+                onClick={() => {
+                    navigate("/auth/activate");
+                }}
+            >
+                <KeyRound />
+                <span>Активировать аккаунт</span>
+            </Button>
         </div>
     );
 }
