@@ -48,7 +48,7 @@ export function LoginForm({ onSubmit }: Props) {
                                 <FormControl>
                                     <Input
                                         className={`primary-input ${errors.email ? "invalid" : ""}`}
-                                        placeholder="your@email.com"
+                                        placeholder="Введите email"
                                         {...field}
                                     />
                                 </FormControl>
