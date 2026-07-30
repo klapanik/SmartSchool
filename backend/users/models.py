@@ -11,10 +11,11 @@ class UserRole(models.TextChoices):
 
 
 class User(AbstractUser):
-    # id, is_active, fisrt_name, last_name, date_joined from AbstractUser
+    # id, is_active, fisrt_name, last_name, date_joined, password from AbstractUser
     email = models.EmailField(
         unique=True,
-        verbose_name="Email"
+        verbose_name="Email",
+        blank=True,
     )
 
     pending_email = models.EmailField(
@@ -42,6 +43,9 @@ class User(AbstractUser):
         null=True,
     )
 
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
+
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
 
@@ -56,12 +60,6 @@ class UserActivation(models.Model):
     code = models.CharField(
         max_length=15,
         unique=True
-    )
-
-    activation_token = models.UUIDField(
-        unique=True,
-        null=True,
-        blank=True,
     )
 
     activated_at = models.DateTimeField(null=True, blank=True)
@@ -86,7 +84,7 @@ class Student(models.Model):
         "smart_school.SchoolClass",
         on_delete=models.CASCADE,
         related_name="students",
-        null=True, # ! временно (сделано для облегчение миграций)
+        null=True,  # ! временно (сделано для облегчение миграций)
         blank=True,
     )
 
@@ -124,14 +122,14 @@ class Teacher(models.Model):
         "smart_school.School",
         on_delete=models.CASCADE,
         related_name="teachers",
-        null=True, # ! временно (сделано для облегчение миграций)
+        null=True,  # ! временно (сделано для облегчение миграций)
         blank=True,
     )
 
     subjects = models.ManyToManyField(
         "smart_school.Subject",
         related_name="teachers",
-        null=True, # ! временно (сделано для облегчение миграций)
+        null=True,  # ! временно (сделано для облегчение миграций)
         blank=True,
     )
 
