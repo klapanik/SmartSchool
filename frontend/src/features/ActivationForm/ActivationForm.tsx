@@ -13,6 +13,7 @@ import {
     FormItem,
     FormLabel,
     FormMessage,
+    FormDescription,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 
@@ -42,7 +43,10 @@ export function ActivationForm({ onSubmit }: Props) {
     return (
         <div>
             <Form {...form}>
-                <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-3 sm:gap-4 mb-4">
+                <form
+                    onSubmit={handleSubmit(onSubmit)}
+                    className="flex flex-col gap-3 sm:gap-4 mb-4"
+                >
                     <FormField
                         control={control}
                         name="code"
@@ -69,7 +73,10 @@ export function ActivationForm({ onSubmit }: Props) {
                                         placeholder="Введите код, выданный учителем"
                                     />
                                 </FormControl>
-                                <FormMessage>{errors.code?.message}</FormMessage>
+                                <FormDescription>
+                                    Этот код нужен, чтобы найти ваш класс.
+                                </FormDescription>
+                                <FormMessage />
                             </FormItem>
                         )}
                     />
@@ -83,7 +90,7 @@ export function ActivationForm({ onSubmit }: Props) {
                                 <FormControl>
                                     <Input
                                         className={`primary-input ${errors.email ? "invalid" : ""}`}
-                                        placeholder="your@email.com"
+                                        placeholder="Введите email"
                                         {...field}
                                     />
                                 </FormControl>
@@ -128,7 +135,7 @@ export function ActivationForm({ onSubmit }: Props) {
                         render={({ field }) => (
                             <FormItem>
                                 <FormLabel>Потверждение пароля</FormLabel>
-                                <div className="flex gap-2">
+                                <div className="flex gap-2 relative ">
                                     <FormControl>
                                         <Input
                                             className={`primary-input ${errors.confirmPassword ? "invalid" : ""}`}
@@ -147,6 +154,7 @@ export function ActivationForm({ onSubmit }: Props) {
                                         {isConfirmPassword ? <Eye /> : <EyeOff />}
                                     </Button>
                                 </div>
+                                <FormDescription>После активации вы сможете заходить в приложение по email и паролю, не вводя код.</FormDescription>
                                 <FormMessage />
                             </FormItem>
                         )}
