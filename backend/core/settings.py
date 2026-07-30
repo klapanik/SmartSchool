@@ -59,7 +59,7 @@ REST_FRAMEWORK = {'DEFAULT_PERMISSION_CLASSES': [
     'rest_framework.permissions.AllowAny'
 ]}
 
-CORS_OROGIN_ALLOW_ALL = True
+CORS_ALLOW_ALL_ORIGINS = True
 
 ROOT_URLCONF = 'core.urls'
 
