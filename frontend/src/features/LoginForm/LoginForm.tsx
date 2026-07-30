@@ -38,7 +38,7 @@ export function LoginForm({ onSubmit }: Props) {
     return (
         <div>
             <Form {...form}>
-                <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-3 mb-4">
+                <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-3 mb-2">
                     <FormField
                         control={control}
                         name="email"
@@ -63,7 +63,7 @@ export function LoginForm({ onSubmit }: Props) {
                         render={({ field }) => (
                             <FormItem>
                                 <FormLabel>Пароль</FormLabel>
-                                <div className="flex gap-2">
+                                <div className="flex gap-2 relative">
                                     <FormControl>
                                         <Input
                                             className={`primary-input ${errors.password ? "invalid" : ""}`}

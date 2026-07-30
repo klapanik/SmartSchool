@@ -45,7 +45,7 @@ export function ActivationForm({ onSubmit }: Props) {
             <Form {...form}>
                 <form
                     onSubmit={handleSubmit(onSubmit)}
-                    className="flex flex-col gap-3 sm:gap-4 mb-4"
+                    className="flex flex-col gap-3 sm:gap-3.5 mb-2"
                 >
                     <FormField
                         control={control}
@@ -73,10 +73,13 @@ export function ActivationForm({ onSubmit }: Props) {
                                         placeholder="Введите код, выданный учителем"
                                     />
                                 </FormControl>
-                                <FormDescription>
-                                    Этот код нужен, чтобы найти ваш класс.
-                                </FormDescription>
-                                <FormMessage />
+                                {errors.confirmPassword?.message ? (
+                                    <FormMessage />
+                                ) : (
+                                    <FormDescription className="text-primary">
+                                        Этот код нужен, чтобы найти ваш класс.
+                                    </FormDescription>
+                                )}
                             </FormItem>
                         )}
                     />
@@ -135,7 +138,8 @@ export function ActivationForm({ onSubmit }: Props) {
                         render={({ field }) => (
                             <FormItem>
                                 <FormLabel>Потверждение пароля</FormLabel>
-                                <div className="flex gap-2 relative ">
+
+                                <div className="flex gap-2 relative">
                                     <FormControl>
                                         <Input
                                             className={`primary-input ${errors.confirmPassword ? "invalid" : ""}`}
@@ -154,8 +158,15 @@ export function ActivationForm({ onSubmit }: Props) {
                                         {isConfirmPassword ? <Eye /> : <EyeOff />}
                                     </Button>
                                 </div>
-                                <FormDescription>После активации вы сможете заходить в приложение по email и паролю, не вводя код.</FormDescription>
-                                <FormMessage />
+
+                                {errors.confirmPassword?.message ? (
+                                    <FormMessage />
+                                ) : (
+                                    <FormDescription className="text-primary">
+                                        После активации вы сможете заходить в приложение по email и
+                                        паролю, не вводя код.
+                                    </FormDescription>
+                                )}
                             </FormItem>
                         )}
                     />
@@ -166,7 +177,11 @@ export function ActivationForm({ onSubmit }: Props) {
                 </form>
             </Form>
 
-            <Button type="button" variant="outline" className="w-full mb-2 bg-white hover:bg-muted">
+            <Button
+                type="button"
+                variant="outline"
+                className="w-full mb-1.5 bg-white hover:bg-muted"
+            >
                 <GoogleIcon />
                 <span>Войти с Google</span>
             </Button>
