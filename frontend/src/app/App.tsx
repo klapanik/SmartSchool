@@ -44,9 +44,11 @@ export function App() {
             if (!response.ok) throw new Error(`API error: ${response.status}`);
 
             const result = await response.json();
+
             console.log(result);
         } catch (error) {
             console.log(error);
+            // soon we will add loading and alerts for errors
         } finally {
             console.log("This is the end");
         }
