@@ -16,9 +16,7 @@ import {
     FormDescription,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-
-import { GoogleIcon } from "@/shared/ui/GoogleIcon";
-import { Mail, Eye, EyeOff } from "lucide-react";
+import { Eye, EyeOff } from "lucide-react";
 
 type Props = {
     onSubmit: SubmitHandler<ActivationFormType>;
@@ -41,12 +39,9 @@ export function ActivationForm({ onSubmit }: Props) {
     } = form;
 
     return (
-        <div>
+        <div className="grid gap-2">
             <Form {...form}>
-                <form
-                    onSubmit={handleSubmit(onSubmit)}
-                    className="flex flex-col gap-3 sm:gap-3.5 mb-2"
-                >
+                <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-3 sm:gap-3.5">
                     <FormField
                         control={control}
                         name="code"
@@ -112,7 +107,7 @@ export function ActivationForm({ onSubmit }: Props) {
                                     <FormControl>
                                         <Input
                                             className={`primary-input ${errors.password ? "invalid" : ""}`}
-                                            placeholder="Создайте надёжный пароль"
+                                            placeholder="Создайте надежный пароль"
                                             type={isPassword ? "password" : "text"}
                                             {...field}
                                         />
@@ -143,7 +138,7 @@ export function ActivationForm({ onSubmit }: Props) {
                                     <FormControl>
                                         <Input
                                             className={`primary-input ${errors.confirmPassword ? "invalid" : ""}`}
-                                            placeholder="Потвердите свой пароль"
+                                            placeholder="Подтвердите пароль"
                                             type={isConfirmPassword ? "password" : "text"}
                                             {...field}
                                         />
@@ -172,31 +167,25 @@ export function ActivationForm({ onSubmit }: Props) {
                     />
 
                     <Button type="submit" disabled={isSubmitting} className="w-full text-white">
-                        Активировать аккаунт
+                        Зарегистрироваться
                     </Button>
                 </form>
             </Form>
 
-            <Button
-                type="button"
-                variant="outline"
-                className="w-full mb-1.5 bg-white hover:bg-muted"
-            >
-                <GoogleIcon />
-                <span>Войти с Google</span>
-            </Button>
+            <div className="flex items-center justify-center gap-1 h-8">
+                <span>Уже есть аккаунт?</span>
 
-            <Button
-                type="button"
-                variant="outline"
-                className="w-full bg-white hover:bg-muted"
-                onClick={() => {
-                    navigate("/auth/login");
-                }}
-            >
-                <Mail className="size-5" />
-                <span>Войти с Email</span>
-            </Button>
+                <Button
+                    type="button"
+                    variant="link"
+                    className="p-0"
+                    onClick={() => {
+                        navigate("/auth/login");
+                    }}
+                >
+                    <span>Войти!</span>
+                </Button>
+            </div>
         </div>
     );
 }

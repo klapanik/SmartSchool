@@ -12,10 +12,11 @@ import {
     FormItem,
     FormLabel,
     FormMessage,
+    FormDescription,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 
-import { Eye, EyeOff, KeyRound } from "lucide-react";
+import { Eye, EyeOff } from "lucide-react";
 
 type Props = {
     onSubmit: SubmitHandler<LoginFormType>;
@@ -82,7 +83,19 @@ export function LoginForm({ onSubmit }: Props) {
                                         {isPassword ? <Eye /> : <EyeOff />}
                                     </Button>
                                 </div>
-                                <FormMessage />
+                                {errors.password?.message ? (
+                                    <FormMessage />
+                                ) : (
+                                    <FormDescription className="text-primary text-sm ml-auto">
+                                        <Button
+                                            type="button"
+                                            variant="link"
+                                            className="p-0 h-5 font-normal"
+                                        >
+                                            Забыли пароль?
+                                        </Button>
+                                    </FormDescription>
+                                )}
                             </FormItem>
                         )}
                     />
@@ -93,17 +106,20 @@ export function LoginForm({ onSubmit }: Props) {
                 </form>
             </Form>
 
-            <Button
-                type="button"
-                variant="outline"
-                className="w-full bg-white hover:bg-muted"
-                onClick={() => {
-                    navigate("/auth/activate");
-                }}
-            >
-                <KeyRound />
-                <span>Активировать аккаунт</span>
-            </Button>
+            <div className="flex items-center justify-center gap-1 h-8">
+                <span>Ещё нет аккаунта?</span>
+
+                <Button
+                    type="button"
+                    variant="link"
+                    className="p-0"
+                    onClick={() => {
+                        navigate("/auth/activate");
+                    }}
+                >
+                    <span>Зарегистрироваться!</span>
+                </Button>
+            </div>
         </div>
     );
 }

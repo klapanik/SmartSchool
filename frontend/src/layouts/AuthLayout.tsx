@@ -20,7 +20,7 @@ export function AuthLayout() {
                     <span className="text-gray-500 text-center">
                         {currentUrl.includes("login")
                             ? "Введите электронную почту и пароль для входа."
-                            : "Введите данные для активации вашего аккаунта."}
+                            : "Введите данные для регистрации вашего аккаунта."}
                     </span>
                 </div>
                 <Outlet />
