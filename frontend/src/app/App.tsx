@@ -17,6 +17,7 @@ import { GradesPage } from "@/pages/GradesPage/GradesPage";
 import { ActivationForm } from "@/features/ActivationForm/ActivationForm";
 import type { ActivationFormType } from "@/features/ActivationForm/zod";
 import { LoginForm } from "@/features/LoginForm/LoginForm";
+import type { LoginFormType } from "@/features/LoginForm/zod";
 
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -54,6 +55,34 @@ export function App() {
         }
     };
 
+    const handleLogin = async (data: LoginFormType) => {
+        if (!data) return;
+
+        try {
+            const requestBody = {
+                email: data.email,
+                password: data.password,
+            };
+
+            const response = await fetch(`${BASE_URL}/token/`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(requestBody),
+            });
+
+            if (!response.ok) throw new Error(`API error: ${response.status}`);
+
+            const result = await response.json();
+
+            console.log(result);
+        } catch (error) {
+            console.log(error);
+            // soon we will add loading and alerts for errors
+        } finally {
+            console.log("This is the end");
+        }
+    }
+
     const routes = createRoutesFromElements(
         <>
             <Route path="/" element={<RootLayout />}>
@@ -70,10 +99,11 @@ export function App() {
                     path="/auth/activate"
                     element={<ActivationForm onSubmit={handleUserActivation} />}
                 />
-                <Route path="/auth/login" element={<LoginForm onSubmit={() => {}} />} />
+                <Route path="/auth/login" element={<LoginForm onSubmit={handleLogin} />} />
             </Route>
         </>,
     );
+
     const router = createBrowserRouter(routes);
 
     return (
