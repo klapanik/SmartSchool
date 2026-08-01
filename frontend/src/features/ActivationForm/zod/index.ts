@@ -1,7 +1,8 @@
 import { z } from "zod";
 
-export const emailFormSchema = z
+export const activationFormSchema = z
     .object({
+        code: z.string("Введите код").length(15, "Введите верный код"),
         email: z.email("Введите корректный email"),
         password: z
             .string("Введите пароль")
@@ -14,4 +15,4 @@ export const emailFormSchema = z
         path: ["confirmPassword"],
     });
 
-export type EmailFormType = z.infer<typeof emailFormSchema>;
+export type ActivationFormType = z.infer<typeof activationFormSchema>;

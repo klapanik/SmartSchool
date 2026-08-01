@@ -1,5 +1,3 @@
-from uuid import uuid4
-
 from django.utils import timezone
 from rest_framework import status
 from rest_framework.views import APIView
@@ -7,12 +5,12 @@ from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework_simplejwt.views import TokenObtainPairView
+from rest_framework_simplejwt.serializers import TokenRefreshSerializer, TokenObtainPairSerializer
 from rest_framework_simplejwt.exceptions import TokenError
 
-import bcrypt
-
 from ..models import UserActivation
-from .serializers import UserActivationSerializer, LogoutSerializer
+from .serializers import UserActivationSerializer
 
 
 class UserActivationView(APIView):
@@ -40,19 +38,47 @@ class UserActivationView(APIView):
 
         user = activation.user
         user.email = email
-        user.password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
+        user.set_password(password)
         user.is_active = True
         user.date_joined = timezone.now()
 
-        user.save()
+        user.save(update_fields=["email", "password", "is_active", "date_joined"])
         activation.save()
 
         refresh = RefreshToken.for_user(user)
 
-        access_token = str(refresh.access_token)
-        refresh_token = str(refresh)
+        response = Response({"access": str(refresh.access_token)}, status=status.HTTP_200_OK)
 
-        return Response({"access": access_token, "refresh": refresh_token}, status=status.HTTP_200_OK)
+        response.set_cookie(
+            key="refresh",
+            value=str(refresh),
+            httponly=True,
+            secure=False,
+            samesite="Lax",
+            max_age=60 * 60 * 24 * 30,
+        )
+
+        return response
+
+
+class UserLoginView(TokenObtainPairView):
+    serializer_class = TokenObtainPairSerializer
+
+    def post(self, request, *args, **kwargs):
+        response = super().post(request, *args, **kwargs)
+
+        refresh = response.data.pop("refresh")
+
+        response.set_cookie(
+            key="refresh",
+            value=refresh,
+            httponly=True,
+            secure=False,
+            samesite="Lax",
+            max_age=60 * 60 * 24 * 30,
+        )
+
+        return response
 
 
 class UserLogoutAPIView(APIView):
@@ -60,13 +86,32 @@ class UserLogoutAPIView(APIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request):
-        serializer = LogoutSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
+        refresh = request.COOKIES.get("refresh")
+
+        if refresh is None:
+            return Response({"detail": "Refresh token not found."}, status=status.HTTP_401_UNAUTHORIZED)
 
         try:
-            refresh = RefreshToken(serializer.validated_data["refresh"])
-            refresh.blacklist()
+            token = RefreshToken(refresh)
+            token.blacklist()
         except TokenError:
-            return Response({"detail": "Invalid refresh token."}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"detail": "Invalid refresh token."}, status=status.HTTP_401_UNAUTHORIZED)
 
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        response = Response(status=status.HTTP_204_NO_CONTENT)
+        response.delete_cookie("refresh")
+        return response
+
+
+class UserRefreshView(APIView):
+    def post(self, request):
+        refresh = request.COOKIES.get("refresh")
+
+        if refresh is None:
+            return Response({"detail": "Refresh token not found."}, status=status.HTTP_401_UNAUTHORIZED)
+
+        serializer = TokenRefreshSerializer(
+            data={"refresh": refresh}
+        )
+        serializer.is_valid(raise_exception=True)
+
+        return Response(serializer.validated_data)
