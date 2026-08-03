@@ -71,6 +71,12 @@ class Grade(models.Model):
         related_name="grades"
     )
 
+    schedule_lesson = models.ForeignKey(
+        "ScheduleLesson",
+        on_delete=models.CASCADE,
+        related_name="grades"
+    )
+
     teacher = models.ForeignKey(
         "users.Teacher",
         on_delete=models.SET_NULL,
@@ -105,6 +111,7 @@ class QuarterGrade(models.Model):
     quarter = models.ForeignKey(
         "Quarter",
         on_delete=models.CASCADE,
+        related_name="grades",
     )
 
     grade = models.DecimalField(
