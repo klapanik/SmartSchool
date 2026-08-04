@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from ..models import User
 
+
 class UserActivationSerializer(serializers.Serializer):
     email = serializers.EmailField(required=True)
     password = serializers.CharField(required=True)
