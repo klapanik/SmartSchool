@@ -1,6 +1,7 @@
 from collections import defaultdict
 
-from django.db.models import Prefetch, Q
+from django.db.models import Prefetch, Avg
+from django.shortcuts import get_object_or_404
 
 from rest_framework import status
 from rest_framework.views import APIView
@@ -98,3 +99,50 @@ class GradesView(APIView):
 
         serializer = GradeSerializer(grades, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class GradeAverageView(APIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        student = request.user.student_profile
+
+        grades = Grade.objects.filter(student=student)
+
+        quarter = request.query_params.get("quarter")
+        group_by = request.query_params.get("group_by")
+
+        if quarter:
+            quarter = Quarter.objects.get(
+                pk=quarter,
+                school=student.school_class.school,
+            )
+
+            grades = grades.filter(
+                created_at__date__range=(
+                    quarter.starts_at,
+                    quarter.ends_at,
+                )
+            )
+
+        if group_by == "subjects":
+            averages = (
+                grades
+                .values("subject__name")
+                .annotate(average=Avg("grade"))
+                .order_by("subject__name")
+            )
+
+            result = [
+                {
+                    "subject": item["subject__name"],
+                    "average": item["average"],
+                } for item in averages
+            ]
+
+            return Response(result, status=status.HTTP_200_OK)
+
+        average = grades.aggregate(average=Avg("grade"))["average"] or 0
+
+        return Response({"average": average}, status=status.HTTP_200_OK)
