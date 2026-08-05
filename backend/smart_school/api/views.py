@@ -9,8 +9,8 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.authentication import JWTAuthentication
 
-from smart_school.models import Grade, ScheduleLesson, Quarter
-from .serializers import ScheduleLessonSerializer, GradeSerializer, QuarterSerializer
+from smart_school.models import Grade, ScheduleLesson, Quarter, QuarterGrade
+from .serializers import ScheduleLessonSerializer, GradeSerializer, QuarterSerializer, QuarterGradeSerializer
 
 
 class ScheduleView(APIView):
@@ -163,4 +163,37 @@ class QuartersView(APIView):
 
         serializer = QuarterSerializer(quarters, many=True)
 
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class QuarterGradesView(APIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        student = request.user.student_profile
+
+        quarter_grades = (
+            QuarterGrade.objects
+            .filter(student=student)
+            .select_related(
+                "subject",
+                "quarter",
+            )
+            .order_by("quarter__number", "subject__name")
+        )
+
+        quarter = request.query_params.get("quarter")
+
+        if quarter:
+            quarter = Quarter.objects.get(
+                pk=quarter,
+                school=student.school_class.school,
+            )
+
+            quarter_grades = quarter_grades.filter(
+                quarter=quarter,
+            )
+
+        serializer = QuarterGradeSerializer(quarter_grades, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
