@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from smart_school.models import ScheduleLesson
+from smart_school.models import ScheduleLesson, Grade
 
 
 class ScheduleLessonSerializer(serializers.ModelSerializer):
@@ -22,3 +22,19 @@ class ScheduleLessonSerializer(serializers.ModelSerializer):
             return obj.student_grades[0].grade
 
         return None
+
+
+class GradeSerializer(serializers.ModelSerializer):
+    subject = serializers.CharField(source="subject.name")
+    teacher = serializers.CharField(source="teacher.user.get_full_name")
+
+    class Meta:
+        model = Grade
+        fields = (
+            "id",
+            "grade",
+            "comment",
+            "created_at",
+            "subject",
+            "teacher",
+        )
