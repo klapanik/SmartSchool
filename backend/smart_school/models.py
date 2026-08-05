@@ -54,6 +54,11 @@ class Subject(models.Model):
         max_length=100,
     )
 
+    school_classes = models.ManyToManyField(
+        "SchoolClass",
+        related_name="subjects",
+    )
+
     def __str__(self):
         return self.name
 
