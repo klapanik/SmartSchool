@@ -1,7 +1,7 @@
 from django.utils import timezone
 
 from rest_framework import serializers
-from smart_school.models import ScheduleLesson, Grade, Quarter, QuarterGrade
+from smart_school.models import ScheduleLesson, Grade, Quarter, QuarterGrade, Subject
 
 
 class ScheduleLessonSerializer(serializers.ModelSerializer):
@@ -68,4 +68,13 @@ class QuarterGradeSerializer(serializers.ModelSerializer):
             "id",
             "subject",
             "grade",
+        )
+
+
+class SubjectSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Subject
+        fields = (
+            "id",
+            "name",
         )
