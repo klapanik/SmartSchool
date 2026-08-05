@@ -88,7 +88,9 @@ class Grade(models.Model):
         decimal_places=1,
     )
 
-    date = models.DateField()
+    created_at = models.DateTimeField(
+        auto_now_add=True,
+    )
 
     comment = models.TextField(
         blank=True,
