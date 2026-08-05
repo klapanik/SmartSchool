@@ -1,7 +1,7 @@
 from django.utils import timezone
 
 from rest_framework import serializers
-from smart_school.models import ScheduleLesson, Grade, Quarter
+from smart_school.models import ScheduleLesson, Grade, Quarter, QuarterGrade
 
 
 class ScheduleLessonSerializer(serializers.ModelSerializer):
@@ -57,3 +57,15 @@ class QuarterSerializer(serializers.ModelSerializer):
 
     def get_is_current(self, obj):
         return obj.starts_at <= timezone.localdate() <= obj.ends_at
+
+
+class QuarterGradeSerializer(serializers.ModelSerializer):
+    subject = serializers.CharField(source="subject.name")
+
+    class Meta:
+        model = QuarterGrade
+        fields = (
+            "id",
+            "subject",
+            "grade",
+        )
