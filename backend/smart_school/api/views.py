@@ -1,6 +1,6 @@
 from collections import defaultdict
 
-from django.db.models import Prefetch
+from django.db.models import Prefetch, Q
 
 from rest_framework import status
 from rest_framework.views import APIView
@@ -8,8 +8,8 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.authentication import JWTAuthentication
 
-from smart_school.models import Grade, ScheduleLesson
-from .serializers import ScheduleLessonSerializer
+from smart_school.models import Grade, ScheduleLesson, Quarter
+from .serializers import ScheduleLessonSerializer, GradeSerializer
 
 
 class ScheduleView(APIView):
@@ -50,3 +50,51 @@ class ScheduleView(APIView):
             result[self.WEEKDAYS[lesson.weekday]].append(data)
 
         return Response(result, status=status.HTTP_200_OK)
+
+
+class GradesView(APIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        student = request.user.student_profile
+
+        grades = (
+            Grade.objects
+            .filter(student=student)
+            .select_related(
+                "subject",
+                "teacher__user",
+            )
+            .order_by("-created_at")
+        )
+
+        subject = request.query_params.get("subject")
+        quarter = request.query_params.get("quarter")
+        date_from = request.query_params.get("from")
+        date_to = request.query_params.get("to")
+
+        if subject:
+            grades = grades.filter(subject_id=subject)
+
+        if quarter:
+            quarter = Quarter.objects.get(
+                pk=quarter,
+                school=student.school_class.school,
+            )
+
+            grades = grades.filter(
+                created_at__date__range=(
+                    quarter.starts_at,
+                    quarter.ends_at,
+                )
+            )
+
+        if date_from:
+            grades = grades.filter(created_at__date__gte=date_from)
+
+        if date_to:
+            grades = grades.filter(created_at__date__lte=date_to)
+
+        serializer = GradeSerializer(grades, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
