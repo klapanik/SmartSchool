@@ -10,7 +10,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.authentication import JWTAuthentication
 
 from smart_school.models import Grade, ScheduleLesson, Quarter
-from .serializers import ScheduleLessonSerializer, GradeSerializer
+from .serializers import ScheduleLessonSerializer, GradeSerializer, QuarterSerializer
 
 
 class ScheduleView(APIView):
@@ -146,3 +146,21 @@ class GradeAverageView(APIView):
         average = grades.aggregate(average=Avg("grade"))["average"] or 0
 
         return Response({"average": average}, status=status.HTTP_200_OK)
+
+
+class QuartersView(APIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        student = request.user.student_profile
+
+        quarters = (
+            Quarter.objects
+            .filter(school=student.school_class.school)
+            .order_by("number")
+        )
+
+        serializer = QuarterSerializer(quarters, many=True)
+
+        return Response(serializer.data, status=status.HTTP_200_OK)
