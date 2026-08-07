@@ -5,6 +5,8 @@ import {
     RouterProvider,
 } from "react-router-dom";
 
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
 import { RootLayout } from "@/layouts/RootLayout";
 import { AuthLayout } from "@/layouts/AuthLayout";
 
@@ -24,6 +26,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster } from "@/components/ui/sonner";
 
 const BASE_URL = import.meta.env.VITE_API_URL;
+const queryClient = new QueryClient();
 
 export function App() {
     const handleUserActivation = async (data: ActivationFormType) => {
@@ -81,7 +84,7 @@ export function App() {
         } finally {
             console.log("This is the end");
         }
-    }
+    };
 
     const routes = createRoutesFromElements(
         <>
@@ -107,11 +110,13 @@ export function App() {
     const router = createBrowserRouter(routes);
 
     return (
-        <TooltipProvider>
-            <SidebarProvider>
-                <RouterProvider router={router} />
-                <Toaster />
-            </SidebarProvider>
-        </TooltipProvider>
+        <QueryClientProvider client={queryClient}>
+            <TooltipProvider>
+                <SidebarProvider>
+                    <RouterProvider router={router} />
+                    <Toaster />
+                </SidebarProvider>
+            </TooltipProvider>
+        </QueryClientProvider>
     );
 }
