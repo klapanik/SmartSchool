@@ -6,6 +6,7 @@ import {
 } from "react-router-dom";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 import { RootLayout } from "@/layouts/RootLayout";
 import { AuthLayout } from "@/layouts/AuthLayout";
@@ -115,6 +116,7 @@ export function App() {
                 <SidebarProvider>
                     <RouterProvider router={router} />
                     <Toaster />
+                    <ReactQueryDevtools initialIsOpen={false} />
                 </SidebarProvider>
             </TooltipProvider>
         </QueryClientProvider>
