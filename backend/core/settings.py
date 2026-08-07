@@ -120,3 +120,14 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 
 STATIC_URL = 'static/'
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False  # Set to False when using TLS
+EMAIL_HOST_USER = '@gmail.com'  # Your Gmail address
+EMAIL_HOST_PASSWORD = 'password'  # NOT your regular Gmail password!
+DEFAULT_FROM_EMAIL = '@gmail.com'  # Same as EMAIL_HOST_USER
+EMAIL_TIMEOUT = 30  # Timeout in seconds
