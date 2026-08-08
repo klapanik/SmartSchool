@@ -215,3 +215,7 @@ class SubjectView(APIView):
         serializer = SubjectSerializer(subjects, many=True)
 
         return Response(serializer.data,  status=status.HTTP_200_OK)
+
+
+class AnalyticsView(APIView):
+    pass
