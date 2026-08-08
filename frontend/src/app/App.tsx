@@ -81,7 +81,12 @@ export function App() {
         } finally {
             console.log("This is the end");
         }
-    }
+    };
+
+    const handleLogout = async () => {
+        const accessToken =
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzg1NjAyOTIwLCJpYXQiOjE3ODU2MDExMjAsImp0aSI6IjAyMzE0MTI0NzM4NDRlMDQ5ZDM2ZDE1NDc0YTZjYmMzIiwidXNlcl9pZCI6IjIifQ.UUIrdwJ6XtDCcUYzl-e0LuuhbdfBA4Vp4oFBkfpjf2Q";
+    };
 
     const routes = createRoutesFromElements(
         <>
@@ -99,7 +104,10 @@ export function App() {
                     path="/auth/activate"
                     element={<ActivationForm onSubmit={handleUserActivation} />}
                 />
-                <Route path="/auth/login" element={<LoginForm onSubmit={handleLogin} />} />
+                <Route
+                    path="/auth/login"
+                    element={<LoginForm onSubmit={handleLogin} />}
+                />
             </Route>
         </>,
     );
