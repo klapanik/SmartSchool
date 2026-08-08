@@ -79,7 +79,8 @@ class GradesView(APIView):
             grades = grades.filter(subject_id=subject)
 
         if quarter:
-            quarter = Quarter.objects.get(
+            quarter = get_object_or_404(
+                Quarter,
                 pk=quarter,
                 school=student.school_class.school,
             )
@@ -114,7 +115,8 @@ class GradeAverageView(APIView):
         group_by = request.query_params.get("group_by")
 
         if quarter:
-            quarter = Quarter.objects.get(
+            quarter = get_object_or_404(
+                Quarter,
                 pk=quarter,
                 school=student.school_class.school,
             )
