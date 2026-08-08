@@ -9,7 +9,7 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.authentication import JWTAuthentication
 
-from smart_school.models import Grade, ScheduleLesson, Quarter, QuarterGrade, Subject
+from smart_school.models import Grade, ScheduleLesson, Quarter, QuarterGrade, LessonAttendance
 from .serializers import ScheduleLessonSerializer, GradeSerializer, QuarterSerializer, QuarterGradeSerializer, SubjectSerializer
 
 
@@ -218,4 +218,30 @@ class SubjectView(APIView):
 
 
 class AnalyticsView(APIView):
-    pass
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        student = request.user.student_profile
+
+        quarter_id = request.query_params.get("quarter")
+
+        if not quarter_id:
+            return Response({"detail": "Quarter parameter is required."}, status=status.HTTP_400_BAD_REQUEST)
+
+        quarter = get_object_or_404(
+            Quarter,
+            pk=quarter_id,
+            school=student.school_class.school,
+        )
+
+        absence_count = LessonAttendance.objects.filter(
+            student=student,
+            date__range=(quarter.starts_at, quarter.ends_at),
+            is_absent=True,
+        ).count()
+
+        return Response(
+            {"absence_count": absence_count},
+            status=status.HTTP_200_OK,
+        )
