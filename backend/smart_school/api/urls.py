@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import ScheduleView, GradesView, GradeAverageView, QuartersView, QuarterGradesView, SubjectView
+from .views import ScheduleView, GradesView, GradeAverageView, QuartersView, QuarterGradesView, SubjectView, AnalyticsView
 
 
 urlpatterns = [
@@ -9,4 +9,5 @@ urlpatterns = [
     path('quarters/', QuartersView.as_view(), name='quarters'),
     path('quarters/grades/', QuarterGradesView.as_view(), name='quarters_grades'),
     path('subjects/', SubjectView.as_view(), name='subjects'),
+    path('analytics/', AnalyticsView.as_view(), name='analytics'),
 ]
