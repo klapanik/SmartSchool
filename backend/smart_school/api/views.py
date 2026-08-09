@@ -1,6 +1,6 @@
 from collections import defaultdict
 
-from django.db.models import Prefetch, Avg
+from django.db.models import Prefetch, Avg, Count
 from django.shortcuts import get_object_or_404
 
 from rest_framework import status
@@ -10,7 +10,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.authentication import JWTAuthentication
 
 from smart_school.models import Grade, ScheduleLesson, Quarter, QuarterGrade, LessonAttendance
-from .serializers import ScheduleLessonSerializer, GradeSerializer, QuarterSerializer, QuarterGradeSerializer, SubjectSerializer
+from .serializers import *
 
 
 class ScheduleView(APIView):
@@ -237,6 +237,29 @@ class AnalyticsView(APIView):
             school=student.school_class.school,
         )
 
+        student_grades = Grade.objects.filter(
+            student=student,
+            created_at__date__range=(quarter.starts_at, quarter.ends_at),
+        ).select_related("subject")
+
+        best_grade = student_grades.order_by("-grade").first()
+        worst_grade = student_grades.order_by("grade").first()
+
+        best_grade_data = None
+        worst_grade_data = None
+
+        if best_grade:
+            best_grade_data = {
+                "grade": best_grade.grade,
+                "subject": best_grade.subject.name,
+            }
+
+        if worst_grade:
+            worst_grade_data = {
+                "grade": worst_grade.grade,
+                "subject": worst_grade.subject.name,
+            }
+
         absence_count = LessonAttendance.objects.filter(
             student=student,
             date__range=(quarter.starts_at, quarter.ends_at),
@@ -244,6 +267,10 @@ class AnalyticsView(APIView):
         ).count()
 
         return Response(
-            {"absence_count": absence_count},
+            {
+                "absence_count": absence_count,
+                "best_grade": best_grade_data,
+                "worst_grade": worst_grade_data,
+            },
             status=status.HTTP_200_OK,
         )
