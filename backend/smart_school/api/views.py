@@ -370,6 +370,78 @@ class AnalyticsView(APIView):
             )
         ]
 
+        subjects_for_comparison_ids = [
+            item["subject_id"]
+            for item in subject_averages
+        ]
+
+        # Student's current average by subject
+        student_subject_averages = {
+            item["subject_id"]: float(item["average_grade"])
+            for item in subject_averages
+        }
+
+        # Class average by subject
+        class_subject_averages = (
+            Grade.objects
+            .filter(
+                student__school_class=student.school_class,
+                subject_id__in=subjects_for_comparison_ids,
+                created_at__date__range=(
+                    quarter.starts_at,
+                    quarter.ends_at,
+                ),
+            )
+            .values("subject_id")
+            .annotate(average_grade=Avg("grade"))
+        )
+
+        class_subject_averages = {
+            item["subject_id"]: round(float(item["average_grade"]), 2) for item in class_subject_averages
+        }
+
+        # Previous quarter averages by subject
+        last_subject_averages = {}
+
+        if previous_quarter:
+            previous_grades = (
+                QuarterGrade.objects
+                .filter(
+                    student=student,
+                    quarter=previous_quarter,
+                    subject_id__in=subjects_for_comparison_ids,
+                )
+                .values("subject_id")
+                .annotate(
+                    average_grade=Avg("grade"),
+                )
+            )
+
+            last_subject_averages = {
+                item["subject_id"]: round(float(item["average_grade"]), 2) for item in previous_grades
+            }
+
+        comparison = []
+
+        for item in subject_averages:
+            subject_id = item["subject_id"]
+
+            comparison.append(
+                {
+                    "subject": item["subject__name"],
+                    "users_grade": round(
+                        student_subject_averages[subject_id],
+                        2,
+                    ),
+                    "class_grade": class_subject_averages.get(
+                        subject_id
+                    ),
+                    "last_grade": last_subject_averages.get(
+                        subject_id
+                    ),
+                }
+            )
+
         return Response(
             {
                 "absence_count": absence_count,
@@ -380,6 +452,7 @@ class AnalyticsView(APIView):
                 "best_subjects": best_subjects,
                 "worst_subjects": worst_subjects,
                 "subject_workload": subject_workload,
+                "comparison": comparison,
             },
             status=status.HTTP_200_OK,
         )
