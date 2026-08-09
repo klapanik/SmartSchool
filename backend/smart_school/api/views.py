@@ -357,6 +357,19 @@ class AnalyticsView(APIView):
                 } for item in worst_subjects_queryset
             ]
 
+        subject_workload = [
+            {
+                "subject": item["subject__name"],
+                "grades_count": item["grades_count"],
+            }
+            for item in (
+                student_grades
+                .values("subject__name")
+                .annotate(grades_count=Count("id"))
+                .order_by("-grades_count")
+            )
+        ]
+
         return Response(
             {
                 "absence_count": absence_count,
@@ -366,6 +379,7 @@ class AnalyticsView(APIView):
                 "grade_distribution": grade_distribution,
                 "best_subjects": best_subjects,
                 "worst_subjects": worst_subjects,
+                "subject_workload": subject_workload,
             },
             status=status.HTTP_200_OK,
         )
