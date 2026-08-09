@@ -295,12 +295,39 @@ class AnalyticsView(APIView):
             } for item in monthly_grades
         ]
 
+        grade_distribution_queryset = (
+            student_grades
+            .values("grade")
+            .annotate(count=Count("id"))
+            .order_by("grade")
+        )
+
+        total_grades = student_grades.count()
+
+        grade_distribution = []
+
+        for item in grade_distribution_queryset:
+            percentage = (
+                item["count"] / total_grades * 100
+                if total_grades
+                else 0
+            )
+
+            grade_distribution.append(
+                {
+                    "grade": item["grade"],
+                    "count": item["count"],
+                    "percent": round(percentage, 1),
+                }
+            )
+
         return Response(
             {
                 "absence_count": absence_count,
                 "best_grade": best_grade_data,
                 "worst_grade": worst_grade_data,
                 "monthly_average": monthly_average,
+                "grade_distribution": grade_distribution,
             },
             status=status.HTTP_200_OK,
         )
