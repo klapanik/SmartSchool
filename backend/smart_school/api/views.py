@@ -321,6 +321,42 @@ class AnalyticsView(APIView):
                 }
             )
 
+        subject_averages = list(
+            student_grades
+            .values("subject_id", "subject__name")
+            .annotate(average_grade=Avg("grade"))
+            .order_by("-average_grade")
+        )
+
+        subject_count = len(subject_averages)
+
+        best_subjects = None
+        worst_subjects = None
+
+        limit = 1
+
+        if subject_count >= 12:
+            limit = 6
+        elif subject_count >= 10:
+            limit = 5
+
+        if limit:
+            best_subjects = [
+                {
+                    "subject": item["subject__name"],
+                    "average_grade": round(float(item["average_grade"]), 2),
+                } for item in subject_averages[:limit]
+            ]
+
+            worst_subjects_queryset = reversed(subject_averages[-limit:])
+
+            worst_subjects = [
+                {
+                    "subject": item["subject__name"],
+                    "average_grade": round(float(item["average_grade"]), 2),
+                } for item in worst_subjects_queryset
+            ]
+
         return Response(
             {
                 "absence_count": absence_count,
@@ -328,6 +364,8 @@ class AnalyticsView(APIView):
                 "worst_grade": worst_grade_data,
                 "monthly_average": monthly_average,
                 "grade_distribution": grade_distribution,
+                "best_subjects": best_subjects,
+                "worst_subjects": worst_subjects,
             },
             status=status.HTTP_200_OK,
         )
