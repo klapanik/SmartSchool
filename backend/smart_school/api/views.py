@@ -257,6 +257,8 @@ class AnalyticsView(APIView):
             created_at__date__range=(quarter.starts_at, quarter.ends_at),
         ).select_related("subject")
 
+        # 1. Best and worst grade
+
         best_grade = student_grades.order_by("-grade").first()
         worst_grade = student_grades.order_by("grade").first()
 
@@ -275,11 +277,7 @@ class AnalyticsView(APIView):
                 "subject": worst_grade.subject.name,
             }
 
-        absence_count = LessonAttendance.objects.filter(
-            student=student,
-            date__range=(quarter.starts_at, quarter.ends_at),
-            is_absent=True,
-        ).count()
+        # 2. Average grade for every month
 
         monthly_grades = (
             student_grades
@@ -294,6 +292,8 @@ class AnalyticsView(APIView):
                 "average_grade": round(float(item["average_grade"]), 2),
             } for item in monthly_grades
         ]
+
+        # 3. Grade distribution
 
         grade_distribution_queryset = (
             student_grades
@@ -321,6 +321,8 @@ class AnalyticsView(APIView):
                 }
             )
 
+        # 4. Subjects and average grade for each subject
+
         subject_averages = list(
             student_grades
             .values("subject_id", "subject__name")
@@ -329,6 +331,8 @@ class AnalyticsView(APIView):
         )
 
         subject_count = len(subject_averages)
+
+        # 5. Best / worst subjects
 
         best_subjects = None
         worst_subjects = None
@@ -357,6 +361,61 @@ class AnalyticsView(APIView):
                 } for item in worst_subjects_queryset
             ]
 
+        # 6. Previous quarter average for best/worst subject
+
+        previous_quarter = (
+            Quarter.objects.filter(
+                school=quarter.school,
+                number=quarter.number - 1,
+            ).first()
+        )
+
+        subjects_for_comparison = set()
+
+        if best_subjects:
+            subjects_for_comparison.add(
+                best_subjects[0]["subject"]
+            )
+
+        if worst_subjects:
+            subjects_for_comparison.add(
+                worst_subjects[0]["subject"]
+            )
+
+        previous_subject_averages = {}
+
+        if previous_quarter and subjects_for_comparison:
+            previous_subject_averages_queryset = (
+                Grade.objects
+                .filter(
+                    student=student,
+                    quarter=previous_quarter,
+                    subject__name__in=subjects_for_comparison,
+                )
+                .values("subject__name")
+                .annotate(average_grade=Avg("grade"))
+            )
+
+            previous_subject_averages = {
+                item["subject__name"]: round(float(item["average_grade"]), 2) for item in previous_subject_averages_queryset
+            }
+
+        if best_subjects:
+            best_subjects[0]["last_average_grade"] = (
+                previous_subject_averages.get(
+                    best_subjects[0]["subject"]
+                )
+            )
+
+        if worst_subjects:
+            worst_subjects[0]["last_average_grade"] = (
+                previous_subject_averages.get(
+                    worst_subjects[0]["subject"]
+                )
+            )
+
+        # 7. Workload by subjects
+
         subject_workload = [
             {
                 "subject": item["subject__name"],
@@ -369,6 +428,8 @@ class AnalyticsView(APIView):
                 .order_by("-grades_count")
             )
         ]
+
+        # 8. Comparison with class and previous quarter
 
         subjects_for_comparison_ids = [
             item["subject_id"]
@@ -441,6 +502,16 @@ class AnalyticsView(APIView):
                     ),
                 }
             )
+
+        # 9. Absences
+
+        absence_count = LessonAttendance.objects.filter(
+            student=student,
+            date__range=(quarter.starts_at, quarter.ends_at),
+            is_absent=True,
+        ).count()
+
+        # 10. Response
 
         return Response(
             {
