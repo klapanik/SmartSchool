@@ -223,6 +223,21 @@ class AnalyticsView(APIView):
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
 
+    MONTHS = {
+        1: "January",
+        2: "February",
+        3: "March",
+        4: "April",
+        5: "May",
+        6: "June",
+        7: "July",
+        8: "August",
+        9: "September",
+        10: "October",
+        11: "November",
+        12: "December",
+    }
+
     def get(self, request):
         student = request.user.student_profile
 
@@ -266,11 +281,26 @@ class AnalyticsView(APIView):
             is_absent=True,
         ).count()
 
+        monthly_grades = (
+            student_grades
+            .values("created_at__date__year", "created_at__date__month")
+            .annotate(average_grade=Avg("grade"))
+            .order_by("created_at__date__year", "created_at__date__month")
+        )
+
+        monthly_average = [
+            {
+                "month": self.MONTHS[item["created_at__date__month"]],
+                "average_grade": round(float(item["average_grade"]), 2),
+            } for item in monthly_grades
+        ]
+
         return Response(
             {
                 "absence_count": absence_count,
                 "best_grade": best_grade_data,
                 "worst_grade": worst_grade_data,
+                "monthly_average": monthly_average,
             },
             status=status.HTTP_200_OK,
         )
