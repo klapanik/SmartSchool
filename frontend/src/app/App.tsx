@@ -3,7 +3,6 @@ import {
     createRoutesFromElements,
     Route,
     RouterProvider,
-    useNavigate,
 } from "react-router-dom";
 
 import { RootLayout } from "@/layouts/RootLayout";
@@ -81,30 +80,6 @@ export function App() {
             // soon we will add loading and alerts for errors
         } finally {
             console.log("This is the end");
-        }
-    };
-
-    const handleLogout = async () => {
-        const accessToken =
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzg1NjAyOTIwLCJpYXQiOjE3ODU2MDExMjAsImp0aSI6IjAyMzE0MTI0NzM4NDRlMDQ5ZDM2ZDE1NDc0YTZjYmMzIiwidXNlcl9pZCI6IjIifQ.UUIrdwJ6XtDCcUYzl-e0LuuhbdfBA4Vp4oFBkfpjf2Q";
-        const navigate = useNavigate();
-
-        try {
-            const response = await fetch(`${BASE_URL}/user/logout/`, {
-                method: "POST",
-                headers: {
-                    Authorization: `Bearer ${accessToken}`,
-                    "Content-Type": "application/json",
-                },
-            });
-            if (!response.ok) {
-                const errorData = await response.json();
-                throw new Error(errorData.message || "Logout failed");
-            }
-            navigate("/auth/login");
-        } catch (error) {
-            console.error("Logout error:", error);
-            throw error;
         }
     };
 

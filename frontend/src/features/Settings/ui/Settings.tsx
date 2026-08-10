@@ -2,8 +2,11 @@ import { AccentColor } from "./AccentColor";
 import { DeleteAccount } from "./DeleteAccount";
 import { TimeFormat } from "./TimeFormat";
 import { WeekBegin } from "./WeekBegin";
+interface SettingsProps {
+    handleLogout: () => Promise<void>;
+}
 
-export function Settings() {
+export function Settings({ handleLogout }: SettingsProps) {
     return (
         <div className="flex flex-col gap-3.5">
             <p className="text-sm text-smoky-black">Настройки</p>
@@ -12,7 +15,7 @@ export function Settings() {
                 <TimeFormat />
                 <WeekBegin />
             </div>
-            <DeleteAccount />
+            <DeleteAccount handleLogout={handleLogout} />
         </div>
     );
 }
