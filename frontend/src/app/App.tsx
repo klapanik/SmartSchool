@@ -87,6 +87,25 @@ export function App() {
         }
     };
 
+    const token =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzg2Mzg1MjU0LCJpYXQiOjE3ODYzODM0NTQsImp0aSI6IjU4MzZhZWU2YTY2YTRmNzNhN2E4ZjAzNTRlYWJkNmU2IiwidXNlcl9pZCI6IjEifQ.fFwJEmMzzDzEX4gvN2UoiWnTlHWqDnFbigEA4ZWlJKk";
+    const handleGetSchedule = async () => {
+        try {
+            const response = await fetch(`${BASE_URL}/schedule/`, {
+                method: "GET",
+                headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+            });
+            if (!response.ok) throw new Error(`API error: ${response.status}`);
+
+            const result = await response.json();
+            console.log("Расписание получено:", result);
+        } catch (error) {
+            console.log("Ошибка при получении расписания:", error);
+        }
+    };
+
+    handleGetSchedule();
+
     const routes = createRoutesFromElements(
         <>
             <Route path="/" element={<RootLayout />}>
