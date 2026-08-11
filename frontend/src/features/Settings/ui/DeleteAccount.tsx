@@ -11,11 +11,11 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 
-interface DeleteAccountProps {
+type Props = {
     handleLogout: () => Promise<void>;
-}
+};
 
-export const DeleteAccount = ({ handleLogout }: DeleteAccountProps) => {
+export const DeleteAccount = ({ handleLogout }: Props) => {
     return (
         <div className="w-full">
             <AlertDialog>
