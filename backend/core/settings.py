@@ -15,6 +15,7 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 AUTH_USER_MODEL = "users.User"
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=30),
@@ -128,6 +129,6 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False  # Set to False when using TLS
 EMAIL_HOST_USER = '@gmail.com'  # Your Gmail address
-EMAIL_HOST_PASSWORD = 'password'  # NOT your regular Gmail password!
+EMAIL_HOST_PASSWORD = 'PASSWORD'  # NOT your regular Gmail password!
 DEFAULT_FROM_EMAIL = '@gmail.com'  # Same as EMAIL_HOST_USER
 EMAIL_TIMEOUT = 30  # Timeout in seconds

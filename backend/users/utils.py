@@ -19,8 +19,9 @@ def send_verification_email(user):
     )
     
     subject = 'Verify Your Email for EasyGrades'
+    greeting_name = user.get_full_name() or user.email
     message = f'''
-    Hello {user.username},
+    Hello {greeting_name},
     
     Welcome to EasyGrades! Please verify your email address by entering this code:
     
@@ -48,8 +49,9 @@ def send_verification_email(user):
 
 def send_password_reset_email(user, reset_code):
     subject = 'Reset Your Password - EasyGrades'
+    greeting_name = user.get_full_name() or user.email
     message = f'''
-    Hello {user.username},
+    Hello {greeting_name},
     
     You requested to reset your password. Use this code to reset it:
     
