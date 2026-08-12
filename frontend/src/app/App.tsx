@@ -207,7 +207,10 @@ export function App() {
                     path="/auth/activate"
                     element={<ActivationForm onSubmit={handleUserActivation} />}
                 />
-                <Route path="/auth/login" element={<LoginForm onSubmit={handleLogin} />} />
+                <Route
+                    path="/auth/login"
+                    element={<LoginForm onSubmit={handleLogin} />}
+                />
             </Route>
         </>,
     );
