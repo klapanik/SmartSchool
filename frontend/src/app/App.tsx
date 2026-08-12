@@ -174,14 +174,12 @@ export function App() {
 
     const handleGetQuarterGrades = async (quarter: number) => {
         try {
-            const response = await fetch(`${BASE_URL}/quarters/grades?quarter=${quarter}`, {
+            const response = await fetch(`${BASE_URL}/quarters/grades/?quarter=${quarter}`, {
                 method: "GET",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`,
-                },
+                headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
             });
             if (!response.ok) throw new Error(`API error: ${response.status}`);
+
             const result = await response.json();
             console.log("Четвертные оценки получены:", result);
         } catch (error) {
@@ -207,10 +205,7 @@ export function App() {
                     path="/auth/activate"
                     element={<ActivationForm onSubmit={handleUserActivation} />}
                 />
-                <Route
-                    path="/auth/login"
-                    element={<LoginForm onSubmit={handleLogin} />}
-                />
+                <Route path="/auth/login" element={<LoginForm onSubmit={handleLogin} />} />
             </Route>
         </>,
     );
