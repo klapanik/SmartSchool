@@ -25,6 +25,7 @@ import type { LoginFormType } from "@/features/LoginForm/zod";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster } from "@/components/ui/sonner";
+import { useEffect } from "react";
 
 const BASE_URL = import.meta.env.VITE_API_URL;
 const queryClient = new QueryClient();
@@ -90,140 +91,176 @@ export function App() {
     const token =
         "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzg2NTUxNTE4LCJpYXQiOjE3ODY1NDk3MTgsImp0aSI6ImNhNDVlNDQ0OGZkMjQwM2E5NjE0YzRiOTFhM2M1ZmI1IiwidXNlcl9pZCI6IjEifQ.agsdyCZW6h6-55zVORF4QPsGhS2ewjchH4VFnxWFyZE";
 
-    const handleGetUserData = async () => {
-        try {
-            const response = await fetch(`${BASE_URL}/user/me/`, {
-                method: "GET",
-                headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
-            });
-            if (!response.ok) throw new Error(`API error: ${response.status}`);
-
-            const result = await response.json();
-            console.log("Данные пользователя получены:", result);
-        } catch (error) {
-            console.log("Ошибка при получении данных пользователя:", error);
-        }
-    };
-
-    handleGetUserData();
-
-    const handleGetSchedule = async () => {
-        try {
-            const response = await fetch(`${BASE_URL}/schedule/`, {
-                method: "GET",
-                headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
-            });
-            if (!response.ok) throw new Error(`API error: ${response.status}`);
-
-            const result = await response.json();
-            console.log("Расписание получено:", result);
-        } catch (error) {
-            console.log("Ошибка при получении расписания:", error);
-        }
-    };
-
-    handleGetSchedule();
-
-    const handleGetGrades = async (
-        subject: number,
-        quarter: number,
-        dateFrom: string,
-        dateTo: string,
-    ) => {
-        try {
-            const response = await fetch(
-                `${BASE_URL}/grades/?subject=${subject}&quarter=${quarter}&date_from=${dateFrom}&date_to=${dateTo}`,
-                {
+    useEffect(() => {
+        const handleGetUserData = async () => {
+            try {
+                const response = await fetch(`${BASE_URL}/user/me/`, {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",
                         Authorization: `Bearer ${token}`,
                     },
-                },
-            );
-            if (!response.ok) throw new Error(`API error: ${response.status}`);
-            const result = await response.json();
-            console.log("Отметки получены:", result);
-        } catch (error) {
-            console.log("Ошибка при получении отметок:", error);
+                });
+                if (!response.ok) throw new Error(`API error: ${response.status}`);
+
+                const result = await response.json();
+                console.log("Данные пользователя получены:", result);
+            } catch (error) {
+                console.log("Ошибка при получении данных пользователя:", error);
+            }
+        };
+        if (token) {
+            handleGetUserData();
         }
-    };
+    }, [token]);
 
-    handleGetGrades(1, 1, "2025-10-08", "2027-10-08");
-
-    const handleGetAverageGrades = async (quarter: number, groupBy: string) => {
-        try {
-            const response = await fetch(
-                `${BASE_URL}/grades/?quarter=${quarter}&group_by=${groupBy}`,
-                {
+    useEffect(() => {
+        const handleGetSchedule = async () => {
+            try {
+                const response = await fetch(`${BASE_URL}/schedule/`, {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",
                         Authorization: `Bearer ${token}`,
                     },
-                },
-            );
-            if (!response.ok) throw new Error(`API error: ${response.status}`);
-            const result = await response.json();
-            console.log("Средние отметки получены:", result);
-        } catch (error) {
-            console.log("Ошибка при получении средних отметок:", error);
+                });
+                if (!response.ok) throw new Error(`API error: ${response.status}`);
+
+                const result = await response.json();
+                console.log("Расписание получено:", result);
+            } catch (error) {
+                console.log("Ошибка при получении расписания:", error);
+            }
+        };
+        if (token) {
+            handleGetSchedule();
         }
-    };
+    }, [token]);
 
-    handleGetAverageGrades(1, "");
-
-    const handleGetQuarters = async () => {
-        try {
-            const response = await fetch(`${BASE_URL}/quarters/`, {
-                method: "GET",
-                headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
-            });
-            if (!response.ok) throw new Error(`API error: ${response.status}`);
-
-            const result = await response.json();
-            console.log("Список четвертей получен:", result);
-        } catch (error) {
-            console.log("Ошибка при получении списка четвертей:", error);
+    useEffect(() => {
+        const handleGetGrades = async (
+            subject: number,
+            quarter: number,
+            dateFrom: string,
+            dateTo: string,
+        ) => {
+            try {
+                const response = await fetch(
+                    `${BASE_URL}/grades/?subject=${subject}&quarter=${quarter}&date_from=${dateFrom}&date_to=${dateTo}`,
+                    {
+                        method: "GET",
+                        headers: {
+                            "Content-Type": "application/json",
+                            Authorization: `Bearer ${token}`,
+                        },
+                    },
+                );
+                if (!response.ok) throw new Error(`API error: ${response.status}`);
+                const result = await response.json();
+                console.log("Отметки получены:", result);
+            } catch (error) {
+                console.log("Ошибка при получении отметок:", error);
+            }
+        };
+        if (token) {
+            handleGetGrades(1, 1, "2025-10-08", "2027-10-08");
         }
-    };
+    }, [token]);
 
-    handleGetQuarters();
-
-    const handleGetQuarterGrades = async (quarter: number) => {
-        try {
-            const response = await fetch(`${BASE_URL}/quarters/grades/?quarter=${quarter}`, {
-                method: "GET",
-                headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
-            });
-            if (!response.ok) throw new Error(`API error: ${response.status}`);
-
-            const result = await response.json();
-            console.log("Четвертные оценки получены:", result);
-        } catch (error) {
-            console.log("Ошибка при получении четвертных отметок:", error);
+    useEffect(() => {
+        const handleGetAverageGrades = async (quarter: number, groupBy: string) => {
+            try {
+                const response = await fetch(
+                    `${BASE_URL}/grades/?quarter=${quarter}&group_by=${groupBy}`,
+                    {
+                        method: "GET",
+                        headers: {
+                            "Content-Type": "application/json",
+                            Authorization: `Bearer ${token}`,
+                        },
+                    },
+                );
+                if (!response.ok) throw new Error(`API error: ${response.status}`);
+                const result = await response.json();
+                console.log("Средние отметки получены:", result);
+            } catch (error) {
+                console.log("Ошибка при получении средних отметок:", error);
+            }
+        };
+        if (token) {
+            handleGetAverageGrades(1, "");
         }
-    };
+    }, [token]);
 
-    handleGetQuarterGrades(1);
+    useEffect(() => {
+        const handleGetQuarters = async () => {
+            try {
+                const response = await fetch(`${BASE_URL}/quarters/`, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
+                if (!response.ok) throw new Error(`API error: ${response.status}`);
 
-    const handleGetSubjects = async (countOnly: boolean) => {
-        try {
-            const response = await fetch(`${BASE_URL}/subjects/?count_only=${countOnly}`, {
-                method: "GET",
-                headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
-            });
-            if (!response.ok) throw new Error(`API error: ${response.status}`);
-
-            const result = await response.json();
-            console.log("Список предметов получен:", result);
-        } catch (error) {
-            console.log("Ошибка при получении списка предметов:", error);
+                const result = await response.json();
+                console.log("Список четвертей получен:", result);
+            } catch (error) {
+                console.log("Ошибка при получении списка четвертей:", error);
+            }
+        };
+        if (token) {
+            handleGetQuarters();
         }
-    };
+    }, [token]);
 
-    handleGetSubjects(false);
-    handleGetSubjects(true);
+    useEffect(() => {
+        const handleGetQuarterGrades = async (quarter: number) => {
+            try {
+                const response = await fetch(`${BASE_URL}/quarters/grades/?quarter=${quarter}`, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
+                if (!response.ok) throw new Error(`API error: ${response.status}`);
+
+                const result = await response.json();
+                console.log("Четвертные оценки получены:", result);
+            } catch (error) {
+                console.log("Ошибка при получении четвертных отметок:", error);
+            }
+        };
+        if (token) {
+            handleGetQuarterGrades(1);
+        }
+    }, [token]);
+
+    useEffect(() => {
+        const handleGetSubjects = async (countOnly: boolean) => {
+            try {
+                const response = await fetch(`${BASE_URL}/subjects/?count_only=${countOnly}`, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
+                if (!response.ok) throw new Error(`API error: ${response.status}`);
+
+                const result = await response.json();
+                console.log("Список предметов получен:", result);
+            } catch (error) {
+                console.log("Ошибка при получении списка предметов:", error);
+            }
+        };
+        if (token) {
+            handleGetSubjects(true);
+            handleGetSubjects(false);
+        }
+    }, [token]);
 
     const routes = createRoutesFromElements(
         <>
