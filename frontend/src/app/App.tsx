@@ -88,7 +88,7 @@ export function App() {
     };
 
     const token =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzg2Mzg1MjU0LCJpYXQiOjE3ODYzODM0NTQsImp0aSI6IjU4MzZhZWU2YTY2YTRmNzNhN2E4ZjAzNTRlYWJkNmU2IiwidXNlcl9pZCI6IjEifQ.fFwJEmMzzDzEX4gvN2UoiWnTlHWqDnFbigEA4ZWlJKk";
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzg2NDIyMDk0LCJpYXQiOjE3ODY0MjAyOTQsImp0aSI6IjhiYWEwNTkzNjUyMjRjZGE5ZGMyYjk2ZmMyOGY0NDE5IiwidXNlcl9pZCI6IjEifQ.pka7W469bLILS--gPMVWvSYOh13aUUJ7089Kv1p9P3E";
     const handleGetSchedule = async () => {
         try {
             const response = await fetch(`${BASE_URL}/schedule/`, {
@@ -105,6 +105,33 @@ export function App() {
     };
 
     handleGetSchedule();
+
+    const handleGetGrades = async (
+        subject: string,
+        quarter: number,
+        dateFrom: string,
+        dateTo: string,
+    ) => {
+        try {
+            const response = await fetch(
+                `${BASE_URL}/grades/?subject=${subject}&quarter=${quarter}&dateFrom=${dateFrom}&dateTo=${dateTo}`,
+                {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
+                    },
+                },
+            );
+            if (!response.ok) throw new Error(`API error: ${response.status}`);
+            const result = await response.json();
+            console.log("Отметки получены:", result);
+        } catch (error) {
+            console.log("Ошибка при получении отметок:", error);
+        }
+    };
+
+    handleGetGrades("literature", 1, "2025-10-08", "2027-10-08");
 
     const routes = createRoutesFromElements(
         <>
