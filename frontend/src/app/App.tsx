@@ -114,7 +114,7 @@ export function App() {
     ) => {
         try {
             const response = await fetch(
-                `${BASE_URL}/grades/?subject=${subject}&quarter=${quarter}&dateFrom=${dateFrom}&dateTo=${dateTo}`,
+                `${BASE_URL}/grades/?subject=${subject}&quarter=${quarter}&date_from=${dateFrom}&date_to=${dateTo}`,
                 {
                     method: "GET",
                     headers: {
