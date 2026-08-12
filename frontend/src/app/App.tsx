@@ -133,6 +133,28 @@ export function App() {
 
     handleGetGrades("literature", 1, "2025-10-08", "2027-10-08");
 
+    const handleGetAverageGrades = async (quarter: number, groupBy: string) => {
+        try {
+            const response = await fetch(
+                `${BASE_URL}/grades/?quarter=${quarter}&group_by=${groupBy}`,
+                {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
+                    },
+                },
+            );
+            if (!response.ok) throw new Error(`API error: ${response.status}`);
+            const result = await response.json();
+            console.log("Средние отметки получены:", result);
+        } catch (error) {
+            console.log("Ошибка при получении средних отметок:", error);
+        }
+    };
+
+    handleGetAverageGrades(1, "");
+
     const routes = createRoutesFromElements(
         <>
             <Route path="/" element={<RootLayout />}>
