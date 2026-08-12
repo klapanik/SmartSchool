@@ -155,6 +155,23 @@ export function App() {
 
     handleGetAverageGrades(1, "");
 
+    const handleGetQuarters = async () => {
+        try {
+            const response = await fetch(`${BASE_URL}/quarters/`, {
+                method: "GET",
+                headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+            });
+            if (!response.ok) throw new Error(`API error: ${response.status}`);
+
+            const result = await response.json();
+            console.log("Список четвертей получен:", result);
+        } catch (error) {
+            console.log("Ошибка при получении списка четвертей:", error);
+        }
+    };
+
+    handleGetQuarters();
+
     const routes = createRoutesFromElements(
         <>
             <Route path="/" element={<RootLayout />}>
