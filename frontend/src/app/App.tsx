@@ -172,6 +172,25 @@ export function App() {
 
     handleGetQuarters();
 
+    const handleGetQuarterGrades = async (quarter: number) => {
+        try {
+            const response = await fetch(`${BASE_URL}/quarters/grades?quarter=${quarter}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            if (!response.ok) throw new Error(`API error: ${response.status}`);
+            const result = await response.json();
+            console.log("Четвертные оценки получены:", result);
+        } catch (error) {
+            console.log("Ошибка при получении четвертных отметок:", error);
+        }
+    };
+
+    handleGetQuarterGrades(1);
+
     const routes = createRoutesFromElements(
         <>
             <Route path="/" element={<RootLayout />}>
