@@ -207,6 +207,24 @@ export function App() {
 
     handleGetQuarterGrades(1);
 
+    const handleGetSubjects = async (countOnly: boolean) => {
+        try {
+            const response = await fetch(`${BASE_URL}/subjects/?count_only=${countOnly}`, {
+                method: "GET",
+                headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+            });
+            if (!response.ok) throw new Error(`API error: ${response.status}`);
+
+            const result = await response.json();
+            console.log("Список предметов получен:", result);
+        } catch (error) {
+            console.log("Ошибка при получении списка предметов:", error);
+        }
+    };
+
+    handleGetSubjects(false);
+    handleGetSubjects(true);
+
     const routes = createRoutesFromElements(
         <>
             <Route path="/" element={<RootLayout />}>
