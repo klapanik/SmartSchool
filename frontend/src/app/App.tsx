@@ -88,7 +88,25 @@ export function App() {
     };
 
     const token =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzg2NTIxMTA3LCJpYXQiOjE3ODY1MTkzMDcsImp0aSI6IjI0MDU4MmNjZjgwZjQwODBiMDEyOTdjY2EyMGU2ZGJmIiwidXNlcl9pZCI6IjUifQ.yskkGUrEQa4H1DkTi0iIjkjpiAKHWQPuu3uEjT9VGMc";
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzg2NTUxNTE4LCJpYXQiOjE3ODY1NDk3MTgsImp0aSI6ImNhNDVlNDQ0OGZkMjQwM2E5NjE0YzRiOTFhM2M1ZmI1IiwidXNlcl9pZCI6IjEifQ.agsdyCZW6h6-55zVORF4QPsGhS2ewjchH4VFnxWFyZE";
+
+    const handleGetUserData = async () => {
+        try {
+            const response = await fetch(`${BASE_URL}/user/me/`, {
+                method: "GET",
+                headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
+            });
+            if (!response.ok) throw new Error(`API error: ${response.status}`);
+
+            const result = await response.json();
+            console.log("Данные пользователя получены:", result);
+        } catch (error) {
+            console.log("Ошибка при получении данных пользователя:", error);
+        }
+    };
+
+    handleGetUserData();
+
     const handleGetSchedule = async () => {
         try {
             const response = await fetch(`${BASE_URL}/schedule/`, {
