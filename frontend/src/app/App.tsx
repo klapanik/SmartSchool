@@ -88,7 +88,7 @@ export function App() {
     };
 
     const token =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzg2NDIyMDk0LCJpYXQiOjE3ODY0MjAyOTQsImp0aSI6IjhiYWEwNTkzNjUyMjRjZGE5ZGMyYjk2ZmMyOGY0NDE5IiwidXNlcl9pZCI6IjEifQ.pka7W469bLILS--gPMVWvSYOh13aUUJ7089Kv1p9P3E";
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzg2NTIxMTA3LCJpYXQiOjE3ODY1MTkzMDcsImp0aSI6IjI0MDU4MmNjZjgwZjQwODBiMDEyOTdjY2EyMGU2ZGJmIiwidXNlcl9pZCI6IjUifQ.yskkGUrEQa4H1DkTi0iIjkjpiAKHWQPuu3uEjT9VGMc";
     const handleGetSchedule = async () => {
         try {
             const response = await fetch(`${BASE_URL}/schedule/`, {
@@ -107,7 +107,7 @@ export function App() {
     handleGetSchedule();
 
     const handleGetGrades = async (
-        subject: string,
+        subject: number,
         quarter: number,
         dateFrom: string,
         dateTo: string,
@@ -131,7 +131,7 @@ export function App() {
         }
     };
 
-    handleGetGrades("literature", 1, "2025-10-08", "2027-10-08");
+    handleGetGrades(1, 1, "2025-10-08", "2027-10-08");
 
     const handleGetAverageGrades = async (quarter: number, groupBy: string) => {
         try {
