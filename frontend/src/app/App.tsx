@@ -4,6 +4,7 @@ import {
     Route,
     RouterProvider,
 } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
@@ -25,12 +26,12 @@ import type { LoginFormType } from "@/features/LoginForm/zod";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster } from "@/components/ui/sonner";
-import { useEffect } from "react";
 
 const BASE_URL = import.meta.env.VITE_API_URL;
 const queryClient = new QueryClient();
 
 export function App() {
+    const [token, setToken] = useState<string | null>();
     const handleUserActivation = async (data: ActivationFormType) => {
         if (!data) return;
 
@@ -79,6 +80,10 @@ export function App() {
 
             const result = await response.json();
 
+            if (result.access) {
+                setToken(result.access);
+            }
+
             console.log(result);
         } catch (error) {
             console.log(error);
@@ -88,11 +93,11 @@ export function App() {
         }
     };
 
-    const token =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzg2NTUxNTE4LCJpYXQiOjE3ODY1NDk3MTgsImp0aSI6ImNhNDVlNDQ0OGZkMjQwM2E5NjE0YzRiOTFhM2M1ZmI1IiwidXNlcl9pZCI6IjEifQ.agsdyCZW6h6-55zVORF4QPsGhS2ewjchH4VFnxWFyZE";
-
     useEffect(() => {
         const handleGetUserData = async () => {
+            if (!token) {
+                console.log("Ошибка авторизации!");
+            }
             try {
                 const response = await fetch(`${BASE_URL}/user/me/`, {
                     method: "GET",
@@ -109,13 +114,14 @@ export function App() {
                 console.log("Ошибка при получении данных пользователя:", error);
             }
         };
-        if (token) {
-            handleGetUserData();
-        }
+        handleGetUserData();
     }, [token]);
 
     useEffect(() => {
         const handleGetSchedule = async () => {
+            if (!token) {
+                console.log("Ошибка авторизации!");
+            }
             try {
                 const response = await fetch(`${BASE_URL}/schedule/`, {
                     method: "GET",
@@ -132,9 +138,8 @@ export function App() {
                 console.log("Ошибка при получении расписания:", error);
             }
         };
-        if (token) {
-            handleGetSchedule();
-        }
+
+        handleGetSchedule();
     }, [token]);
 
     useEffect(() => {
@@ -144,6 +149,10 @@ export function App() {
             dateFrom: string,
             dateTo: string,
         ) => {
+            if (!token) {
+                console.log("Ошибка авторизации!");
+            }
+
             try {
                 const response = await fetch(
                     `${BASE_URL}/grades/?subject=${subject}&quarter=${quarter}&date_from=${dateFrom}&date_to=${dateTo}`,
@@ -162,13 +171,15 @@ export function App() {
                 console.log("Ошибка при получении отметок:", error);
             }
         };
-        if (token) {
-            handleGetGrades(1, 1, "2025-10-08", "2027-10-08");
-        }
+
+        handleGetGrades(1, 1, "2025-10-08", "2027-10-08");
     }, [token]);
 
     useEffect(() => {
         const handleGetAverageGrades = async (quarter: number, groupBy: string) => {
+            if (!token) {
+                console.log("Ошибка авторизации!");
+            }
             try {
                 const response = await fetch(
                     `${BASE_URL}/grades/?quarter=${quarter}&group_by=${groupBy}`,
@@ -187,13 +198,15 @@ export function App() {
                 console.log("Ошибка при получении средних отметок:", error);
             }
         };
-        if (token) {
-            handleGetAverageGrades(1, "");
-        }
+
+        handleGetAverageGrades(1, "");
     }, [token]);
 
     useEffect(() => {
         const handleGetQuarters = async () => {
+            if (!token) {
+                console.log("Ошибка авторизации!");
+            }
             try {
                 const response = await fetch(`${BASE_URL}/quarters/`, {
                     method: "GET",
@@ -210,13 +223,14 @@ export function App() {
                 console.log("Ошибка при получении списка четвертей:", error);
             }
         };
-        if (token) {
-            handleGetQuarters();
-        }
+        handleGetQuarters();
     }, [token]);
 
     useEffect(() => {
         const handleGetQuarterGrades = async (quarter: number) => {
+            if (!token) {
+                console.log("Ошибка авторизации!");
+            }
             try {
                 const response = await fetch(`${BASE_URL}/quarters/grades/?quarter=${quarter}`, {
                     method: "GET",
@@ -233,13 +247,14 @@ export function App() {
                 console.log("Ошибка при получении четвертных отметок:", error);
             }
         };
-        if (token) {
-            handleGetQuarterGrades(1);
-        }
+        handleGetQuarterGrades(1);
     }, [token]);
 
     useEffect(() => {
         const handleGetSubjects = async (countOnly: boolean) => {
+            if (!token) {
+                console.log("Ошибка авторизации!");
+            }
             try {
                 const response = await fetch(`${BASE_URL}/subjects/?count_only=${countOnly}`, {
                     method: "GET",
@@ -256,10 +271,8 @@ export function App() {
                 console.log("Ошибка при получении списка предметов:", error);
             }
         };
-        if (token) {
-            handleGetSubjects(true);
-            handleGetSubjects(false);
-        }
+        handleGetSubjects(true);
+        handleGetSubjects(false);
     }, [token]);
 
     const routes = createRoutesFromElements(
