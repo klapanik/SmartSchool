@@ -6,7 +6,7 @@ import {
 } from "react-router-dom";
 import { useEffect, useState } from "react";
 
-import { BASE_URL } from "@/shared/api/config";
+import { apiFetch } from "@/shared/api/fetch";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
@@ -33,6 +33,7 @@ const queryClient = new QueryClient();
 
 export function App() {
     const [token, setToken] = useState<string | null>();
+
     const handleUserActivation = async (data: ActivationFormType) => {
         if (!data) return;
 
@@ -43,15 +44,11 @@ export function App() {
                 password: data.password,
             };
 
-            const response = await fetch(`${BASE_URL}/user/activate/`, {
+            const result = await apiFetch('/user/activate/', {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(requestBody),
             });
-
-            if (!response.ok) throw new Error(`API error: ${response.status}`);
-
-            const result = await response.json();
 
             console.log(result);
         } catch (error) {
@@ -71,19 +68,13 @@ export function App() {
                 password: data.password,
             };
 
-            const response = await fetch(`${BASE_URL}/user/login/`, {
+            const result = await apiFetch<{access: string}>('/user/login/', {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(requestBody),
             });
 
-            if (!response.ok) throw new Error(`API error: ${response.status}`);
-
-            const result = await response.json();
-
-            if (result.access) {
-                setToken(result.access);
-            }
+            if (result.access) setToken(result.access);
 
             console.log(result);
         } catch (error) {
@@ -96,20 +87,17 @@ export function App() {
 
     useEffect(() => {
         const handleGetUserData = async () => {
-            if (!token) {
-                console.log("Ошибка авторизации!");
-            }
+            if (!token) console.error("Ошибка авторизации!");
+
             try {
-                const response = await fetch(`${BASE_URL}/user/me/`, {
+                const result = await apiFetch('/user/me/', {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",
                         Authorization: `Bearer ${token}`,
                     },
                 });
-                if (!response.ok) throw new Error(`API error: ${response.status}`);
 
-                const result = await response.json();
                 console.log("Данные пользователя получены:", result);
             } catch (error) {
                 console.log("Ошибка при получении данных пользователя:", error);
@@ -120,20 +108,17 @@ export function App() {
 
     useEffect(() => {
         const handleGetSchedule = async () => {
-            if (!token) {
-                console.log("Ошибка авторизации!");
-            }
+            if (!token) console.error("Ошибка авторизации!");
+
             try {
-                const response = await fetch(`${BASE_URL}/schedule/`, {
+                const result = await apiFetch('/schedule/', {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",
                         Authorization: `Bearer ${token}`,
                     },
                 });
-                if (!response.ok) throw new Error(`API error: ${response.status}`);
 
-                const result = await response.json();
                 console.log("Расписание получено:", result);
             } catch (error) {
                 console.log("Ошибка при получении расписания:", error);
@@ -150,13 +135,11 @@ export function App() {
             dateFrom: string,
             dateTo: string,
         ) => {
-            if (!token) {
-                console.log("Ошибка авторизации!");
-            }
+            if (!token) console.error("Ошибка авторизации!");
 
             try {
-                const response = await fetch(
-                    `${BASE_URL}/grades/?subject=${subject}&quarter=${quarter}&date_from=${dateFrom}&date_to=${dateTo}`,
+                const result = await apiFetch(
+                    `/grades/?subject=${subject}&quarter=${quarter}&date_from=${dateFrom}&date_to=${dateTo}`,
                     {
                         method: "GET",
                         headers: {
@@ -165,8 +148,7 @@ export function App() {
                         },
                     },
                 );
-                if (!response.ok) throw new Error(`API error: ${response.status}`);
-                const result = await response.json();
+
                 console.log("Отметки получены:", result);
             } catch (error) {
                 console.log("Ошибка при получении отметок:", error);
@@ -178,12 +160,11 @@ export function App() {
 
     useEffect(() => {
         const handleGetAverageGrades = async (quarter: number, groupBy: string) => {
-            if (!token) {
-                console.log("Ошибка авторизации!");
-            }
+            if (!token) console.error("Ошибка авторизации!");
+
             try {
-                const response = await fetch(
-                    `${BASE_URL}/grades/?quarter=${quarter}&group_by=${groupBy}`,
+                const result = await apiFetch(
+                    `/grades/?quarter=${quarter}&group_by=${groupBy}`,
                     {
                         method: "GET",
                         headers: {
@@ -192,8 +173,7 @@ export function App() {
                         },
                     },
                 );
-                if (!response.ok) throw new Error(`API error: ${response.status}`);
-                const result = await response.json();
+
                 console.log("Средние отметки получены:", result);
             } catch (error) {
                 console.log("Ошибка при получении средних отметок:", error);
@@ -205,20 +185,17 @@ export function App() {
 
     useEffect(() => {
         const handleGetQuarters = async () => {
-            if (!token) {
-                console.log("Ошибка авторизации!");
-            }
+            if (!token) console.error("Ошибка авторизации!");
+
             try {
-                const response = await fetch(`${BASE_URL}/quarters/`, {
+                const result = await apiFetch('/quarters/', {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",
                         Authorization: `Bearer ${token}`,
                     },
                 });
-                if (!response.ok) throw new Error(`API error: ${response.status}`);
 
-                const result = await response.json();
                 console.log("Список четвертей получен:", result);
             } catch (error) {
                 console.log("Ошибка при получении списка четвертей:", error);
@@ -229,20 +206,17 @@ export function App() {
 
     useEffect(() => {
         const handleGetQuarterGrades = async (quarter: number) => {
-            if (!token) {
-                console.log("Ошибка авторизации!");
-            }
+            if (!token) console.error("Ошибка авторизации!");
+
             try {
-                const response = await fetch(`${BASE_URL}/quarters/grades/?quarter=${quarter}`, {
+                const result = await apiFetch(`/quarters/grades/?quarter=${quarter}`, {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",
                         Authorization: `Bearer ${token}`,
                     },
                 });
-                if (!response.ok) throw new Error(`API error: ${response.status}`);
 
-                const result = await response.json();
                 console.log("Четвертные оценки получены:", result);
             } catch (error) {
                 console.log("Ошибка при получении четвертных отметок:", error);
@@ -253,20 +227,17 @@ export function App() {
 
     useEffect(() => {
         const handleGetSubjects = async (countOnly: boolean) => {
-            if (!token) {
-                console.log("Ошибка авторизации!");
-            }
+            if (!token) console.error("Ошибка авторизации!");
+
             try {
-                const response = await fetch(`${BASE_URL}/subjects/?count_only=${countOnly}`, {
+                const result = await apiFetch(`/subjects/?count_only=${countOnly}`, {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",
                         Authorization: `Bearer ${token}`,
                     },
                 });
-                if (!response.ok) throw new Error(`API error: ${response.status}`);
 
-                const result = await response.json();
                 console.log("Список предметов получен:", result);
             } catch (error) {
                 console.log("Ошибка при получении списка предметов:", error);
