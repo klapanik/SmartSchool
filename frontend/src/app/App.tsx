@@ -6,6 +6,8 @@ import {
 } from "react-router-dom";
 import { useEffect, useState } from "react";
 
+import { BASE_URL } from "@/shared/api/config";
+
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
@@ -27,7 +29,6 @@ import { SidebarProvider } from "@/components/ui/sidebar";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster } from "@/components/ui/sonner";
 
-const BASE_URL = import.meta.env.VITE_API_URL;
 const queryClient = new QueryClient();
 
 export function App() {
