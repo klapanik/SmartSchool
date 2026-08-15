@@ -44,7 +44,7 @@ export function App() {
                 password: data.password,
             };
 
-            const result = await apiFetch('/user/activate/', {
+            const result = await apiFetch("/user/activate/", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(requestBody),
@@ -68,7 +68,7 @@ export function App() {
                 password: data.password,
             };
 
-            const result = await apiFetch<{access: string}>('/user/login/', {
+            const result = await apiFetch<{ access: string }>("/user/login/", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(requestBody),
@@ -84,49 +84,6 @@ export function App() {
             console.log("This is the end");
         }
     };
-
-    useEffect(() => {
-        const handleGetUserData = async () => {
-            if (!token) console.error("Ошибка авторизации!");
-
-            try {
-                const result = await apiFetch('/user/me/', {
-                    method: "GET",
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: `Bearer ${token}`,
-                    },
-                });
-
-                console.log("Данные пользователя получены:", result);
-            } catch (error) {
-                console.log("Ошибка при получении данных пользователя:", error);
-            }
-        };
-        handleGetUserData();
-    }, [token]);
-
-    useEffect(() => {
-        const handleGetSchedule = async () => {
-            if (!token) console.error("Ошибка авторизации!");
-
-            try {
-                const result = await apiFetch('/schedule/', {
-                    method: "GET",
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: `Bearer ${token}`,
-                    },
-                });
-
-                console.log("Расписание получено:", result);
-            } catch (error) {
-                console.log("Ошибка при получении расписания:", error);
-            }
-        };
-
-        handleGetSchedule();
-    }, [token]);
 
     useEffect(() => {
         const handleGetGrades = async (
@@ -163,16 +120,13 @@ export function App() {
             if (!token) console.error("Ошибка авторизации!");
 
             try {
-                const result = await apiFetch(
-                    `/grades/?quarter=${quarter}&group_by=${groupBy}`,
-                    {
-                        method: "GET",
-                        headers: {
-                            "Content-Type": "application/json",
-                            Authorization: `Bearer ${token}`,
-                        },
+                const result = await apiFetch(`/grades/?quarter=${quarter}&group_by=${groupBy}`, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
                     },
-                );
+                });
 
                 console.log("Средние отметки получены:", result);
             } catch (error) {
@@ -181,27 +135,6 @@ export function App() {
         };
 
         handleGetAverageGrades(1, "");
-    }, [token]);
-
-    useEffect(() => {
-        const handleGetQuarters = async () => {
-            if (!token) console.error("Ошибка авторизации!");
-
-            try {
-                const result = await apiFetch('/quarters/', {
-                    method: "GET",
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: `Bearer ${token}`,
-                    },
-                });
-
-                console.log("Список четвертей получен:", result);
-            } catch (error) {
-                console.log("Ошибка при получении списка четвертей:", error);
-            }
-        };
-        handleGetQuarters();
     }, [token]);
 
     useEffect(() => {
