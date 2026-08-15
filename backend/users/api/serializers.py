@@ -36,9 +36,31 @@ class RegisterSerializer(serializers.ModelSerializer):
         )
         return user
 
+
+class ResendVerificationSerializer(serializers.Serializer):
+    email = serializers.EmailField()
+
+
+class ChangeEmailSerializer(serializers.Serializer):
+    new_email = serializers.EmailField()
+    
+    def validate_new_email(self, value):
+        if User.objects.filter(email=value).exists():
+            raise serializers.ValidationError("Этот email уже используется")
+        return value
+
+class ChangePhoneSerializer(serializers.Serializer):
+    new_phone = serializers.CharField(max_length=15)
+    
+    def validate_new_phone(self, value):
+        if User.objects.filter(phone_number=value).exists():
+            raise serializers.ValidationError("Этот номер уже используется")
+        return value
+
 class VerifyEmailSerializer(serializers.Serializer):
     email = serializers.EmailField()
     code = serializers.CharField(max_length=6)
 
-class ResendVerificationSerializer(serializers.Serializer):
-    email = serializers.EmailField()
+
+class VerifyChangeSerializer(serializers.Serializer):
+    code = serializers.CharField(max_length=6)

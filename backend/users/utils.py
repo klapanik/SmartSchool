@@ -3,12 +3,16 @@ import random
 from django.core.mail import send_mail
 from django.conf import settings
 from django.utils import timezone
-from .models import EmailVerification
+from .models import EmailVerification, VerificationCode
 
 def generate_verification_code():
     return str(random.randint(100000, 999999))
 
-def send_verification_email(user):
+def send_verification_email(user, email_to=None):
+    """Send verification email to user. If email_to is provided, use that instead of user.email"""
+    if email_to is None:
+        email_to = user.email
+    
     EmailVerification.objects.filter(user=user, is_used=False).delete()
     
     code = generate_verification_code()
@@ -40,35 +44,52 @@ def send_verification_email(user):
             subject,
             message,
             settings.DEFAULT_FROM_EMAIL,
-            [user.email],
+            [email_to],
             fail_silently=False,
         )
         return True, verification
     except Exception as e:
         return False, str(e)
 
-def send_password_reset_email(user, reset_code):
-    subject = 'Reset Your Password - EasyGrades'
-    greeting_name = user.get_full_name() or user.email
-    message = f'''
-    Hello {greeting_name},
+def send_verification_sms(phone_number, code):
+    """
+    Отправка SMS с кодом.
+    ПОКА НЕ РЕАЛИЗОВАНО - заглушка
+    """
+    # Для SMS нужно использовать сторонние сервисы:
+    # - Twilio
+    # - Vonage (бывший Nexmo)
+    # - SMS.ru
+    # - и т.д.
     
-    You requested to reset your password. Use this code to reset it:
+    print(f"📱 SMS на {phone_number}: Ваш код подтверждения: {code}")
+    # Вернуть True, если отправлено успешно
+    return True
+
+def create_verification_code(user, code_type, value):
+    """Создание и отправка кода подтверждения"""
+    # Удаляем старые неиспользованные коды
+    VerificationCode.objects.filter(
+        user=user, 
+        type=code_type, 
+        is_used=False
+    ).delete()
     
-    {reset_code}
+    # Генерируем новый код
+    code = generate_verification_code()
     
-    This code will expire in 15 minutes.
-    
-    If you didn't request this, please ignore this email.
-    
-    Best regards,
-    EasyGrades Team
-    '''
-    
-    send_mail(
-        subject,
-        message,
-        settings.DEFAULT_FROM_EMAIL,
-        [user.email],
-        fail_silently=False,
+    # Сохраняем в БД
+    verification = VerificationCode.objects.create(
+        user=user,
+        code=code,
+        type=code_type,
+        value=value
     )
+    
+    # Отправляем код
+    if code_type == 'email':
+        send_verification_email(user, email_to=value)
+    elif code_type == 'phone':
+        send_verification_sms(value, code)
+    
+    return verification

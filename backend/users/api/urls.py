@@ -7,6 +7,9 @@ from .views import (
     VerifyEmailView,
     ResendVerificationView,
     UserProfileView,
+    ChangeEmailView,
+    ChangePhoneView,
+    VerifyChangeView,
 )
 from django.urls import path
 
@@ -19,4 +22,7 @@ urlpatterns = [
     path('verify-email/', VerifyEmailView.as_view(), name='verify-email'),
     path('resend-verification/', ResendVerificationView.as_view(), name='resend-verification'),
     path('profile/', UserProfileView.as_view(), name='profile'),
+    path('change-email/', ChangeEmailView.as_view(), name='change-email'),
+    path('change-phone/', ChangePhoneView.as_view(), name='change-phone'),
+    path('verify-change/', VerifyChangeView.as_view(), name='verify-change'),
 ]

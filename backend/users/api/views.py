@@ -8,12 +8,11 @@ from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework_simplejwt.serializers import TokenRefreshSerializer, TokenObtainPairSerializer
 from rest_framework_simplejwt.exceptions import TokenError
-from rest_framework.decorators import api_view, permission_classes
 from django.contrib.auth import get_user_model
 
-from ..models import UserActivation, EmailVerification
-from .serializers import UserActivationSerializer, RegisterSerializer, VerifyEmailSerializer, ResendVerificationSerializer, UserSerializer
-from ..utils import send_verification_email, send_password_reset_email
+from ..models import UserActivation, EmailVerification, VerificationCode
+from .serializers import UserActivationSerializer, RegisterSerializer, ResendVerificationSerializer, UserSerializer, ChangeEmailSerializer, ChangePhoneSerializer, VerifyChangeSerializer, VerifyEmailSerializer
+from ..utils import send_verification_email, create_verification_code
 
 
 class UserActivationView(APIView):
@@ -200,51 +199,175 @@ class VerifyEmailView(APIView):
             }, status=status.HTTP_400_BAD_REQUEST)
 
 
-class ResendVerificationView(APIView):
-    permission_classes = [AllowAny]
-
-    def post(self, request):
-        """Resend verification code to user's email"""
-        serializer = ResendVerificationSerializer(data=request.data)
-
-        if not serializer.is_valid():
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-        email = serializer.validated_data['email']
-
-        try:
-            user = User.objects.get(email=email)
-
-            if user.is_email_verified:
-                return Response({
-                    'success': False,
-                    'message': 'This email is already verified.'
-                }, status=status.HTTP_400_BAD_REQUEST)
-
-            success, result = send_verification_email(user)
-
-            if success:
-                return Response({
-                    'success': True,
-                    'message': 'New verification code sent to your email!'
-                })
-
-            return Response({
-                'success': False,
-                'message': f'Failed to send email: {result}'
-            }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-
-        except User.DoesNotExist:
-            return Response({
-                'success': False,
-                'message': 'User not found.'
-            }, status=status.HTTP_404_NOT_FOUND)
-
-
 class UserProfileView(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
-        """Get current user's profile"""
         serializer = UserSerializer(request.user)
         return Response(serializer.data)
+
+class ChangeEmailView(APIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = ChangeEmailSerializer
+    
+    def post(self, request):
+        serializer = self.serializer_class(data=request.data)
+        
+        if not serializer.is_valid():
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        
+        new_email = serializer.validated_data['new_email']
+        user = request.user
+        
+        # Проверяем, не совпадает ли с текущим email
+        if user.email == new_email:
+            return Response({
+                'success': False,
+                'message': 'Новый email совпадает с текущим'
+            }, status=status.HTTP_400_BAD_REQUEST)
+        
+        user.pending_email = new_email
+        user.save(update_fields=['pending_email'])
+
+        try:
+            create_verification_code(user, 'email', new_email)
+            
+            return Response({
+                'success': True,
+                'message': 'Код подтверждения отправлен на новый email',
+                'pending_email': new_email
+            })
+        except Exception as e:
+            user.pending_email = None
+            user.save(update_fields=['pending_email'])
+            
+            return Response({
+                'success': False,
+                'message': f'Ошибка отправки кода: {str(e)}'
+            }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+class ChangePhoneView(APIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = ChangePhoneSerializer
+    
+    def post(self, request):
+        serializer = self.serializer_class(data=request.data)
+        
+        if not serializer.is_valid():
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        
+        new_phone = serializer.validated_data['new_phone']
+        user = request.user
+
+        if user.phone_number == new_phone:
+            return Response({
+                'success': False,
+                'message': 'Новый номер совпадает с текущим'
+            }, status=status.HTTP_400_BAD_REQUEST)
+
+        user.pending_phone = new_phone
+        user.save(update_fields=['pending_phone'])
+        
+        # Отправляем код (пока заглушка)
+        try:
+            create_verification_code(user, 'phone', new_phone)
+            
+            return Response({
+                'success': True,
+                'message': 'Код подтверждения отправлен на новый номер',
+                'pending_phone': new_phone
+            })
+        except Exception as e:
+            user.pending_phone = None
+            user.save(update_fields=['pending_phone'])
+            
+            return Response({
+                'success': False,
+                'message': f'Ошибка отправки кода: {str(e)}'
+            }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+class VerifyChangeView(APIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = VerifyChangeSerializer
+    
+    def post(self, request):
+        serializer = self.serializer_class(data=request.data)
+        
+        if not serializer.is_valid():
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        
+        code = serializer.validated_data['code']
+        user = request.user
+
+        try:
+            verification = VerificationCode.objects.get(
+                user=user,
+                code=code,
+                is_used=False
+            )
+        except VerificationCode.DoesNotExist:
+            return Response({
+                'success': False,
+                'message': 'Неверный или уже использованный код'
+            }, status=status.HTTP_400_BAD_REQUEST)
+        
+        if not verification.is_valid():
+            return Response({
+                'success': False,
+                'message': 'Код истек. Запросите новый'
+            }, status=status.HTTP_400_BAD_REQUEST)
+
+        if verification.type == 'email':
+            if user.pending_email:
+                user.email = user.pending_email
+                user.is_email_verified = True
+                user.pending_email = None
+        elif verification.type == 'phone':
+            if user.pending_phone:
+                user.phone_number = user.pending_phone
+                user.is_phone_verified = True
+                user.pending_phone = None
+        else:
+            return Response({
+                'success': False,
+                'message': 'Неизвестный тип кода'
+            }, status=status.HTTP_400_BAD_REQUEST)
+
+        verification.is_used = True
+        verification.save()
+        user.save()
+        
+        return Response({
+            'success': True,
+            'message': f'{verification.type.capitalize()} успешно обновлен',
+            'new_value': user.email if verification.type == 'email' else user.phone_number
+        })
+
+
+class ResendVerificationView(APIView):
+    permission_classes = [IsAuthenticated]
+    
+    def post(self, request):
+        user = request.user
+
+        if not user.pending_email and not user.pending_phone:
+            return Response({
+                'success': False,
+                'message': 'Нет ожидающих изменений'
+            }, status=status.HTTP_400_BAD_REQUEST)
+
+        if user.pending_email:
+            create_verification_code(user, 'email', user.pending_email)
+            return Response({
+                'success': True,
+                'message': 'Код отправлен на новый email'
+            })
+
+        if user.pending_phone:
+            create_verification_code(user, 'phone', user.pending_phone)
+            return Response({
+                'success': True,
+                'message': 'Код отправлен на новый номер'
+            })
