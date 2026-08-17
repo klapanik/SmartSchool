@@ -4,7 +4,6 @@ import {
     Route,
     RouterProvider,
 } from "react-router-dom";
-import { useEffect, useState } from "react";
 
 import { apiFetch } from "@/shared/api/fetch";
 
@@ -24,6 +23,7 @@ import { ActivationForm } from "@/features/ActivationForm/ActivationForm";
 import type { ActivationFormType } from "@/features/ActivationForm/zod";
 import { LoginForm } from "@/features/LoginForm/LoginForm";
 import type { LoginFormType } from "@/features/LoginForm/zod";
+import { setAccessToken } from "@/features/auth/model/token-storage";
 
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -32,8 +32,6 @@ import { Toaster } from "@/components/ui/sonner";
 const queryClient = new QueryClient();
 
 export function App() {
-    const [token, setToken] = useState<string | null>();
-
     const handleUserActivation = async (data: ActivationFormType) => {
         if (!data) return;
 
@@ -74,7 +72,7 @@ export function App() {
                 body: JSON.stringify(requestBody),
             });
 
-            if (result.access) setToken(result.access);
+            if (result.access) setAccessToken(result.access);
 
             console.log(result);
         } catch (error) {
@@ -85,100 +83,100 @@ export function App() {
         }
     };
 
-    useEffect(() => {
-        const handleGetGrades = async (
-            subject: number,
-            quarter: number,
-            dateFrom: string,
-            dateTo: string,
-        ) => {
-            if (!token) console.error("Ошибка авторизации!");
+    // useEffect(() => {
+    //     const handleGetGrades = async (
+    //         subject: number,
+    //         quarter: number,
+    //         dateFrom: string,
+    //         dateTo: string,
+    //     ) => {
+    //         if (!token) console.error("Ошибка авторизации!");
 
-            try {
-                const result = await apiFetch(
-                    `/grades/?subject=${subject}&quarter=${quarter}&date_from=${dateFrom}&date_to=${dateTo}`,
-                    {
-                        method: "GET",
-                        headers: {
-                            "Content-Type": "application/json",
-                            Authorization: `Bearer ${token}`,
-                        },
-                    },
-                );
+    //         try {
+    //             const result = await apiFetch(
+    //                 `/grades/?subject=${subject}&quarter=${quarter}&date_from=${dateFrom}&date_to=${dateTo}`,
+    //                 {
+    //                     method: "GET",
+    //                     headers: {
+    //                         "Content-Type": "application/json",
+    //                         Authorization: `Bearer ${token}`,
+    //                     },
+    //                 },
+    //             );
 
-                console.log("Отметки получены:", result);
-            } catch (error) {
-                console.log("Ошибка при получении отметок:", error);
-            }
-        };
+    //             console.log("Отметки получены:", result);
+    //         } catch (error) {
+    //             console.log("Ошибка при получении отметок:", error);
+    //         }
+    //     };
 
-        handleGetGrades(1, 1, "2025-10-08", "2027-10-08");
-    }, [token]);
+    //     handleGetGrades(1, 1, "2025-10-08", "2027-10-08");
+    // }, [token]);
 
-    useEffect(() => {
-        const handleGetAverageGrades = async (quarter: number, groupBy: string) => {
-            if (!token) console.error("Ошибка авторизации!");
+    // useEffect(() => {
+    //     const handleGetAverageGrades = async (quarter: number, groupBy: string) => {
+    //         if (!token) console.error("Ошибка авторизации!");
 
-            try {
-                const result = await apiFetch(`/grades/?quarter=${quarter}&group_by=${groupBy}`, {
-                    method: "GET",
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: `Bearer ${token}`,
-                    },
-                });
+    //         try {
+    //             const result = await apiFetch(`/grades/?quarter=${quarter}&group_by=${groupBy}`, {
+    //                 method: "GET",
+    //                 headers: {
+    //                     "Content-Type": "application/json",
+    //                     Authorization: `Bearer ${token}`,
+    //                 },
+    //             });
 
-                console.log("Средние отметки получены:", result);
-            } catch (error) {
-                console.log("Ошибка при получении средних отметок:", error);
-            }
-        };
+    //             console.log("Средние отметки получены:", result);
+    //         } catch (error) {
+    //             console.log("Ошибка при получении средних отметок:", error);
+    //         }
+    //     };
 
-        handleGetAverageGrades(1, "");
-    }, [token]);
+    //     handleGetAverageGrades(1, "");
+    // }, [token]);
 
-    useEffect(() => {
-        const handleGetQuarterGrades = async (quarter: number) => {
-            if (!token) console.error("Ошибка авторизации!");
+    // useEffect(() => {
+    //     const handleGetQuarterGrades = async (quarter: number) => {
+    //         if (!token) console.error("Ошибка авторизации!");
 
-            try {
-                const result = await apiFetch(`/quarters/grades/?quarter=${quarter}`, {
-                    method: "GET",
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: `Bearer ${token}`,
-                    },
-                });
+    //         try {
+    //             const result = await apiFetch(`/quarters/grades/?quarter=${quarter}`, {
+    //                 method: "GET",
+    //                 headers: {
+    //                     "Content-Type": "application/json",
+    //                     Authorization: `Bearer ${token}`,
+    //                 },
+    //             });
 
-                console.log("Четвертные оценки получены:", result);
-            } catch (error) {
-                console.log("Ошибка при получении четвертных отметок:", error);
-            }
-        };
-        handleGetQuarterGrades(1);
-    }, [token]);
+    //             console.log("Четвертные оценки получены:", result);
+    //         } catch (error) {
+    //             console.log("Ошибка при получении четвертных отметок:", error);
+    //         }
+    //     };
+    //     handleGetQuarterGrades(1);
+    // }, [token]);
 
-    useEffect(() => {
-        const handleGetSubjects = async (countOnly: boolean) => {
-            if (!token) console.error("Ошибка авторизации!");
+    // useEffect(() => {
+    //     const handleGetSubjects = async (countOnly: boolean) => {
+    //         if (!token) console.error("Ошибка авторизации!");
 
-            try {
-                const result = await apiFetch(`/subjects/?count_only=${countOnly}`, {
-                    method: "GET",
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: `Bearer ${token}`,
-                    },
-                });
+    //         try {
+    //             const result = await apiFetch(`/subjects/?count_only=${countOnly}`, {
+    //                 method: "GET",
+    //                 headers: {
+    //                     "Content-Type": "application/json",
+    //                     Authorization: `Bearer ${token}`,
+    //                 },
+    //             });
 
-                console.log("Список предметов получен:", result);
-            } catch (error) {
-                console.log("Ошибка при получении списка предметов:", error);
-            }
-        };
-        handleGetSubjects(true);
-        handleGetSubjects(false);
-    }, [token]);
+    //             console.log("Список предметов получен:", result);
+    //         } catch (error) {
+    //             console.log("Ошибка при получении списка предметов:", error);
+    //         }
+    //     };
+    //     handleGetSubjects(true);
+    //     handleGetSubjects(false);
+    // }, [token]);
 
     const routes = createRoutesFromElements(
         <>
