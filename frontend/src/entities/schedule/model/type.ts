@@ -1,18 +1,24 @@
-interface ScheduleDay {
+export interface Lesson {
     lesson_number: string | number;
     subject: string;
     starts_at: string;
     ends_at: string;
     classroom: string;
-    grade: string | number;
+    grade: string | number | null;
 }
 
 export interface Schedule {
-    monday: ScheduleDay[];
-    tuesday: ScheduleDay[];
-    wednesday: ScheduleDay[];
-    thursday: ScheduleDay[];
-    friday: ScheduleDay[];
-    saturday: ScheduleDay[];
-    sunday: ScheduleDay[];
+    russianName: string;
+    isToday: boolean;
+    schedule: Lesson[];
+}
+
+export interface ScheduleDay {
+    monday: Schedule;
+    tuesday: Schedule;
+    wednesday: Schedule;
+    thursday: Schedule;
+    friday: Schedule;
+    saturday: Schedule;
+    sunday: Schedule;
 }
