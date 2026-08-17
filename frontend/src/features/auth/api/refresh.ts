@@ -6,6 +6,10 @@ export async function refreshAccessToken() {
         method: "POST",
         credentials: "include",
     });
+    
+    if (response.status === 401) {
+        throw new Error('Invalid refresh token')
+    }
 
     if (!response.ok) {
         throw new Error("Failed to refresh token");
