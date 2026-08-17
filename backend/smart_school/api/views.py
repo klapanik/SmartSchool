@@ -2,6 +2,7 @@ from collections import defaultdict
 
 from django.db.models import Prefetch, Avg
 from django.shortcuts import get_object_or_404
+from django.utils import timezone
 
 from rest_framework import status
 from rest_framework.views import APIView
@@ -18,13 +19,34 @@ class ScheduleView(APIView):
     permission_classes = [IsAuthenticated]
 
     WEEKDAYS = {
-        1: "monday",
-        2: "tuesday",
-        3: "wednesday",
-        4: "thursday",
-        5: "friday",
-        6: "saturday",
-        7: "sunday",
+        1: {
+            "name": "monday",
+            "russianName": "Понедельник",
+        },
+        2: {
+            "name": "tuesday",
+            "russianName": "Вторник",
+        },
+        3: {
+            "name": "wednesday",
+            "russianName": "Среда",
+        },
+        4: {
+            "name": "thursday",
+            "russianName": "Четверг",
+        },
+        5: {
+            "name": "friday",
+            "russianName": "Пятница",
+        },
+        6: {
+            "name": "saturday",
+            "russianName": "Суббота",
+        },
+        7: {
+            "name": "sunday",
+            "russianName": "Воскресенье",
+        },
     }
 
     def get(self, request):
@@ -45,10 +67,21 @@ class ScheduleView(APIView):
         )
 
         serializer = ScheduleLessonSerializer(lessons, many=True)
-        result = defaultdict(list)
+
+        today_weekday = timezone.localdate().isoweekday()
+
+        result = {
+            weekday_data["name"]: {
+                "russianName": weekday_data["russianName"],
+                "isToday": weekday == today_weekday,
+                "schedule": [],
+            }
+            for weekday, weekday_data in self.WEEKDAYS.items()
+        }
 
         for lesson, data in zip(lessons, serializer.data):
-            result[self.WEEKDAYS[lesson.weekday]].append(data)
+            weekday_data = self.WEEKDAYS[lesson.weekday]
+            result[weekday_data["name"]]["schedule"].append(data)
 
         return Response(result, status=status.HTTP_200_OK)
 
