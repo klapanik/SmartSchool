@@ -15,7 +15,6 @@ export async function apiFetch<T>(endpoint: string, options: RequestInit = {}): 
     });
 
     if (response.status === 401) {
-        console.log(response.status === 401);
         const newAccessToken = await refreshAccessToken();
 
         response = await fetch(`${BASE_URL}${endpoint}`, {
