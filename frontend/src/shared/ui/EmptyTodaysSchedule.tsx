@@ -10,6 +10,12 @@ import { Calendar, CalendarDays } from "lucide-react";
 import { Link } from "react-router-dom";
 
 export function EmptyTodaysSchedule({ type }: { type: "main" | "secondary" }) {
+    const date = new Intl.DateTimeFormat("ru-RU", {
+        weekday: "long",
+        day: "numeric",
+        month: "long",
+    }).format(new Date());
+
     return (
         <div className="primary-block">
             <Empty>
@@ -20,7 +26,7 @@ export function EmptyTodaysSchedule({ type }: { type: "main" | "secondary" }) {
                         </EmptyMedia>
                         <EmptyTitle className="text-xl">Расписание на сегодня</EmptyTitle>
                     </div>
-                    <EmptyDescription>суббота, 21 февраля</EmptyDescription>
+                    <EmptyDescription className="text-base">{date}</EmptyDescription>
                 </EmptyHeader>
 
                 <EmptyContent>

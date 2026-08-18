@@ -1,16 +1,26 @@
-import { Clock4 } from "lucide-react";
+import { Clock4, Dot } from "lucide-react";
 import { GradeBadge } from "@/shared/ui/GradeBadge/ui/GradeBadge";
 import { cn } from "@/lib/utils";
 
 type Props = {
+    number: string | number;
     subject: string;
-    number: number;
-    time: string;
-    grade?: string | number;
+    startsAt: string;
+    endsAt: string;
+    grade?: string | number | null;
+    classroom: string;
     isCurrentLesson: boolean;
 };
 
-export function ScheduleLesson({ subject, number, time, grade, isCurrentLesson }: Props) {
+export function ScheduleLesson({
+    number,
+    subject,
+    startsAt,
+    endsAt,
+    grade,
+    classroom,
+    isCurrentLesson,
+}: Props) {
     return (
         <div
             className={cn(
@@ -27,7 +37,9 @@ export function ScheduleLesson({ subject, number, time, grade, isCurrentLesson }
                     <span className="font-semibold">{subject}</span>
                     <div className="flex items-center flex-wrap gap-y-1">
                         <Clock4 size={13} className="text-gray-500 mr-1" />
-                        <span className="text-gray-500 text-sm mr-2">{time}</span>
+                        <span className="text-gray-500 text-sm mr-2">
+                            {startsAt.substring(0, 5)} - {endsAt.substring(0, 5)}
+                        </span>
                     </div>
                 </div>
             </div>
@@ -39,10 +51,14 @@ export function ScheduleLesson({ subject, number, time, grade, isCurrentLesson }
                     </div>
                 )}
                 {isCurrentLesson && (
-                    <div className="bg-primary rounded px-2.5 py-1 text-white text-sm">
-                        <span>Сейчас</span>
+                    <div className="flex bg-primary rounded pl-2.5 pr-0.5 py-1 text-white text-sm">
+                        <span>Идёт сейчас</span>
+                        <Dot className="animate-pulse" />
                     </div>
                 )}
+                <div className="text-white bg-primary px-4 py-1 rounded-full text-sm my-auto">
+                    Кабинет: <span className="font-semibold">{classroom}</span>
+                </div>
             </div>
         </div>
     );

@@ -1,8 +1,11 @@
+import { Skeleton } from "@/components/ui/skeleton";
+import { useScheduleQuery } from "@/entities/schedule/api/query";
 import { DatePicker } from "@/features/DatePicker/DatePicker";
 import { ScheduleBlock } from "@/widgets/schedule-page/ui/ScheduleBlock";
-import { subjects } from "@/widgets/schedule-page/ui/ScheduleBlock/model/scheduleMock";
 
 export function SchedulePage() {
+    const { data, isLoading, isError, error } = useScheduleQuery();
+
     return (
         <section>
             <div className="mb-5 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
@@ -13,12 +16,30 @@ export function SchedulePage() {
                 <DatePicker />
             </div>
             <div className="flex flex-col gap-4">
-                <ScheduleBlock dayNumber={0} data="вторник, 24 февраля" subjects={subjects} />
-                <ScheduleBlock dayNumber={1} subjects={subjects} />
-                <ScheduleBlock dayNumber={2} subjects={subjects} />
-                <ScheduleBlock dayNumber={3} subjects={subjects} />
-                <ScheduleBlock dayNumber={4} subjects={subjects} />
-                <ScheduleBlock dayNumber={5} subjects={subjects} />
+                {isError ? (
+                    <div className="primary-block flex gap-1 text-lg">
+                        <span>Ошибка в расписании!</span>
+                        <span>
+                            <i>{String(error)}</i>
+                        </span>
+                    </div>
+                ) : !data || isLoading ? (
+                    <>
+                        <Skeleton className="w-full h-60 bg-primary" />
+                        <Skeleton className="w-full h-60 bg-primary" />
+                        <Skeleton className="w-full h-60 bg-primary" />
+                        <Skeleton className="w-full h-60 bg-primary" />
+                        <Skeleton className="w-full h-60 bg-primary" />
+                    </>
+                ) : (
+                    <>
+                        <ScheduleBlock data={data.monday} />
+                        <ScheduleBlock data={data.tuesday} />
+                        <ScheduleBlock data={data.wednesday} />
+                        <ScheduleBlock data={data.thursday} />
+                        <ScheduleBlock data={data.friday} />
+                    </>
+                )}
             </div>
         </section>
     );
