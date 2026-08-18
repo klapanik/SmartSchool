@@ -12,31 +12,6 @@ class UserRole(models.TextChoices):
     ADMIN = "admin", "Administrator"
 
 
-class UserManager(DjangoUserManager):
-    use_in_migrations = False
-
-    def create_user(self, email=None, password=None, **extra_fields):
-        if not email:
-            raise ValueError("The Email field must be set")
-
-        email = self.normalize_email(email)
-        user = self.model(email=email, **extra_fields)
-        user.set_password(password)
-        user.save(using=self._db)
-        return user
-
-    def create_superuser(self, email=None, password=None, **extra_fields):
-        extra_fields.setdefault("is_staff", True)
-        extra_fields.setdefault("is_superuser", True)
-
-        if extra_fields.get("is_staff") is not True:
-            raise ValueError("Superuser must have is_staff=True.")
-        if extra_fields.get("is_superuser") is not True:
-            raise ValueError("Superuser must have is_superuser=True.")
-
-        return self.create_user(email, password, **extra_fields)
-
-
 class User(AbstractUser):
     # id, is_active, fisrt_name, last_name, date_joined, password from AbstractUser
     email = models.EmailField(
@@ -73,8 +48,6 @@ class User(AbstractUser):
         blank=True,
         null=True,
     )
-
-    objects = UserManager()
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []

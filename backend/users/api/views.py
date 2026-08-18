@@ -11,7 +11,7 @@ from rest_framework_simplejwt.exceptions import TokenError
 from django.contrib.auth import get_user_model
 
 from ..models import UserActivation, EmailVerification, VerificationCode
-from .serializers import UserActivationSerializer, RegisterSerializer, ResendVerificationSerializer, UserSerializer, ChangeEmailSerializer, ChangePhoneSerializer, VerifyChangeSerializer, VerifyEmailSerializer
+from .serializers import UserActivationSerializer, RegisterSerializer, ResendVerificationSerializer, UserSerializer, ChangeEmailSerializer, ChangePhoneSerializer, ChangeContactSerializer, VerifyChangeSerializer, VerifyEmailSerializer
 from ..utils import send_verification_email, create_verification_code
 
 
@@ -117,38 +117,10 @@ class UserRefreshView(APIView):
         serializer.is_valid(raise_exception=True)
 
         return Response(serializer.validated_data)
+# вьюшка была до меня, смотри pr -> а вот в urls, я добавил это
+
 
 User = get_user_model()
-
-
-class UserRegisterView(APIView):
-    permission_classes = [AllowAny]
-
-    def post(self, request):
-        """Register a new user and send verification email"""
-        serializer = RegisterSerializer(data=request.data)
-
-        if serializer.is_valid():
-            user = serializer.save()
-
-            success, result = send_verification_email(user)
-
-            if success:
-                return Response({
-                    'success': True,
-                    'message': 'User registered successfully! Please check your email for verification code.',
-                    'user': UserSerializer(user).data
-                }, status=status.HTTP_201_CREATED)
-
-            return Response({
-                'success': False,
-                'message': 'User created but email could not be sent. Please request a new code.',
-                'user': UserSerializer(user).data,
-                'email_error': result
-            }, status=status.HTTP_201_CREATED)
-
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
 
 class VerifyEmailView(APIView):
     permission_classes = [AllowAny]
@@ -198,95 +170,61 @@ class VerifyEmailView(APIView):
                 'message': 'Invalid verification code.'
             }, status=status.HTTP_400_BAD_REQUEST)
 
-
-class UserProfileView(APIView):
+class ChangeContactView(APIView):
     permission_classes = [IsAuthenticated]
+    serializer_class = ChangeContactSerializer
 
-    def get(self, request):
-        serializer = UserSerializer(request.user)
-        return Response(serializer.data)
-
-class ChangeEmailView(APIView):
-    permission_classes = [IsAuthenticated]
-    serializer_class = ChangeEmailSerializer
-    
     def post(self, request):
         serializer = self.serializer_class(data=request.data)
-        
-        if not serializer.is_valid():
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        
-        new_email = serializer.validated_data['new_email']
+        serializer.is_valid(raise_exception=True)
+
         user = request.user
-        
-        # Проверяем, не совпадает ли с текущим email
-        if user.email == new_email:
-            return Response({
-                'success': False,
-                'message': 'Новый email совпадает с текущим'
-            }, status=status.HTTP_400_BAD_REQUEST)
-        
-        user.pending_email = new_email
-        user.save(update_fields=['pending_email'])
+        changes = serializer.validated_data
+        pending_fields = []
+
+        if 'new_email' in changes:
+            if user.email == changes['new_email']:
+                return Response({
+                    'success': False,
+                    'message': 'Новый email совпадает с текущим'
+                }, status=status.HTTP_400_BAD_REQUEST)
+            user.pending_email = changes['new_email']
+            pending_fields.append('pending_email')
+
+        if 'new_phone' in changes:
+            if user.phone_number == changes['new_phone']:
+                return Response({
+                    'success': False,
+                    'message': 'Новый номер совпадает с текущим'
+                }, status=status.HTTP_400_BAD_REQUEST)
+            user.pending_phone = changes['new_phone']
+            pending_fields.append('pending_phone')
+
+        user.save(update_fields=pending_fields)
 
         try:
-            create_verification_code(user, 'email', new_email)
-            
-            return Response({
-                'success': True,
-                'message': 'Код подтверждения отправлен на новый email',
-                'pending_email': new_email
-            })
-        except Exception as e:
-            user.pending_email = None
-            user.save(update_fields=['pending_email'])
-            
+            if 'new_email' in changes:
+                create_verification_code(user, 'email', changes['new_email'])
+            if 'new_phone' in changes:
+                create_verification_code(user, 'phone', changes['new_phone'])
+        except Exception as error:
+            for field in pending_fields:
+                setattr(user, field, None)
+            user.save(update_fields=pending_fields)
             return Response({
                 'success': False,
-                'message': f'Ошибка отправки кода: {str(e)}'
+                'message': f'Ошибка отправки кода: {str(error)}'
             }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-
-class ChangePhoneView(APIView):
-    permission_classes = [IsAuthenticated]
-    serializer_class = ChangePhoneSerializer
-    
-    def post(self, request):
-        serializer = self.serializer_class(data=request.data)
-        
-        if not serializer.is_valid():
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        
-        new_phone = serializer.validated_data['new_phone']
-        user = request.user
-
-        if user.phone_number == new_phone:
-            return Response({
-                'success': False,
-                'message': 'Новый номер совпадает с текущим'
-            }, status=status.HTTP_400_BAD_REQUEST)
-
-        user.pending_phone = new_phone
-        user.save(update_fields=['pending_phone'])
-        
-        # Отправляем код (пока заглушка)
-        try:
-            create_verification_code(user, 'phone', new_phone)
-            
-            return Response({
-                'success': True,
-                'message': 'Код подтверждения отправлен на новый номер',
-                'pending_phone': new_phone
-            })
-        except Exception as e:
-            user.pending_phone = None
-            user.save(update_fields=['pending_phone'])
-            
-            return Response({
-                'success': False,
-                'message': f'Ошибка отправки кода: {str(e)}'
-            }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-
+        response = {
+            'success': True,
+            'message': 'Коды подтверждения отправлены',
+        }
+        if 'new_email' in changes:
+            response['pending_email'] = changes['new_email']
+        if 'new_phone' in changes:
+            response['pending_phone'] = changes['new_phone']
+        return Response(response)
 
 class VerifyChangeView(APIView):
     permission_classes = [IsAuthenticated]
