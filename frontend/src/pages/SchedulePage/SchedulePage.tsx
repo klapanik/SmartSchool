@@ -1,10 +1,13 @@
 import { Skeleton } from "@/components/ui/skeleton";
 import { useScheduleQuery } from "@/entities/schedule/api/query";
 import { DatePicker } from "@/features/DatePicker/DatePicker";
+import { EmptyTodaysSchedule } from "@/shared/ui/EmptyTodaysSchedule";
 import { ScheduleBlock } from "@/widgets/schedule-page/ui/ScheduleBlock";
 
 export function SchedulePage() {
     const { data, isLoading, isError, error } = useScheduleQuery();
+
+    const dayNumber = new Date().getDay();
 
     return (
         <section>
@@ -16,6 +19,8 @@ export function SchedulePage() {
                 <DatePicker />
             </div>
             <div className="flex flex-col gap-4">
+                {dayNumber === 6 || dayNumber === 7 ? <EmptyTodaysSchedule type="secondary" /> : null}
+                
                 {isError ? (
                     <div className="primary-block flex gap-1 text-lg">
                         <span>Ошибка в расписании!</span>

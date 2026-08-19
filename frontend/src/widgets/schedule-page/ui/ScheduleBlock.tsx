@@ -1,13 +1,11 @@
 import { ScheduleLesson } from "./ScheduleLesson";
-import { EmptyTodaysSchedule } from "@/shared/ui/EmptyTodaysSchedule";
 import type { Schedule } from "@/entities/schedule/model/type";
 import { EmptySchedule } from "./EmptySchedule";
 
 export function ScheduleBlock({ data }: { data: Schedule }) {
     const { russianName, isToday, schedule } = data;
 
-    if (schedule.length === 0 && isToday) return <EmptyTodaysSchedule type="secondary" />;
-    if (schedule.length === 0 && !isToday) return <EmptySchedule weekday={russianName} />;
+    if (schedule.length === 0) return <EmptySchedule weekday={russianName} />;
 
     const date = new Intl.DateTimeFormat("ru-RU", {
         day: "numeric",
