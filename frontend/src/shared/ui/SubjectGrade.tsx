@@ -14,7 +14,7 @@ export function SubjectGrade({ subject, grade, isApproximately, date, gradesNumb
             <div className="flex flex-col">
                 <span className="font-semibold md:text-m">{subject}</span>
                 <span className="text-sm text-gray-400">
-                    {!grade && grade !== 0
+                    {!grade && grade === 0
                         ? "Нет оценок"
                         : isApproximately
                           ? `Примерная: ${grade}`
@@ -26,7 +26,7 @@ export function SubjectGrade({ subject, grade, isApproximately, date, gradesNumb
                 </span>
             </div>
             <GradeBadge
-                grade={!grade && grade !== 0 ? "-" : grade}
+                grade={!grade && grade === 0 ? "-" : grade}
                 isApproximately={!!isApproximately}
             />
         </div>
