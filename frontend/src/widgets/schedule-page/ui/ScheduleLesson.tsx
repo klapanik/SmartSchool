@@ -51,12 +51,12 @@ export function ScheduleLesson({
                     </div>
                 )}
                 {isCurrentLesson && (
-                    <div className="flex bg-primary rounded pl-2.5 pr-0.5 py-1 text-white text-sm">
+                    <div className="flex bg-primary rounded-full pl-2.5 pr-0.5 pt-1 text-white text-sm">
                         <span>Идёт сейчас</span>
                         <Dot className="animate-pulse" />
                     </div>
                 )}
-                <div className="text-white bg-primary px-4 py-1 rounded-full text-sm my-auto">
+                <div className="text-black bg-muted px-4 py-1 rounded-full text-sm my-auto border border-gray-300">
                     Кабинет: <span className="font-semibold">{classroom}</span>
                 </div>
             </div>
