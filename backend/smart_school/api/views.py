@@ -1,7 +1,4 @@
-from collections import defaultdict
-
 from django.db.models import Prefetch, Avg
-from django.shortcuts import get_object_or_404
 from django.utils import timezone
 
 from rest_framework import status
@@ -10,8 +7,14 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.authentication import JWTAuthentication
 
-from smart_school.models import Grade, ScheduleLesson, Quarter, QuarterGrade, Subject
-from .serializers import ScheduleLessonSerializer, GradeSerializer, QuarterSerializer, QuarterGradeSerializer, SubjectSerializer
+from smart_school.models import Grade, ScheduleLesson, Quarter, QuarterGrade
+from .serializers import (
+    ScheduleLessonSerializer,
+    GradeSerializer,
+    QuarterSerializer,
+    QuarterGradeSerializer,
+    SubjectSerializer,
+)
 
 
 class ScheduleView(APIView):
@@ -53,8 +56,7 @@ class ScheduleView(APIView):
         student = request.user.student_profile
 
         lessons = (
-            ScheduleLesson.objects
-            .filter(school_class=student.school_class)
+            ScheduleLesson.objects.filter(school_class=student.school_class)
             .select_related("subject")
             .prefetch_related(
                 Prefetch(
@@ -94,8 +96,7 @@ class GradesView(APIView):
         student = request.user.student_profile
 
         grades = (
-            Grade.objects
-            .filter(student=student)
+            Grade.objects.filter(student=student)
             .select_related(
                 "subject",
                 "teacher__user",
@@ -161,8 +162,7 @@ class GradeAverageView(APIView):
 
         if group_by == "subjects":
             averages = (
-                grades
-                .values("subject__name")
+                grades.values("subject__name")
                 .annotate(average=Avg("grade"))
                 .order_by("subject__name")
             )
@@ -171,7 +171,8 @@ class GradeAverageView(APIView):
                 {
                     "subject": item["subject__name"],
                     "average": item["average"],
-                } for item in averages
+                }
+                for item in averages
             ]
 
             return Response(result, status=status.HTTP_200_OK)
@@ -187,11 +188,8 @@ class QuartersView(APIView):
 
     def get(self, request):
         student = request.user.student_profile
-
-        quarters = (
-            Quarter.objects
-            .filter(school=student.school_class.school)
-            .order_by("number")
+        quarters = Quarter.objects.filter(school=student.school_class.school).order_by(
+            "number"
         )
 
         serializer = QuarterSerializer(quarters, many=True)
@@ -205,31 +203,55 @@ class QuarterGradesView(APIView):
 
     def get(self, request):
         student = request.user.student_profile
-
-        quarter_grades = (
-            QuarterGrade.objects
-            .filter(student=student)
-            .select_related(
-                "subject",
-                "quarter",
-            )
-            .order_by("quarter__number", "subject__name")
+        quarters = Quarter.objects.filter(school=student.school_class.school).order_by(
+            "number"
         )
+        subjects = student.school_class.subjects.order_by("name")
 
-        quarter = request.query_params.get("quarter")
+        quarter_grades_data = []
 
-        if quarter:
-            quarter = Quarter.objects.get(
-                pk=quarter,
-                school=student.school_class.school,
+        for quarter in quarters:
+            quarter_id = quarter.id
+            quarter_grades = QuarterGradeSerializer(
+                (
+                    QuarterGrade.objects.filter(student=student, quarter=quarter_id)
+                    .select_related("subject")
+                    .order_by("quarter__number")
+                ),
+                many=True,
+            ).data
+
+            grades = [float(grade["grade"]) for grade in quarter_grades]
+            average_grade = round(sum(grades) / len(grades), 2) if grades else None
+
+            for subject in subjects:
+                exists = any(
+                    grade.get("subject") == subject.name for grade in quarter_grades
+                )
+                if not exists:
+                    quarter_grades.append(
+                        {"id": subject.id, "subject": subject.name, "grade": 0}
+                    )
+                else:
+                    quarter_grade = list(
+                        filter(
+                            lambda grade: grade.get("subject") == subject.name,
+                            quarter_grades,
+                        )
+                    )[0]
+                    quarter_grade["id"] = subject.id
+
+            quarter_grades.sort(key=lambda grade: grade["id"])
+
+            quarter_grades_data.append(
+                {
+                    "quarter_id": quarter_id,
+                    "average_grade": str(average_grade),
+                    "quarter_grades": quarter_grades,
+                }
             )
 
-            quarter_grades = quarter_grades.filter(
-                quarter=quarter,
-            )
-
-        serializer = QuarterGradeSerializer(quarter_grades, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(quarter_grades_data, status=status.HTTP_200_OK)
 
 
 class SubjectView(APIView):
@@ -238,7 +260,7 @@ class SubjectView(APIView):
 
     def get(self, request):
         student = request.user.student_profile
-        subjects = (student.school_class.subjects.order_by("name"))
+        subjects = student.school_class.subjects.order_by("name")
 
         count_only = request.query_params.get("count_only")
 
@@ -247,4 +269,4 @@ class SubjectView(APIView):
 
         serializer = SubjectSerializer(subjects, many=True)
 
-        return Response(serializer.data,  status=status.HTTP_200_OK)
+        return Response(serializer.data, status=status.HTTP_200_OK)
