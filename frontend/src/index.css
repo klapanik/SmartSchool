@@ -200,3 +200,7 @@ html {
 .primary-input.invalid {
     @apply focus-visible:ring-destructive
 }
+
+&::-webkit-scrollbar {
+    display: none;
+}
