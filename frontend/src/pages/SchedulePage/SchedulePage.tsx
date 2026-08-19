@@ -30,11 +30,11 @@ export function SchedulePage() {
                     </div>
                 ) : !data || isLoading ? (
                     <>
-                        <Skeleton className="w-full h-60 bg-primary" />
-                        <Skeleton className="w-full h-60 bg-primary" />
-                        <Skeleton className="w-full h-60 bg-primary" />
-                        <Skeleton className="w-full h-60 bg-primary" />
-                        <Skeleton className="w-full h-60 bg-primary" />
+                        <Skeleton className="w-full h-60" />
+                        <Skeleton className="w-full h-60" />
+                        <Skeleton className="w-full h-60" />
+                        <Skeleton className="w-full h-60" />
+                        <Skeleton className="w-full h-60" />
                     </>
                 ) : (
                     <>
