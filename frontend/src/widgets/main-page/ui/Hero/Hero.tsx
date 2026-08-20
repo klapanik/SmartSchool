@@ -1,15 +1,44 @@
 import "./Hero.css";
 import { useCurrentUserQuery } from "@/entities/user/api/queries";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useScheduleQuery } from "@/entities/schedule/api/query";
+import { Dot } from "lucide-react";
 
 export function Hero() {
     const { data: userData, isLoading } = useCurrentUserQuery();
+    const { data: schedule } = useScheduleQuery();
 
     const date = new Intl.DateTimeFormat("ru-RU", {
         weekday: "long",
         day: "numeric",
         month: "long",
     }).format(new Date());
+
+    function getLessonsCondition() {
+        if (!schedule) return "Уроки закончились";
+        const todaysSchedule = Object.values(schedule).find((item) => item.isToday).schedule;
+
+        if (!todaysSchedule) return "Сегодня нет уроков";
+
+        const [endHours, endMinutes] = todaysSchedule[todaysSchedule.length - 1].ends_at
+            .split(":")
+            .map(Number);
+        const lessonEndInMinutes = endHours * 60 + endMinutes;
+
+        const todayInMinutes = new Date().getHours() * 60 + new Date().getMinutes();
+        const isLessonsRunning = lessonEndInMinutes > todayInMinutes;
+
+        if (isLessonsRunning) {
+            return (
+                <>
+                    <p>Сейчас идут уроки</p>
+                    <Dot className="animate-pulse absolute -top-0.5 -right-5" />
+                </>
+            );
+        } else {
+            return "Уроки закончились";
+        }
+    }
 
     return (
         <section
@@ -20,10 +49,10 @@ export function Hero() {
                 <div className="font-bold text-lg xs:text-xl md:text-2xl flex">
                     <span className="mr-1">Добро пожаловать,</span>
                     <span className="cursor-pointer flowtext my-auto">
-                        {isLoading ? (
+                        {isLoading || !userData ? (
                             <Skeleton className="h-5 w-48 my-auto bg-primary" />
                         ) : (
-                            userData?.first_name
+                            userData.first_name
                         )}
                     </span>
                     <span>!</span>
@@ -40,7 +69,7 @@ export function Hero() {
 
             <div className="text-sm md:text-base self-end">
                 <p className="text-gray-500">{date}</p>
-                <p>Уроки закончились</p>
+                <div className="relative flex">{getLessonsCondition()}</div>
             </div>
         </section>
     );
