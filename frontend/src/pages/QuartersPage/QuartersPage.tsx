@@ -39,7 +39,9 @@ export function QuartersPage() {
                 <div className="primary-block flex gap-1 text-lg">
                     <span>Ошибка в расписании!</span>
                     <span>
-                        <i>{String(quartersError ?? '') + " " + String(quartersGradesError ?? '')}</i>
+                        <i>
+                            {String(quartersError ?? "") + " " + String(quartersGradesError ?? "")}
+                        </i>
                     </span>
                 </div>
             ) : isQuartersLoading ||
@@ -78,11 +80,22 @@ export function QuartersPage() {
                             <EmptyCurrentQuarter />
                         )}
                     </div>
-                    <QuartersStatsGroup />
+                    <QuartersStatsGroup
+                        quartersAmount={quartersData.length}
+                        quarterGradesAmount={quartersGradesData.reduce(
+                            (sum, item) =>
+                                sum +
+                                (item.quarter_grades?.filter((grade) => Number(grade.grade) > 0)
+                                    .length || 0),
+                            0,
+                        )}
+                    />
 
                     <div className="flex flex-col gap-4">
                         {quartersData.map((quarter) => {
-                            const quarterGrade = quartersGradesData.filter((q) => q.quarter_id === quarter.id)[0]
+                            const quarterGrade = quartersGradesData.filter(
+                                (q) => q.quarter_id === quarter.id,
+                            )[0];
 
                             return (
                                 <QuartersBlock
