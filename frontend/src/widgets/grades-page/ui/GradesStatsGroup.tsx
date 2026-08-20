@@ -1,7 +1,10 @@
+import { useSubjectsCountQuery } from "@/entities/subject/api/query";
 import { StatsCard } from "@/shared/ui/StatsCard";
 import { CalendarDays, TrendingUp } from "lucide-react";
 
 export function GradesStatsGroup() {
+    const { data, isLoading } = useSubjectsCountQuery();
+
     return (
         <div className="grid grid-cols-1 gap-5 lg:grid-cols-3 ">
             <StatsCard
@@ -21,7 +24,7 @@ export function GradesStatsGroup() {
             <StatsCard
                 title="Предметов"
                 icon={CalendarDays}
-                number={16}
+                number={isLoading || !data ? 0 : data.count}
                 subtext="Активных предметов"
                 iconClassName="text-gray-500"
             />

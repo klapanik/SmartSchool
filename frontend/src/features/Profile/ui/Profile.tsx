@@ -1,5 +1,10 @@
 import { useNavigate } from "react-router-dom";
 
+import { apiFetch } from "@/shared/api/fetch";
+
+import { useCurrentUserQuery } from "@/entities/user/api/queries";
+import { useSubjectsCountQuery } from "@/entities/subject/api/query";
+
 import { PersonalData } from "./PersonalData";
 import { ProfileHeader } from "./ProfileHeader";
 import { ProfileStatsCards } from "./ProfileStatsCards";
@@ -7,81 +12,74 @@ import { ProfileStatsCards } from "./ProfileStatsCards";
 import { Settings } from "@/features/Settings";
 import { Separator } from "@/components/ui/separator";
 import { Spinner } from "@/components/ui/spinner";
-
-import { BASE_URL } from "@/shared/api/config";
-import { useCurrentUserQuery } from "@/entities/user/api/queries";
 import { Skeleton } from "@/components/ui/skeleton";
 
 export function Profile() {
     const navigate = useNavigate();
 
     const handleLogout = async () => {
-        const accessToken =
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzg1NjAyOTIwLCJpYXQiOjE3ODU2MDExMjAsImp0aSI6IjAyMzE0MTI0NzM4NDRlMDQ5ZDM2ZDE1NDc0YTZjYmMzIiwidXNlcl9pZCI6IjIifQ.UUIrdwJ6XtDCcUYzl-e0LuuhbdfBA4Vp4oFBkfpjf2Q";
-
         try {
-            const response = await fetch(`${BASE_URL}/user/logout/`, {
-                method: "POST",
-                headers: {
-                    Authorization: `Bearer ${accessToken}`,
-                    "Content-Type": "application/json",
-                },
-            });
-            if (!response.ok) {
-                const errorData = await response.json();
-                throw new Error(errorData.message || "Logout failed");
-            }
+            await apiFetch("/user/logout/", { method: "POST" });
             navigate("/auth/login");
         } catch (error) {
             console.error("Logout error:", error);
-            throw error;
         }
     };
 
-    const { data: userData, isLoading } = useCurrentUserQuery();
+    const userQuery = useCurrentUserQuery();
+    const subjectsCountQuery = useSubjectsCountQuery();
+
+    const isLoading = userQuery.isLoading || subjectsCountQuery.isLoading;
+    const isError = userQuery.isError || subjectsCountQuery.isError;
+    const error = userQuery.error ?? subjectsCountQuery.error;
+
     const userFullName =
-        userData && !isLoading ? (
-            userData.first_name + " " + userData.last_name
+        userQuery.data && !userQuery.isLoading ? (
+            userQuery.data.first_name + " " + userQuery.data.last_name
         ) : (
             <Skeleton className="w-52 h-4 bg-white" />
         );
 
     const userClass =
-        userData && !isLoading ? (
-            userData.form + userData.letter
+        userQuery.data && !userQuery.isLoading ? (
+            userQuery.data.form + userQuery.data.letter
         ) : (
             <Skeleton className="w-5 h-4 bg-white" />
         );
 
     return (
         <section className="rounded-md relative">
-            {isLoading ? (
+            {isLoading || !userQuery.data ? (
                 <Spinner className="absolute size-12 top-1/2 left-9/20 text-primary z-60" />
+            ) : isError ? (
+                <div className="primary-block">{String(error)}</div>
             ) : null}
             <div className={isLoading ? "opacity-20" : ""}>
                 <ProfileHeader
                     userFullName={userFullName}
                     userClass={userClass}
-                    avatar={userData?.avatar}
+                    avatar={userQuery.data?.avatar}
                 />
                 <div className="p-5 flex flex-col gap-4">
-                    <ProfileStatsCards />
+                    <ProfileStatsCards subjectsCount={subjectsCountQuery.data?.count ?? 0} />
                     <Separator className="bg-muted" />
                     <PersonalData
                         classTeacher={
-                            userData
-                                ? userData?.class_teacher_first_name +
+                            userQuery.data
+                                ? userQuery.data?.class_teacher_first_name +
                                   " " +
-                                  userData?.class_teacher_last_name
+                                  userQuery.data?.class_teacher_last_name
                                 : null
                         }
                         parent={
-                            userData
-                                ? userData?.parent_first_name + " " + userData?.parent_last_name
+                            userQuery.data
+                                ? userQuery.data?.parent_first_name +
+                                  " " +
+                                  userQuery.data?.parent_last_name
                                 : null
                         }
-                        email={userData?.email}
-                        phone_number={userData?.phone_number}
+                        email={userQuery.data?.email}
+                        phone_number={userQuery.data?.phone_number}
                     />
                     <Settings handleLogout={handleLogout} />
                 </div>

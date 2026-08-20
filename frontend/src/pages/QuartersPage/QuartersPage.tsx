@@ -1,31 +1,27 @@
 import { useQuartersQuery } from "@/entities/quarter/api/query";
 import type { Quarter } from "@/entities/quarter/model/type";
+import { useQuartersGradesQuery } from "@/entities/grades/api/queries";
+import { useSubjectsCountQuery } from "@/entities/subject/api/query";
 
 import { CurrentQuarter } from "@/widgets/quarters-page/ui/CurrentQuarter";
 import { EmptyCurrentQuarter } from "@/widgets/quarters-page/ui/EmptyCurrentQuarter";
 import { QuartersBlock } from "@/widgets/quarters-page/ui/QuartersBlock";
 import { QuartersStatsGroup } from "@/widgets/quarters-page/ui/QuartersStatsGroup";
-
 import { Skeleton } from "@/components/ui/skeleton";
-import { useQuartersGradesQuery } from "@/entities/grades/api/queries";
 
 export function QuartersPage() {
-    const {
-        data: quartersData,
-        isLoading: isQuartersLoading,
-        isError: isQuartersError,
-        error: quartersError,
-    } = useQuartersQuery();
+    const quartersQuery = useQuartersQuery();
+    const quartersGradesQuery = useQuartersGradesQuery();
+    const subjectsCountQuery = useSubjectsCountQuery();
 
-    const {
-        data: quartersGradesData,
-        isLoading: isQuartersGradesLoading,
-        isError: isQuartersGradesError,
-        error: quartersGradesError,
-    } = useQuartersGradesQuery();
+    const isLoading =
+        quartersQuery.isLoading || quartersGradesQuery.isLoading || subjectsCountQuery.isLoading;
+    const isError =
+        quartersQuery.isError || quartersGradesQuery.isError || subjectsCountQuery.isError;
+    const error = quartersQuery.error ?? quartersGradesQuery.error ?? subjectsCountQuery.error;
 
-    const currentQuarter: Quarter | null = quartersData
-        ? quartersData.filter((quarter) => quarter.is_current)[0]
+    const currentQuarter: Quarter | null = quartersQuery.data
+        ? quartersQuery.data.filter((quarter) => quarter.is_current)[0]
         : null;
 
     return (
@@ -35,19 +31,14 @@ export function QuartersPage() {
                 <p className="page-subtitle">Итоговые оценки по четвертям</p>
             </div>
 
-            {isQuartersError || isQuartersGradesError ? (
+            {isError ? (
                 <div className="primary-block flex gap-1 text-lg">
                     <span>Ошибка в расписании!</span>
                     <span>
-                        <i>
-                            {String(quartersError ?? "") + " " + String(quartersGradesError ?? "")}
-                        </i>
+                        <i>{String(error)}</i>
                     </span>
                 </div>
-            ) : isQuartersLoading ||
-              isQuartersGradesLoading ||
-              !quartersData ||
-              !quartersGradesData ? (
+            ) : isLoading || !quartersQuery.data || !quartersGradesQuery.data ? (
                 <div className="flex flex-col gap-5">
                     <Skeleton className="w-full h-44" />
 
@@ -71,7 +62,7 @@ export function QuartersPage() {
                                 starts_at={currentQuarter.starts_at}
                                 ends_at={currentQuarter.ends_at}
                                 average={
-                                    quartersGradesData.filter(
+                                    quartersGradesQuery.data.filter(
                                         (q) => q.quarter_id === currentQuarter.id,
                                     )[0].average_grade
                                 }
@@ -81,19 +72,20 @@ export function QuartersPage() {
                         )}
                     </div>
                     <QuartersStatsGroup
-                        quartersAmount={quartersData.length}
-                        quarterGradesAmount={quartersGradesData.reduce(
+                        quartersAmount={quartersQuery.data.length}
+                        quarterGradesAmount={quartersGradesQuery.data.reduce(
                             (sum, item) =>
                                 sum +
                                 (item.quarter_grades?.filter((grade) => Number(grade.grade) > 0)
                                     .length || 0),
                             0,
                         )}
+                        subjectsCount={subjectsCountQuery.data?.count ?? 0}
                     />
 
                     <div className="flex flex-col gap-4">
-                        {quartersData.map((quarter) => {
-                            const quarterGrade = quartersGradesData.filter(
+                        {quartersQuery.data.map((quarter) => {
+                            const quarterGrade = quartersGradesQuery.data.filter(
                                 (q) => q.quarter_id === quarter.id,
                             )[0];
 
