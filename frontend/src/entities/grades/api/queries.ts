@@ -6,7 +6,7 @@ export function useQuartersGradesQuery() {
     return useQuery({
         queryKey: ["quarters_grades"],
         queryFn: () => apiFetch<QuarterData[]>("/quarters/grades/", { method: "GET" }),
-        staleTime: Infinity,
+        staleTime: 10 * 60 * 1000,
         gcTime: 20 * 60 * 1000,
     });
 }
