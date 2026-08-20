@@ -40,12 +40,15 @@ export function RootLayout() {
                         <div className="primary-block">
                             Ошибка в получении ваших данных {String(error)}
                         </div>
-                    ) : isLoading ? (
+                    ) : (
+                        <div className={isLoading ? "opacity-20" : ""}>
+                            <Outlet />
+                        </div>
+                    )}
+
+                    {isLoading ? (
                         <Spinner className="absolute size-12 top-3/7 left-1/2 text-primary z-60" />
                     ) : null}
-                    <div className={isLoading ? "opacity-20" : ""}>
-                        <Outlet />
-                    </div>
                 </div>
             </div>
         </div>
