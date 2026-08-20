@@ -42,7 +42,8 @@ export function ScheduleBlock({ data }: { data: Schedule }) {
                 {schedule.map((lesson, i) => {
                     const isCurrentLesson =
                         timeToMinutes(String(currentTime)) >= timeToMinutes(lesson.starts_at) &&
-                        timeToMinutes(String(currentTime)) <= timeToMinutes(lesson.ends_at);
+                        timeToMinutes(String(currentTime)) <= timeToMinutes(lesson.ends_at) &&
+                        isToday;
 
                     return (
                         <ScheduleLesson
