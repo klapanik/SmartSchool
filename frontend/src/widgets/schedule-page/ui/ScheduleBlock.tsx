@@ -1,8 +1,15 @@
 import { ScheduleLesson } from "./ScheduleLesson";
 import type { Schedule } from "@/entities/schedule/model/type";
 import { EmptySchedule } from "./EmptySchedule";
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 
-export function ScheduleBlock({ data }: { data: Schedule }) {
+type Props = {
+    data: Schedule;
+    isLinkNeeded?: boolean;
+};
+
+export function ScheduleBlock({ data, isLinkNeeded = false }: Props) {
     const { russianName, isToday, schedule } = data;
 
     if (schedule.length === 0) return <EmptySchedule weekday={russianName} />;
@@ -59,6 +66,14 @@ export function ScheduleBlock({ data }: { data: Schedule }) {
                     );
                 })}
             </div>
+
+            {isLinkNeeded ? (
+                <Button type="button" className="mx-auto px-4 py-2 duration-300">
+                    <Link to="/schedule" className="text-white font-normal">
+                        Перейти в расписание
+                    </Link>
+                </Button>
+            ) : null}
         </div>
     );
 }
