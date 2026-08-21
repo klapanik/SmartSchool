@@ -1,12 +1,12 @@
 import "./Hero.css";
 import { useCurrentUserQuery } from "@/entities/user/api/queries";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useScheduleQuery } from "@/entities/schedule/api/query";
 import { Dot } from "lucide-react";
 
-export function Hero() {
+import type { Lesson } from "@/entities/schedule/model/type";
+
+export function Hero({ todaysSchedule }: { todaysSchedule?: Lesson[] }) {
     const { data: userData, isLoading } = useCurrentUserQuery();
-    const { data: schedule } = useScheduleQuery();
 
     const date = new Intl.DateTimeFormat("ru-RU", {
         weekday: "long",
@@ -15,16 +15,13 @@ export function Hero() {
     }).format(new Date());
 
     function getLessonsCondition() {
-        if (!schedule) return "Уроки закончились";
-    
-        const todaysSchedule = Object.values(schedule).find((item) => item.isToday).schedule;
-        const lastLesson = todaysSchedule[todaysSchedule.length - 1]
+        if (!todaysSchedule) return "Сегодня нет уроков";
 
-        if (!todaysSchedule.length || !lastLesson) return "Сегодня нет уроков";
+        const lastLesson = todaysSchedule[todaysSchedule.length - 1];
 
-        const [endHours, endMinutes] = lastLesson.ends_at
-            .split(":")
-            .map(Number);
+        if (!lastLesson) return "Сегодня нет уроков";
+
+        const [endHours, endMinutes] = lastLesson.ends_at.split(":").map(Number);
         const lessonEndInMinutes = endHours * 60 + endMinutes;
 
         const todayInMinutes = new Date().getHours() * 60 + new Date().getMinutes();
