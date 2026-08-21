@@ -10,7 +10,7 @@ type Props = {
 
 export function SubjectGrade({ subject, grade, isApproximately, date, gradesNumber }: Props) {
     return (
-        <div className="flex items-center justify-between px-3 py-4 w-full max-h-15 bg-smoky-white border border-gray-200 rounded-xl">
+        <div className="flex items-center justify-between px-3 py-4 w-full max-h-15 border border-gray-200 rounded-xl">
             <div className="flex flex-col">
                 <span className="font-semibold md:text-m">{subject}</span>
                 <span className="text-sm text-gray-400">
