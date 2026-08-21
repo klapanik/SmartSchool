@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import {
     Empty,
     EmptyContent,
@@ -7,7 +8,7 @@ import {
     EmptyTitle,
 } from "@/components/ui/empty";
 import { Calendar, CalendarDays } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 
 export function EmptyTodaysSchedule({ type }: { type: "main" | "secondary" }) {
     const date = new Intl.DateTimeFormat("ru-RU", {
@@ -38,12 +39,11 @@ export function EmptyTodaysSchedule({ type }: { type: "main" | "secondary" }) {
                 </EmptyContent>
 
                 {type === "main" ? (
-                    <Link
-                        to="/schedule"
-                        className="bg-primary px-4 py-2 rounded-lg text-white transition-colors duration-300 hover:bg-white hover:text-primary"
-                    >
-                        Перейти в расписание
-                    </Link>
+                    <Button type="button" className="mx-auto px-4 py-2 duration-300">
+                        <Link to="/schedule" className="text-white font-normal text-base">
+                            Перейти в расписание
+                        </Link>
+                    </Button>
                 ) : null}
             </Empty>
         </div>
