@@ -16,11 +16,13 @@ export function Hero() {
 
     function getLessonsCondition() {
         if (!schedule) return "Уроки закончились";
+    
         const todaysSchedule = Object.values(schedule).find((item) => item.isToday).schedule;
+        const lastLesson = todaysSchedule[todaysSchedule.length - 1]
 
-        if (!todaysSchedule) return "Сегодня нет уроков";
+        if (!todaysSchedule.length || !lastLesson) return "Сегодня нет уроков";
 
-        const [endHours, endMinutes] = todaysSchedule[todaysSchedule.length - 1].ends_at
+        const [endHours, endMinutes] = lastLesson.ends_at
             .split(":")
             .map(Number);
         const lessonEndInMinutes = endHours * 60 + endMinutes;
