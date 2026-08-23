@@ -18,5 +18,7 @@ export function useGradesQuery(params: gradesQueryParams) {
     return useQuery({
         queryKey: ["grades", params],
         queryFn: () => getGrades(params),
+        staleTime: 2 * 60 * 1000,
+        gcTime: 10 * 60 * 1000,
     });
 }
