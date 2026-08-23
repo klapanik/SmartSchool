@@ -1,4 +1,5 @@
 import { GradeBadge } from "./GradeBadge/ui/GradeBadge";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
 type Props = {
     subject: string;
@@ -6,9 +7,17 @@ type Props = {
     isApproximately?: boolean;
     date?: string;
     gradesNumber?: number;
+    comment?: string;
 };
 
-export function SubjectGrade({ subject, grade, isApproximately, date, gradesNumber }: Props) {
+export function SubjectGrade({
+    subject,
+    grade,
+    isApproximately,
+    date,
+    gradesNumber,
+    comment,
+}: Props) {
     return (
         <div className="flex items-center justify-between px-3 py-4 w-full max-h-15 border border-gray-200 rounded-xl">
             <div className="flex flex-col">
@@ -25,10 +34,26 @@ export function SubjectGrade({ subject, grade, isApproximately, date, gradesNumb
                               : ""}
                 </span>
             </div>
-            <GradeBadge
-                grade={!grade && grade === 0 ? "-" : grade}
-                isApproximately={!!isApproximately}
-            />
+
+            <div className="flex gap-2">
+                <div className="my-auto">
+                    <GradeBadge
+                        grade={!grade && grade === 0 ? "-" : grade}
+                        isApproximately={!!isApproximately}
+                    />
+                </div>
+
+                {comment ? (
+                    <Tooltip>
+                        <TooltipTrigger asChild>
+                            <div className="text-primary cursor-pointer duration-200 hover:text-primary/70">Комментарий учителя</div>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                            <p>{comment}</p>
+                        </TooltipContent>
+                    </Tooltip>
+                ) : null}
+            </div>
         </div>
     );
 }
