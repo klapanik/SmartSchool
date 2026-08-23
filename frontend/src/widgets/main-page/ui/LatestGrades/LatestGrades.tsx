@@ -27,6 +27,7 @@ export function LatestGrades({ latestGrades }: { latestGrades?: Grade[] }) {
                                 grade={grade.grade}
                                 isApproximately={false}
                                 date={formattedDate}
+                                comment={grade.comment}
                             />
                         );
                     })}
