@@ -18,3 +18,8 @@ export interface Grade {
     subject: string;
     teacher: string;
 }
+
+export interface AverageGrade {
+    subject: string;
+    average: string | number;
+}
