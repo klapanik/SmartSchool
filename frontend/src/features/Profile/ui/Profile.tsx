@@ -48,7 +48,7 @@ export function Profile() {
         );
 
     return (
-        <section className="rounded-md relative">
+        <section className={`rounded-md relative ${isLoading || !userQuery.data ? 'opacity-20' : ''}`}>
             {isLoading || !userQuery.data ? (
                 <Spinner className="absolute size-12 top-1/2 left-9/20 text-primary z-60" />
             ) : isError ? (
