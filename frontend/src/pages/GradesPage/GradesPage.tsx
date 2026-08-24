@@ -1,4 +1,6 @@
 import { useGradesQuery } from "@/entities/grades/api/queries";
+import { useQuartersQuery } from "@/entities/quarter/api/query";
+import type { Quarter } from "@/entities/quarter/model/type";
 
 import { GradesFilters } from "@/widgets/grades-page/ui/GradesFilters";
 import { GradesList } from "@/widgets/grades-page/ui/GradesList";
@@ -9,7 +11,13 @@ import { SubjectAverageGrade } from "@/widgets/grades-page/ui/SubjectAverageGrad
 import { Skeleton } from "@/components/ui/skeleton";
 
 export function GradesPage() {
-    const { data, isLoading, isError, error } = useGradesQuery({});
+    const quartersQuery = useQuartersQuery();
+
+    const currentQuarter: Quarter | null = quartersQuery.data
+        ? quartersQuery.data.filter((quarter) => quarter.is_current)[0]
+        : null;
+
+    const { data, isLoading, isError, error } = useGradesQuery({ quarter: currentQuarter?.id });
 
     return (
         <section className="@container flex flex-col gap-5">
