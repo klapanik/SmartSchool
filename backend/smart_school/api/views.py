@@ -144,15 +144,18 @@ class GradeAverageView(APIView):
 
         grades = Grade.objects.filter(student=student)
 
-        quarter = Quarter.objects.get(
-            pk=quarter,
+        today = timezone.localdate()
+
+        current_quarter = Quarter.objects.filter(
+            starts_at__lte=today,
+            ends_at__gte=today,
             school=student.school_class.school,
-        )
+        ).first()
 
         grades = grades.filter(
             created_at__date__range=(
-                quarter.starts_at,
-                quarter.ends_at,
+                current_quarter.starts_at,
+                current_quarter.ends_at,
             )
         )
 
