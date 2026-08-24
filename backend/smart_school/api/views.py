@@ -178,7 +178,7 @@ class GradeAverageView(APIView):
 
             return Response(result, status=status.HTTP_200_OK)
 
-        average = grades.aggregate(average=Avg("grade"))["average"] or 0
+        average = round(grades.aggregate(average=Avg("grade"))["average"] or 0, 2)
 
         return Response({"average": average}, status=status.HTTP_200_OK)
 
