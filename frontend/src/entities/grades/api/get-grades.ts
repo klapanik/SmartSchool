@@ -2,7 +2,7 @@ import { apiFetch } from "@/shared/api/fetch";
 import type { Grade } from "../model/types";
 
 export type gradesQueryParams = {
-    quarter?: number;
+    quarter?: string | number;
     subject?: number;
     from?: string;
     to?: string;
@@ -28,5 +28,6 @@ export function getGrades(params: gradesQueryParams = {}) {
     }
 
     const queryString = searchParams.toString();
-    return apiFetch<Grade[]>(`/grades/${queryString ? `?${queryString}` : ""}`);
+
+    return apiFetch<Grade[]>(`/grades/${queryString ? `?${queryString}` : ""}`, { method: "GET" });
 }
