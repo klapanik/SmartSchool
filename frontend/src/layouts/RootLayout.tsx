@@ -3,6 +3,7 @@ import { Outlet } from "react-router-dom";
 
 import { useCurrentUserQuery } from "@/entities/user/api/queries";
 import { useSubjectsCountQuery } from "@/entities/subject/api/query";
+import { useAverageGradeQuery } from "@/entities/grades/api/queries";
 
 import { AppSidebar } from "@/features/AppSidebar";
 import { AppHeader } from "@/widgets/AppHeader/AppHeader";
@@ -11,10 +12,11 @@ import { Spinner } from "@/components/ui/spinner";
 export function RootLayout() {
     const userQuery = useCurrentUserQuery();
     const subjectsCountQuery = useSubjectsCountQuery();
+    const averageGradeQuery = useAverageGradeQuery();
 
-    const isLoading = userQuery.isLoading || subjectsCountQuery.isLoading;
-    const isError = userQuery.isError || subjectsCountQuery.isError;
-    const error = userQuery.error ?? subjectsCountQuery.error;
+    const isLoading = userQuery.isLoading || subjectsCountQuery.isLoading || averageGradeQuery.isLoading;
+    const isError = userQuery.isError || subjectsCountQuery.isError || averageGradeQuery.isError;
+    const error = userQuery.error ?? subjectsCountQuery.error ?? averageGradeQuery.error;
 
     useEffect(() => {
         if (isLoading) {
