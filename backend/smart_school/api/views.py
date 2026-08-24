@@ -144,21 +144,19 @@ class GradeAverageView(APIView):
 
         grades = Grade.objects.filter(student=student)
 
-        quarter = request.query_params.get("quarter")
+        quarter = Quarter.objects.get(
+            pk=quarter,
+            school=student.school_class.school,
+        )
+
+        grades = grades.filter(
+            created_at__date__range=(
+                quarter.starts_at,
+                quarter.ends_at,
+            )
+        )
+
         group_by = request.query_params.get("group_by")
-
-        if quarter:
-            quarter = Quarter.objects.get(
-                pk=quarter,
-                school=student.school_class.school,
-            )
-
-            grades = grades.filter(
-                created_at__date__range=(
-                    quarter.starts_at,
-                    quarter.ends_at,
-                )
-            )
 
         if group_by == "subjects":
             averages = (
