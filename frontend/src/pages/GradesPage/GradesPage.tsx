@@ -1,4 +1,5 @@
-import { useGradesQuery } from "@/entities/grades/api/queries";
+import { useSubjectsCountQuery } from "@/entities/subject/api/query";
+import { useAverageGradeQuery, useGradesQuery } from "@/entities/grades/api/queries";
 import { useQuartersQuery } from "@/entities/quarter/api/query";
 import type { Quarter } from "@/entities/quarter/model/type";
 
@@ -12,12 +13,29 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 export function GradesPage() {
     const quartersQuery = useQuartersQuery();
+    const subjectsQuery = useSubjectsCountQuery();
+    const averageGradeQuery = useAverageGradeQuery();
 
     const currentQuarter: Quarter | null = quartersQuery.data
         ? quartersQuery.data.filter((quarter) => quarter.is_current)[0]
         : null;
 
-    const { data, isLoading, isError, error } = useGradesQuery({ quarter: currentQuarter?.id });
+    const gradesQuery = useGradesQuery({ quarter: currentQuarter?.id });
+
+    const isLoading =
+        quartersQuery.isLoading ||
+        subjectsQuery.isLoading ||
+        gradesQuery.isLoading ||
+        averageGradeQuery.isLoading;
+
+    const isError =
+        quartersQuery.isError ||
+        subjectsQuery.isError ||
+        gradesQuery.isError ||
+        averageGradeQuery.isError;
+
+    const error =
+        quartersQuery.error ?? subjectsQuery.error ?? gradesQuery.error ?? averageGradeQuery.error;
 
     return (
         <section className="@container flex flex-col gap-5">
@@ -30,7 +48,7 @@ export function GradesPage() {
                     Ошибка в получении ваших оценок! Пожалуйста, обновите страницу или попробуйте
                     ещё раз позже {String(error)}
                 </div>
-            ) : isLoading || !data ? (
+            ) : isLoading || gradesQuery.data === undefined ? (
                 <>
                     <div className="grid grid-cols-1 gap-5 lg:grid-cols-3">
                         <Skeleton className="w-full h-30" />
@@ -44,10 +62,14 @@ export function GradesPage() {
                 </>
             ) : (
                 <>
-                    <GradesStatsGroup gradesAmount={data.length} />
+                    <GradesStatsGroup
+                        gradesAmount={gradesQuery.data.length}
+                        averageGrade={averageGradeQuery.data?.average ?? 0}
+                        subjectsCount={subjectsQuery.data?.count ?? 0}
+                    />
                     <SubjectAverageGrade />
                     <GradesFilters />
-                    <GradesList grades={data} />
+                    <GradesList grades={gradesQuery.data} />
                     <ScrollTopArrow />
                 </>
             )}
