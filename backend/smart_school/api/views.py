@@ -58,13 +58,6 @@ class ScheduleView(APIView):
         lessons = (
             ScheduleLesson.objects.filter(school_class=student.school_class)
             .select_related("subject")
-            .prefetch_related(
-                Prefetch(
-                    "grades",
-                    queryset=Grade.objects.filter(student=student),
-                    to_attr="student_grades",
-                )
-            )
             .order_by("weekday", "lesson_number")
         )
 

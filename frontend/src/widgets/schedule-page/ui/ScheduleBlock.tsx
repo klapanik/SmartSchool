@@ -59,7 +59,7 @@ export function ScheduleBlock({ data, isLinkNeeded = false }: Props) {
                             subject={lesson.subject}
                             startsAt={lesson.starts_at}
                             endsAt={lesson.ends_at}
-                            grade={lesson.grade || null}
+                            grade={null}
                             classroom={lesson.classroom}
                             isCurrentLesson={isCurrentLesson}
                         />

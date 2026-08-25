@@ -4,7 +4,6 @@ export interface Lesson {
     starts_at: string;
     ends_at: string;
     classroom: string;
-    grade: string | number | null;
 }
 
 export interface Schedule {
