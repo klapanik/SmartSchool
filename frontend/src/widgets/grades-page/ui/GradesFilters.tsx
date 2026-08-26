@@ -8,7 +8,6 @@ import {
 } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
-import { Filter } from "lucide-react";
 
 const filterTriggerClassName = cn("text-smoky-black md:text-smoky-black");
 
@@ -42,13 +41,8 @@ function FilterField({
 
 export function GradesFilters() {
     return (
-        <div className="primary-block flex flex-col gap-5">
-            <div className="flex items-center gap-2">
-                <Filter className="size-5 shrink-0" aria-hidden />
-                <h2 className="text-xl font-bold">Фильтры и сортировка</h2>
-            </div>
-
-            <div className="grid grid-cols-1 gap-4 @min-[720px]:grid-cols-2 md:gap-x-6 md:gap-y-4">
+        <div className="flex flex-col gap-5">   
+            <div className="grid grid-cols-1 gap-4 @min-[720px]:grid-cols-3 md:gap-x-6 md:gap-y-4">
                 <FilterField
                     id="grades-filter-quarter"
                     label="Фильтр по четверти"
@@ -56,10 +50,10 @@ export function GradesFilters() {
                 >
                     <SelectGroup>
                         <SelectItem value="current">Текущие оценки</SelectItem>
-                        <SelectItem value="q4">4 четверть (2025-2026)</SelectItem>
-                        <SelectItem value="q3">3 четверть (2025-2026)</SelectItem>
-                        <SelectItem value="q2">2 четверть (2025-2026)</SelectItem>
                         <SelectItem value="q1">1 четверть (2025-2026)</SelectItem>
+                        <SelectItem value="q2">2 четверть (2025-2026)</SelectItem>
+                        <SelectItem value="q3">3 четверть (2025-2026)</SelectItem>
+                        <SelectItem value="q4">4 четверть (2025-2026)</SelectItem>
                     </SelectGroup>
                 </FilterField>
 
@@ -73,7 +67,6 @@ export function GradesFilters() {
                         <SelectItem value="bel-lang">Белорусский язык</SelectItem>
                         <SelectItem value="bel-lit">Белорусская литература</SelectItem>
                         <SelectItem value="rus-lang">Русский язык</SelectItem>
-                        <SelectItem value="rus-lit">Русская литература</SelectItem>
                     </SelectGroup>
                 </FilterField>
 
@@ -82,13 +75,6 @@ export function GradesFilters() {
                         <SelectItem value="date">По дате</SelectItem>
                         <SelectItem value="subject">По предмету</SelectItem>
                         <SelectItem value="grade">По оценке</SelectItem>
-                    </SelectGroup>
-                </FilterField>
-
-                <FilterField id="grades-filter-direction" label="Направление" defaultValue="desc">
-                    <SelectGroup>
-                        <SelectItem value="desc">По убыванию</SelectItem>
-                        <SelectItem value="asc">По возрастанию</SelectItem>
                     </SelectGroup>
                 </FilterField>
             </div>

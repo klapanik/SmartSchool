@@ -3,7 +3,6 @@ import { useAverageGradeQuery, useGradesQuery } from "@/entities/grades/api/quer
 import { useQuartersQuery } from "@/entities/quarter/api/query";
 import type { Quarter } from "@/entities/quarter/model/type";
 
-import { GradesFilters } from "@/widgets/grades-page/ui/GradesFilters";
 import { GradesList } from "@/widgets/grades-page/ui/GradesList";
 import { GradesStatsGroup } from "@/widgets/grades-page/ui/GradesStatsGroup";
 import { ScrollTopArrow } from "@/widgets/grades-page/ui/ScrollTopArrow";
@@ -68,7 +67,6 @@ export function GradesPage() {
                         subjectsCount={subjectsQuery.data?.count ?? 0}
                     />
                     <SubjectAverageGrade />
-                    <GradesFilters />
                     <GradesList grades={gradesQuery.data} />
                     <ScrollTopArrow />
                 </>
