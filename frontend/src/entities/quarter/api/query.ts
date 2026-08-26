@@ -7,6 +7,5 @@ export function useQuartersQuery() {
         queryKey: ["quarters"],
         queryFn: () => apiFetch<Quarter[]>("/quarters/", { method: "GET" }),
         staleTime: Infinity,
-        gcTime: 20 * 60 * 1000,
     });
 }

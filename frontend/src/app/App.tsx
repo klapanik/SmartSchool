@@ -29,7 +29,13 @@ import { SidebarProvider } from "@/components/ui/sidebar";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster } from "@/components/ui/sonner";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+    defaultOptions: {
+        queries: {
+            gcTime: 10 * 60 * 1000,
+        },
+    },
+});
 
 export function App() {
     const handleUserActivation = async (data: ActivationFormType) => {

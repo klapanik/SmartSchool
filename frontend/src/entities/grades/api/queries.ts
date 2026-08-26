@@ -11,7 +11,6 @@ export function useQuartersGradesQuery() {
         queryKey: ["quarters_grades"],
         queryFn: () => apiFetch<QuarterData[]>("/quarters/grades/", { method: "GET" }),
         staleTime: 10 * 60 * 1000,
-        gcTime: 20 * 60 * 1000,
     });
 }
 
@@ -20,7 +19,7 @@ export function useGradesQuery(params: gradesQueryParams) {
         queryKey: ["grades", params],
         queryFn: () => getGrades(params),
         staleTime: 2 * 60 * 1000,
-        gcTime: 10 * 60 * 1000,
+        refetchInterval: 2 * 60 * 1000,
     });
 }
 
@@ -29,7 +28,7 @@ export function useAverageGradeQuery() {
         queryKey: ["grades", "average"],
         queryFn: () => apiFetch<{ average: number }>("/grades/average/", { method: "GET" }),
         staleTime: 2 * 60 * 1000,
-        gcTime: 10 * 60 * 1000,
+        refetchInterval: 2 * 60 * 1000,
     });
 }
 
@@ -39,6 +38,6 @@ export function useAverageGradesQuery() {
         queryFn: () =>
             apiFetch<AverageGrade[]>("/grades/average/?group_by=subjects", { method: "GET" }),
         staleTime: 2 * 60 * 1000,
-        gcTime: 10 * 60 * 1000,
+        refetchInterval: 2 * 60 * 1000,
     });
 }

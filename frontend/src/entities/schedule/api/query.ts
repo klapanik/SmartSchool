@@ -7,6 +7,5 @@ export function useScheduleQuery() {
         queryKey: ["schedule"],
         queryFn: () => apiFetch<ScheduleDay>("/schedule/", { method: "GET" }),
         staleTime: Infinity,
-        gcTime: 20 * 60 * 1000,
     });
 }
