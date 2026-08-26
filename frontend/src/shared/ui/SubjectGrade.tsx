@@ -1,5 +1,5 @@
 import { GradeBadge } from "./GradeBadge/ui/GradeBadge";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { GradeComment } from "./GradeComment";
 
 type Props = {
     subject: string;
@@ -43,16 +43,7 @@ export function SubjectGrade({
                     />
                 </div>
 
-                {comment ? (
-                    <Tooltip>
-                        <TooltipTrigger asChild>
-                            <div className="text-primary cursor-pointer duration-200 hover:text-primary/70">Комментарий учителя</div>
-                        </TooltipTrigger>
-                        <TooltipContent>
-                            <p>{comment}</p>
-                        </TooltipContent>
-                    </Tooltip>
-                ) : null}
+                {comment ? <GradeComment comment={comment} /> : null}
             </div>
         </div>
     );
