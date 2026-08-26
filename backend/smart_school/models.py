@@ -54,6 +54,11 @@ class Subject(models.Model):
         max_length=100,
     )
 
+    school_classes = models.ManyToManyField(
+        "SchoolClass",
+        related_name="subjects",
+    )
+
     def __str__(self):
         return self.name
 
@@ -71,6 +76,12 @@ class Grade(models.Model):
         related_name="grades"
     )
 
+    schedule_lesson = models.ForeignKey(
+        "ScheduleLesson",
+        on_delete=models.CASCADE,
+        related_name="grades"
+    )
+
     teacher = models.ForeignKey(
         "users.Teacher",
         on_delete=models.SET_NULL,
@@ -82,7 +93,9 @@ class Grade(models.Model):
         decimal_places=1,
     )
 
-    date = models.DateField()
+    created_at = models.DateTimeField(
+        auto_now_add=True,
+    )
 
     comment = models.TextField(
         blank=True,
@@ -105,6 +118,7 @@ class QuarterGrade(models.Model):
     quarter = models.ForeignKey(
         "Quarter",
         on_delete=models.CASCADE,
+        related_name="grades",
     )
 
     grade = models.DecimalField(

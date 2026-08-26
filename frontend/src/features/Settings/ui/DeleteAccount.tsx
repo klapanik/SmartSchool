@@ -11,7 +11,11 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 
-export const DeleteAccount = () => {
+type Props = {
+    handleLogout: () => Promise<void>;
+};
+
+export const DeleteAccount = ({ handleLogout }: Props) => {
     return (
         <div className="w-full">
             <AlertDialog>
@@ -37,6 +41,7 @@ export const DeleteAccount = () => {
                             Вернуться назад
                         </AlertDialogCancel>
                         <AlertDialogAction
+                            onClick={handleLogout}
                             variant="destructive"
                             className="w-full sm:w-auto bg-destructive hover:bg-[#EF6B6B] text-white border-none rounded-lg px-4 sm:px-6 py-2.5 sm:py-2 text-sm font-medium transition-colors cursor-pointer order-1 sm:order-2"
                         >

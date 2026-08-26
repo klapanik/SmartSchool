@@ -10,9 +10,9 @@ from rest_framework_simplejwt.serializers import TokenRefreshSerializer, TokenOb
 from rest_framework_simplejwt.exceptions import TokenError
 from django.contrib.auth import get_user_model
 
-from ..models import UserActivation, EmailVerification, VerificationCode
-from .serializers import UserActivationSerializer, RegisterSerializer, ResendVerificationSerializer, UserSerializer, ChangeEmailSerializer, ChangePhoneSerializer, ChangeContactSerializer, VerifyChangeSerializer, VerifyEmailSerializer
-from ..utils import send_verification_email, create_verification_code
+from ..models import UserActivation, EmailVerification, VerificationCode, UserActivation, User
+from .serializers import *
+from ..utils import send_verification_email, create_verification_code 
 
 
 class UserActivationView(APIView):
@@ -44,7 +44,12 @@ class UserActivationView(APIView):
         user.is_active = True
         user.date_joined = timezone.now()
 
-        user.save(update_fields=["email", "password", "is_active", "date_joined"])
+        user.save(update_fields=[
+            "email",
+            "password",
+            "is_active",
+            "date_joined"
+        ])
         activation.save()
 
         refresh = RefreshToken.for_user(user)
@@ -117,10 +122,7 @@ class UserRefreshView(APIView):
         serializer.is_valid(raise_exception=True)
 
         return Response(serializer.validated_data)
-# вьюшка была до меня, смотри pr -> а вот в urls, я добавил это
 
-
-User = get_user_model()
 
 class VerifyEmailView(APIView):
     permission_classes = [AllowAny]
@@ -309,3 +311,19 @@ class ResendVerificationView(APIView):
                 'success': True,
                 'message': 'Код отправлен на новый номер'
             })
+
+
+class UserProfileView(APIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        user = User.objects.select_related(
+            "student_profile",
+            "student_profile__parent__user",
+            "student_profile__school_class",
+            "student_profile__school_class__class_teacher__user",
+        ).get(pk=request.user.pk)
+
+        serializer = UserProfileSerializer(user)
+        return Response(serializer.data, status=status.HTTP_200_OK)
