@@ -12,7 +12,7 @@ export function LatestGrades({ latestGrades }: { latestGrades?: Grade[] }) {
             {latestGrades && latestGrades.length ? (
                 <div className="w-full flex flex-col gap-3">
                     {latestGrades.map((grade) => {
-                        const date = new Date(grade.created_at);
+                        const date = new Date(grade.date);
 
                         const formattedDate = new Intl.DateTimeFormat("ru-RU", {
                             day: "numeric",

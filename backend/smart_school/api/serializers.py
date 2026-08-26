@@ -28,7 +28,7 @@ class GradeSerializer(serializers.ModelSerializer):
             "id",
             "grade",
             "comment",
-            "created_at",
+            "date",
             "subject",
             "teacher",
         )

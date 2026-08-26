@@ -94,7 +94,7 @@ class GradesView(APIView):
                 "subject",
                 "teacher__user",
             )
-            .order_by("-created_at")
+            .order_by("-date")
         )
 
         subject = request.query_params.get("subject")
@@ -112,17 +112,17 @@ class GradesView(APIView):
             )
 
             grades = grades.filter(
-                created_at__date__range=(
+                date__range=(
                     quarter.starts_at,
                     quarter.ends_at,
                 )
             )
 
         if date_from:
-            grades = grades.filter(created_at__date__gte=date_from)
+            grades = grades.filter(date__gte=date_from)
 
         if date_to:
-            grades = grades.filter(created_at__date__lte=date_to)
+            grades = grades.filter(date__lte=date_to)
 
         serializer = GradeSerializer(grades, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
@@ -146,7 +146,7 @@ class GradeAverageView(APIView):
         ).first()
 
         grades = grades.filter(
-            created_at__date__range=(
+            date__range=(
                 current_quarter.starts_at,
                 current_quarter.ends_at,
             )

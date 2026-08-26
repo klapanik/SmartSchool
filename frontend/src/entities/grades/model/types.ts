@@ -14,7 +14,7 @@ export interface Grade {
     id: string | number;
     grade: string;
     comment: string;
-    created_at: string;
+    date: string;
     subject: string;
     teacher: string;
 }

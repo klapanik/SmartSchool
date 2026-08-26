@@ -7,7 +7,7 @@ export function GradesList({ grades }: { grades: Grade[] }) {
             <h3 className="font-semibold text-xl">История оценок</h3>
 
             {grades.map((grade) => {
-                const date = new Date(grade.created_at);
+                const date = new Date(grade.date);
 
                 const formattedDate = new Intl.DateTimeFormat("ru-RU", {
                     day: "numeric",
