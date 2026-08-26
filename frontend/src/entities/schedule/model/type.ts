@@ -4,6 +4,7 @@ export interface Lesson {
     starts_at: string;
     ends_at: string;
     classroom: string;
+    weekday: number;
 }
 
 export interface Schedule {

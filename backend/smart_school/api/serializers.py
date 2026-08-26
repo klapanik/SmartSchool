@@ -14,6 +14,7 @@ class ScheduleLessonSerializer(serializers.ModelSerializer):
             "subject",
             "starts_at",
             "ends_at",
+            "weekday",
             "classroom",
         )
 
