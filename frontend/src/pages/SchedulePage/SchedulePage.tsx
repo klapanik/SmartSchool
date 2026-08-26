@@ -1,7 +1,6 @@
 import { useGradesQuery } from "@/entities/grades/api/queries";
 import { useScheduleQuery } from "@/entities/schedule/api/query";
 
-import { DatePicker } from "@/features/DatePicker/DatePicker";
 import { ScheduleBlock } from "@/widgets/schedule-page/ui/ScheduleBlock";
 
 import { Skeleton } from "@/components/ui/skeleton";
@@ -25,13 +24,11 @@ export function SchedulePage() {
 
     return (
         <section>
-            <div className="mb-5 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-                <div className="space-y-1">
-                    <h2 className="page-title">Расписание</h2>
-                    <p className="page-subtitle">Управление расписанием уроков</p>
-                </div>
-                <DatePicker />
+            <div className="mb-7">
+                <h2 className="page-title">Расписание</h2>
+                <p className="page-subtitle">Управление расписанием уроков</p>
             </div>
+
             <div className="flex flex-col gap-4">
                 {dayNumber === 6 || dayNumber === 7 ? (
                     <EmptyTodaysSchedule type="secondary" />
