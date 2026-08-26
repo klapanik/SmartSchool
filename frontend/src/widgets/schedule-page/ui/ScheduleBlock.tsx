@@ -1,15 +1,20 @@
-import { ScheduleLesson } from "./ScheduleLesson";
-import type { Schedule } from "@/entities/schedule/model/type";
-import { EmptySchedule } from "./EmptySchedule";
 import { Link } from "react-router-dom";
+
+import type { Grade } from "@/entities/grades/model/types";
+import type { Schedule } from "@/entities/schedule/model/type";
+
+import { ScheduleLesson } from "./ScheduleLesson";
+import { EmptySchedule } from "./EmptySchedule";
+
 import { Button } from "@/components/ui/button";
 
 type Props = {
     data: Schedule;
     isLinkNeeded?: boolean;
+    grades: Grade[];
 };
 
-export function ScheduleBlock({ data, isLinkNeeded = false }: Props) {
+export function ScheduleBlock({ data, isLinkNeeded = false, grades }: Props) {
     const { russianName, isToday, schedule } = data;
 
     if (schedule.length === 0) return <EmptySchedule weekday={russianName} />;
@@ -52,6 +57,16 @@ export function ScheduleBlock({ data, isLinkNeeded = false }: Props) {
                         timeToMinutes(String(currentTime)) <= timeToMinutes(lesson.ends_at) &&
                         isToday;
 
+                    const lessonsGrade = grades.filter((grade) => {
+                        const day = new Date(grade.date).getDay();
+                        const weekdayGradeNumber = day === 0 ? 7 : day;
+
+                        return (
+                            grade.subject === lesson.subject &&
+                            weekdayGradeNumber === lesson.weekday
+                        );
+                    })[0];
+
                     return (
                         <ScheduleLesson
                             key={i}
@@ -59,7 +74,7 @@ export function ScheduleBlock({ data, isLinkNeeded = false }: Props) {
                             subject={lesson.subject}
                             startsAt={lesson.starts_at}
                             endsAt={lesson.ends_at}
-                            grade={null}
+                            grade={lessonsGrade?.grade}
                             classroom={lesson.classroom}
                             isCurrentLesson={isCurrentLesson}
                         />

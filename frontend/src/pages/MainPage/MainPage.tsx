@@ -35,8 +35,8 @@ export function MainPage() {
 
             <section className="grid grid-cols-1 gap-6 @2xl:grid-cols-2">
                 <div>
-                    {todaysSchedule?.schedule.length ? (
-                        <ScheduleBlock data={todaysSchedule} isLinkNeeded={true} />
+                    {todaysSchedule?.schedule.length && latestGradesQuery.data ? (
+                        <ScheduleBlock data={todaysSchedule} isLinkNeeded={true} grades={latestGradesQuery.data} />
                     ) : (
                         <EmptyTodaysSchedule type="main" />
                     )}
