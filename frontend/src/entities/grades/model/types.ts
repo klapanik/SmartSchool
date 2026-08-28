@@ -2,6 +2,7 @@ export interface QuarterGrade {
     id: string | number;
     subject: string;
     grade: string;
+    isApproximately?: boolean;
 }
 
 export interface QuarterData {

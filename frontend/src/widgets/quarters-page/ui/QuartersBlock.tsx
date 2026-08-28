@@ -55,7 +55,7 @@ export const QuartersBlock = ({ number, average, starts_at, ends_at, quarterGrad
                         key={grade.id}
                         subject={grade.subject}
                         grade={grade.grade}
-                        isApproximately={false}
+                        isApproximately={grade.isApproximately ?? false}
                     />
                 ))}
             </div>

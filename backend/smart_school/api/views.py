@@ -223,9 +223,31 @@ class QuarterGradesView(APIView):
                     grade.get("subject") == subject.name for grade in quarter_grades
                 )
                 if not exists:
-                    quarter_grades.append(
-                        {"id": subject.id, "subject": subject.name, "grade": 0}
+                    subject_grades = Grade.objects.filter(
+                        student=student, subject=subject.id
                     )
+                    
+                    subjects_grades_list = [float(grade.grade) for grade in subject_grades]
+
+                    average_subject_grade = (
+                        round(sum(subjects_grades_list) / len(subjects_grades_list), 1)
+                        if subject_grades
+                        else None
+                    )
+
+                    if len(subject_grades) > 0:
+                        quarter_grades.append(
+                            {
+                                "id": subject.id,
+                                "subject": subject.name,
+                                "isApproximately": True,
+                                "grade": average_subject_grade,
+                            }
+                        )
+                    else:
+                        quarter_grades.append(
+                            {"id": subject.id, "subject": subject.name, "grade": 0}
+                        )
                 else:
                     quarter_grade = list(
                         filter(
