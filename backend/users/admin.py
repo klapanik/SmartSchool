@@ -7,3 +7,6 @@ admin.site.register(UserActivation)
 admin.site.register(Student)
 admin.site.register(Parent)
 admin.site.register(Teacher)
+
+admin.site.register(EmailVerification)
+admin.site.register(VerificationCode)
