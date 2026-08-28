@@ -1,5 +1,9 @@
 import { useSubjectsCountQuery } from "@/entities/subject/api/query";
-import { useAverageGradeQuery, useGradesQuery } from "@/entities/grades/api/queries";
+import {
+    useAverageGradeQuery,
+    useAverageGradesQuery,
+    useGradesQuery,
+} from "@/entities/grades/api/queries";
 import { useQuartersQuery } from "@/entities/quarter/api/query";
 import type { Quarter } from "@/entities/quarter/model/type";
 
@@ -14,6 +18,7 @@ export function GradesPage() {
     const quartersQuery = useQuartersQuery();
     const subjectsQuery = useSubjectsCountQuery();
     const averageGradeQuery = useAverageGradeQuery();
+    const averagesGradesQuery = useAverageGradesQuery();
 
     const currentQuarter: Quarter | null = quartersQuery.data
         ? quartersQuery.data.filter((quarter) => quarter.is_current)[0]
@@ -25,16 +30,22 @@ export function GradesPage() {
         quartersQuery.isLoading ||
         subjectsQuery.isLoading ||
         gradesQuery.isLoading ||
-        averageGradeQuery.isLoading;
+        averageGradeQuery.isLoading ||
+        averagesGradesQuery.isLoading;
 
     const isError =
         quartersQuery.isError ||
         subjectsQuery.isError ||
         gradesQuery.isError ||
-        averageGradeQuery.isError;
+        averageGradeQuery.isError ||
+        averagesGradesQuery.isError;
 
     const error =
-        quartersQuery.error ?? subjectsQuery.error ?? gradesQuery.error ?? averageGradeQuery.error;
+        quartersQuery.error ??
+        subjectsQuery.error ??
+        gradesQuery.error ??
+        averageGradeQuery.error ??
+        averagesGradesQuery.error;
 
     return (
         <section className="@container flex flex-col gap-5">
@@ -47,7 +58,7 @@ export function GradesPage() {
                     Ошибка в получении ваших оценок! Пожалуйста, обновите страницу или попробуйте
                     ещё раз позже {String(error)}
                 </div>
-            ) : isLoading || gradesQuery.data === undefined ? (
+            ) : isLoading || gradesQuery.data === undefined || averagesGradesQuery.data === undefined ? (
                 <>
                     <div className="grid grid-cols-1 gap-5 lg:grid-cols-3">
                         <Skeleton className="w-full h-30" />
@@ -66,7 +77,7 @@ export function GradesPage() {
                         averageGrade={averageGradeQuery.data?.average ?? 0}
                         subjectsCount={subjectsQuery.data?.count ?? 0}
                     />
-                    <SubjectAverageGrade />
+                    <SubjectAverageGrade averageGrades={averagesGradesQuery.data} />
                     <GradesList grades={gradesQuery.data} />
                     <ScrollTopArrow />
                 </>
