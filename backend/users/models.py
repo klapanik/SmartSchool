@@ -1,4 +1,4 @@
-from django.contrib.auth.models import AbstractUser, UserManager as DjangoUserManager
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.conf import settings
 from django.utils import timezone
@@ -49,7 +49,7 @@ class User(AbstractUser):
         null=True,
     )
 
-    USERNAME_FIELD = 'email'
+    USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
 
     def __str__(self):
@@ -63,17 +63,12 @@ class UserActivation(models.Model):
         related_name="activation",
     )
 
-    code = models.CharField(
-        max_length=15,
-        unique=True
-    )
+    code = models.CharField(max_length=15, unique=True)
 
     activated_at = models.DateTimeField(null=True, blank=True)
     expires_at = models.DateTimeField()
 
-    is_used = models.BooleanField(
-        default=False
-    )
+    is_used = models.BooleanField(default=False)
 
     def __str__(self):
         return f"{self.user.last_name}: {self.code}"
@@ -145,9 +140,8 @@ class Teacher(models.Model):
 
 class EmailVerification(models.Model):
     user = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE,
-        related_name='verifications')
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="verifications"
+    )
 
     code = models.CharField(max_length=6)
 
@@ -156,28 +150,36 @@ class EmailVerification(models.Model):
     is_used = models.BooleanField(default=False)
 
     def is_valid(self):
-        return not self.is_used and (timezone.now() - self.created_at) < timedelta(minutes=10)
+        return not self.is_used and (timezone.now() - self.created_at) < timedelta(
+            minutes=10
+        )
 
     def __str__(self):
-        return f"{self.user.email} - {self.code} - {'Used' if self.is_used else 'Active'}"
+        return (
+            f"{self.user.email} - {self.code} - {'Used' if self.is_used else 'Active'}"
+        )
+
 
 class VerificationCode(models.Model):
     TYPE_CHOICES = (
-        ('email', 'Email'),
-        ('phone', 'Phone'),
+        ("email", "Email"),
+        ("phone", "Phone"),
     )
-    
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='verification_codes')
+
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="verification_codes"
+    )
+
     code = models.CharField(max_length=6)
     type = models.CharField(max_length=10, choices=TYPE_CHOICES)
     value = models.CharField(max_length=100)  # Новый email или телефон
     created_at = models.DateTimeField(auto_now_add=True)
     is_used = models.BooleanField(default=False)
-    
+
     def is_valid(self):
-        from django.utils import timezone
-        from datetime import timedelta
-        return not self.is_used and (timezone.now() - self.created_at) < timedelta(minutes=10)
-    
+        return not self.is_used and (timezone.now() - self.created_at) < timedelta(
+            minutes=10
+        )
+
     def __str__(self):
         return f"{self.user.email} - {self.type} - {self.code}"
