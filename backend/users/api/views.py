@@ -3,7 +3,7 @@ from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
-from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework_simplejwt.serializers import (
@@ -142,7 +142,7 @@ class UserRefreshView(APIView):
         serializer = TokenRefreshSerializer(data={"refresh": refresh})
         serializer.is_valid(raise_exception=True)
 
-        return Response(serializer.validated_data)
+        return Response(serializer.validated_data, status=status.HTTP_200_OK)
 
 
 class VerifyEmailView(APIView):
@@ -168,7 +168,8 @@ class VerifyEmailView(APIView):
                 verification.save()
 
                 return Response(
-                    {"success": True, "message": "Email verified successfully!"}
+                    {"success": True, "message": "Email verified successfully!"},
+                    status=status.HTTP_200_OK,
                 )
 
             return Response(
@@ -248,7 +249,7 @@ class ChangeContactView(APIView):
         if "new_phone" in changes:
             response["pending_phone"] = changes["new_phone"]
 
-        return Response(response)
+        return Response(response, status=status.HTTP_200_OK)
 
 
 class VerifyChangeView(APIView):
@@ -307,7 +308,8 @@ class VerifyChangeView(APIView):
                 "new_value": (
                     user.email if verification.type == "email" else user.phone_number
                 ),
-            }
+            },
+            status=status.HTTP_200_OK,
         )
 
 
@@ -326,13 +328,15 @@ class ResendVerificationView(APIView):
         if user.pending_email:
             create_verification_code(user, "email", user.pending_email)
             return Response(
-                {"success": True, "message": "Код отправлен на новый email"}
+                {"success": True, "message": "Код отправлен на новый email"},
+                status=status.HTTP_200_OK,
             )
 
         if user.pending_phone:
             create_verification_code(user, "phone", user.pending_phone)
             return Response(
-                {"success": True, "message": "Код отправлен на новый номер"}
+                {"success": True, "message": "Код отправлен на новый номер"},
+                status=status.HTTP_200_OK,
             )
 
 
