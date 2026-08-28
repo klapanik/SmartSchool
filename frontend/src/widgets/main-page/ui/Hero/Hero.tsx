@@ -31,7 +31,7 @@ export function Hero({ todaysSchedule }: { todaysSchedule?: Lesson[] }) {
             return (
                 <>
                     <p>Сейчас идут уроки</p>
-                    <Dot className="animate-pulse absolute -top-0.5 -right-5" />
+                    <Dot className="animate-pulse absolute -top-0.5 -right-3" />
                 </>
             );
         } else {
