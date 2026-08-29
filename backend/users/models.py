@@ -20,11 +20,7 @@ class User(AbstractUser):
         blank=True,
     )
 
-    pending_email = models.EmailField(
-        blank=True,
-        null=True,
-    )
-
+    pending_email = models.EmailField(blank=True, null=True)
     is_email_verified = models.BooleanField(default=False)
 
     role = models.CharField(
@@ -39,8 +35,7 @@ class User(AbstractUser):
         null=True,
     )
 
-    pending_phone = models.CharField(max_length=15, blank=True, null=True)
-
+    pending_phone = models.CharField(blank=True, null=True)
     is_phone_verified = models.BooleanField(default=False)
 
     avatar = models.ImageField(
@@ -85,7 +80,7 @@ class Student(models.Model):
         "smart_school.SchoolClass",
         on_delete=models.CASCADE,
         related_name="students",
-        null=True,  # ! временно (сделано для облегчение миграций)
+        null=True,
         blank=True,
     )
 
@@ -123,7 +118,7 @@ class Teacher(models.Model):
         "smart_school.School",
         on_delete=models.CASCADE,
         related_name="teachers",
-        null=True,  # ! временно (сделано для облегчение миграций)
+        null=True,
         blank=True,
     )
 
@@ -136,28 +131,6 @@ class Teacher(models.Model):
 
     def __str__(self):
         return self.user.get_full_name()
-
-
-class EmailVerification(models.Model):
-    user = models.ForeignKey(
-        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="verifications"
-    )
-
-    code = models.CharField(max_length=6)
-
-    created_at = models.DateTimeField(auto_now_add=True)
-
-    is_used = models.BooleanField(default=False)
-
-    def is_valid(self):
-        return not self.is_used and (timezone.now() - self.created_at) < timedelta(
-            minutes=10
-        )
-
-    def __str__(self):
-        return (
-            f"{self.user.email} - {self.code} - {'Used' if self.is_used else 'Active'}"
-        )
 
 
 class VerificationCode(models.Model):
