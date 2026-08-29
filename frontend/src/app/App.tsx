@@ -5,6 +5,11 @@ import {
     RouterProvider,
 } from "react-router-dom";
 
+import { apiFetch } from "@/shared/api/fetch";
+
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+
 import { RootLayout } from "@/layouts/RootLayout";
 import { AuthLayout } from "@/layouts/AuthLayout";
 
@@ -18,12 +23,19 @@ import { ActivationForm } from "@/features/ActivationForm/ActivationForm";
 import type { ActivationFormType } from "@/features/ActivationForm/zod";
 import { LoginForm } from "@/features/LoginForm/LoginForm";
 import type { LoginFormType } from "@/features/LoginForm/zod";
+import { setAccessToken } from "@/features/auth/model/token-storage";
 
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster } from "@/components/ui/sonner";
 
-const BASE_URL = import.meta.env.VITE_API_URL;
+const queryClient = new QueryClient({
+    defaultOptions: {
+        queries: {
+            gcTime: 10 * 60 * 1000,
+        },
+    },
+});
 
 export function App() {
     const handleUserActivation = async (data: ActivationFormType) => {
@@ -36,15 +48,11 @@ export function App() {
                 password: data.password,
             };
 
-            const response = await fetch(`${BASE_URL}/user/activate/`, {
+            const result = await apiFetch("/user/activate/", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(requestBody),
             });
-
-            if (!response.ok) throw new Error(`API error: ${response.status}`);
-
-            const result = await response.json();
 
             console.log(result);
         } catch (error) {
@@ -64,15 +72,13 @@ export function App() {
                 password: data.password,
             };
 
-            const response = await fetch(`${BASE_URL}/user/login/`, {
+            const result = await apiFetch<{ access: string }>("/user/login/", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(requestBody),
             });
 
-            if (!response.ok) throw new Error(`API error: ${response.status}`);
-
-            const result = await response.json();
+            if (result.access) setAccessToken(result.access);
 
             console.log(result);
         } catch (error) {
@@ -99,10 +105,7 @@ export function App() {
                     path="/auth/activate"
                     element={<ActivationForm onSubmit={handleUserActivation} />}
                 />
-                <Route
-                    path="/auth/login"
-                    element={<LoginForm onSubmit={handleLogin} />}
-                />
+                <Route path="/auth/login" element={<LoginForm onSubmit={handleLogin} />} />
             </Route>
         </>,
     );
@@ -110,11 +113,14 @@ export function App() {
     const router = createBrowserRouter(routes);
 
     return (
-        <TooltipProvider>
-            <SidebarProvider>
-                <RouterProvider router={router} />
-                <Toaster />
-            </SidebarProvider>
-        </TooltipProvider>
+        <QueryClientProvider client={queryClient}>
+            <TooltipProvider>
+                <SidebarProvider>
+                    <RouterProvider router={router} />
+                    <Toaster />
+                    <ReactQueryDevtools initialIsOpen={false} />
+                </SidebarProvider>
+            </TooltipProvider>
+        </QueryClientProvider>
     );
 }
