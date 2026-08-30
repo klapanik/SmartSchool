@@ -14,3 +14,6 @@ export interface User {
     class_teacher_first_name: string | null;
     class_teacher_last_name: string | null;
 }
+
+
+export interface Analytics {}

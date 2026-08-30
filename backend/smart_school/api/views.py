@@ -1,5 +1,6 @@
-from django.db.models import Prefetch, Avg
+from django.db.models import Avg, Count
 from django.utils import timezone
+from django.shortcuts import get_object_or_404
 
 from rest_framework import status
 from rest_framework.views import APIView
@@ -7,7 +8,7 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.authentication import JWTAuthentication
 
-from smart_school.models import Grade, ScheduleLesson, Quarter, QuarterGrade
+from smart_school.models import Grade, ScheduleLesson, Quarter, QuarterGrade, LessonAttendance
 from .serializers import (
     ScheduleLessonSerializer,
     GradeSerializer,
