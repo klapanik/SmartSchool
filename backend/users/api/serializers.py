@@ -13,53 +13,27 @@ class UserActivationSerializer(serializers.Serializer):
 class ChangeEmailSerializer(serializers.Serializer):
     new_email = serializers.EmailField()
 
-    def validate_new_email(self, value):
-        if User.objects.filter(email=value).exists():
+    def validate_new_email(self, new_email):
+        if not new_email:
+            raise serializers.ValidationError("Укажите новый email")
+
+        if User.objects.filter(email=new_email).exists():
             raise serializers.ValidationError("Этот email уже используется")
-        return value
+
+        return new_email
 
 
 class ChangePhoneSerializer(serializers.Serializer):
-    new_phone = serializers.CharField(max_length=15)
+    new_phone = serializers.CharField()
 
-    def validate_new_phone(self, value):
-        if User.objects.filter(phone_number=value).exists():
-            raise serializers.ValidationError("Этот номер уже используется")
-        return value
-
-
-class ChangeContactSerializer(serializers.Serializer):
-    new_email = serializers.EmailField(required=False)
-    new_phone = serializers.CharField(max_length=15, required=False)
-
-    def validate(self, data):
-        if not data:
+    def validate_new_phone(self, new_phone):
+        if not new_phone:
             raise serializers.ValidationError("Укажите новый email или номер телефона")
 
-        errors = {}
-        if "new_email" in data:
-            email_serializer = ChangeEmailSerializer(
-                data={"new_email": data["new_email"]}
-            )
-            if not email_serializer.is_valid():
-                errors["new_email"] = email_serializer.errors["new_email"]
+        if User.objects.filter(phone_number=new_phone).exists():
+            raise serializers.ValidationError("Этот номер уже используется")
 
-        if "new_phone" in data:
-            phone_serializer = ChangePhoneSerializer(
-                data={"new_phone": data["new_phone"]}
-            )
-            if not phone_serializer.is_valid():
-                errors["new_phone"] = phone_serializer.errors["new_phone"]
-
-        if errors:
-            raise serializers.ValidationError(errors)
-
-        return data
-
-
-class VerifyEmailSerializer(serializers.Serializer):
-    email = serializers.EmailField()
-    code = serializers.CharField(max_length=6)
+        return new_phone
 
 
 class VerifyChangeSerializer(serializers.Serializer):

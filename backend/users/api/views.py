@@ -14,7 +14,6 @@ from rest_framework_simplejwt.exceptions import TokenError
 
 from ..models import (
     UserActivation,
-    EmailVerification,
     VerificationCode,
     UserActivation,
     User,
@@ -37,18 +36,19 @@ class UserActivationView(APIView):
             activation = UserActivation.objects.select_related("user").get(code=code)
         except UserActivation.DoesNotExist:
             return Response(
-                {"detail": "Invalid activation code."}, status=status.HTTP_404_NOT_FOUND
+                {"success": False, "message": "Неверный код активации."},
+                status=status.HTTP_404_NOT_FOUND,
             )
 
         if activation.is_used:
             return Response(
-                {"detail": "Activation code has already been used."},
+                {"success": False, "message": "Код активации уже был использован."},
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
         if activation.expires_at < timezone.now():
             return Response(
-                {"detail": "Activation code has expired."},
+                {"success": False, "message": "Код активации больше не действителен."},
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
@@ -67,7 +67,12 @@ class UserActivationView(APIView):
         refresh = RefreshToken.for_user(user)
 
         response = Response(
-            {"access": str(refresh.access_token)}, status=status.HTTP_200_OK
+            {
+                "success": True,
+                "message": "Пользователь успешно активирован!",
+                "access": str(refresh.access_token),
+            },
+            status=status.HTTP_200_OK,
         )
 
         response.set_cookie(
@@ -99,6 +104,9 @@ class UserLoginView(TokenObtainPairView):
             max_age=60 * 60 * 24 * 30,
         )
 
+        response.data["success"] = True
+        response.data["message"] = "Вход в аккаунт завершён успешно!"
+
         return response
 
 
@@ -111,7 +119,7 @@ class UserLogoutAPIView(APIView):
 
         if refresh is None:
             return Response(
-                {"detail": "Refresh token not found."},
+                {"success": False, "message": "Пользователь не авторизован."},
                 status=status.HTTP_401_UNAUTHORIZED,
             )
 
@@ -120,11 +128,15 @@ class UserLogoutAPIView(APIView):
             token.blacklist()
         except TokenError:
             return Response(
-                {"detail": "Invalid refresh token."},
+                {"success": False, "message": "Пользователь не авторизован."},
                 status=status.HTTP_401_UNAUTHORIZED,
             )
 
-        response = Response(status=status.HTTP_204_NO_CONTENT)
+        response = Response(
+            {"success": True, "message": "Вы успешно вышли из аккаунта!"},
+            status=status.HTTP_204_NO_CONTENT,
+        )
+
         response.delete_cookie("refresh")
         return response
 
@@ -134,136 +146,112 @@ class UserRefreshView(APIView):
         refresh = request.COOKIES.get("refresh")
 
         if refresh is None:
-            return Response(
-                {"detail": "Refresh token not found."},
-                status=status.HTTP_401_UNAUTHORIZED,
-            )
+            return Response({"success": False}, status=status.HTTP_401_UNAUTHORIZED)
 
         serializer = TokenRefreshSerializer(data={"refresh": refresh})
         serializer.is_valid(raise_exception=True)
 
-        return Response(serializer.validated_data, status=status.HTTP_200_OK)
+        return Response(
+            {**serializer.validated_data, "success": True}, status=status.HTTP_200_OK
+        )
 
 
-class VerifyEmailView(APIView):
-    def post(self, request):
-        serializer = VerifyEmailSerializer(data=request.data)
-
-        if not serializer.is_valid():
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-        email = serializer.validated_data["email"]
-        code = serializer.validated_data["code"]
-
-        try:
-            user = User.objects.get(email=email)
-            verification = EmailVerification.objects.get(
-                user=user, code=code, is_used=False
-            )
-
-            if verification.is_valid():
-                user.is_email_verified = True
-                user.save()
-                verification.is_used = True
-                verification.save()
-
-                return Response(
-                    {"success": True, "message": "Email verified successfully!"},
-                    status=status.HTTP_200_OK,
-                )
-
-            return Response(
-                {
-                    "success": False,
-                    "message": "Code has expired or already used. Please request a new one.",
-                },
-                status=status.HTTP_400_BAD_REQUEST,
-            )
-
-        except User.DoesNotExist:
-            return Response(
-                {"success": False, "message": "User not found."},
-                status=status.HTTP_404_NOT_FOUND,
-            )
-        except EmailVerification.DoesNotExist:
-            return Response(
-                {"success": False, "message": "Invalid verification code."},
-                status=status.HTTP_400_BAD_REQUEST,
-            )
-
-
-class ChangeContactView(APIView):
+class ChangeEmailView(APIView):
+    authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
-    serializer_class = ChangeContactSerializer
 
-    def post(self, request):
-        serializer = self.serializer_class(data=request.data)
+    def patch(self, request):
+        serializer = ChangeEmailSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
         user = request.user
-        changes = serializer.validated_data
-        pending_fields = []
+        new_email = serializer.validated_data["new_email"]
 
-        if "new_email" in changes:
-            if user.email == changes["new_email"]:
-                return Response(
-                    {"success": False, "message": "Новый email совпадает с текущим"},
-                    status=status.HTTP_400_BAD_REQUEST,
-                )
+        if user.email == new_email:
+            return Response(
+                {"success": False, "message": "Новый email совпадает с текущим"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
 
-            user.pending_email = changes["new_email"]
-            pending_fields.append("pending_email")
+        user.pending_email = new_email
+        user.is_email_verified = False
 
-        if "new_phone" in changes:
-            if user.phone_number == changes["new_phone"]:
-                return Response(
-                    {"success": False, "message": "Новый номер совпадает с текущим"},
-                    status=status.HTTP_400_BAD_REQUEST,
-                )
-            user.pending_phone = changes["new_phone"]
-            pending_fields.append("pending_phone")
-
-        user.save(update_fields=pending_fields)
+        user.save(update_fields=["pending_email", "is_email_verified"])
 
         try:
-            if "new_email" in changes:
-                create_verification_code(user, "email", changes["new_email"])
-            if "new_phone" in changes:
-                create_verification_code(user, "phone", changes["new_phone"])
+            create_verification_code(user, "email", new_email)
         except Exception as error:
-            for field in pending_fields:
-                setattr(user, field, None)
-            user.save(update_fields=pending_fields)
+            user.pending_email = None
+            user.save(update_fields=["pending_email"])
+
             return Response(
                 {"success": False, "message": f"Ошибка отправки кода: {str(error)}"},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR,
             )
 
-        response = {
-            "success": True,
-            "message": "Коды подтверждения отправлены",
-        }
-
-        if "new_email" in changes:
-            response["pending_email"] = changes["new_email"]
-        if "new_phone" in changes:
-            response["pending_phone"] = changes["new_phone"]
-
-        return Response(response, status=status.HTTP_200_OK)
+        return Response(
+            {
+                "success": True,
+                "message": "Коды подтверждения отправлены",
+                "new_email": new_email,
+            },
+            status=status.HTTP_200_OK,
+        )
 
 
-class VerifyChangeView(APIView):
+class ChangePhoneView(APIView):
+    authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
-    serializer_class = VerifyChangeSerializer
+
+    def patch(self, request):
+        serializer = ChangePhoneSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        user = request.user
+        new_phone = serializer.validated_data["new_phone"]
+
+        if user.phone_number == new_phone:
+            return Response(
+                {"success": False, "message": "Новый номер совпадает с текущим"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        user.pending_phone = new_phone
+        user.is_phone_verified = False
+
+        user.save(update_fields=["pending_phone", "is_phone_verified"])
+
+        try:
+            create_verification_code(user, "phone", new_phone)
+        except Exception as error:
+            user.pending_phone = None
+            user.save(update_fields=["pending_phone"])
+
+            return Response(
+                {"success": False, "message": f"Ошибка отправки кода: {str(error)}"},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            )
+
+        return Response(
+            {
+                "success": True,
+                "message": "Коды подтверждения отправлены",
+                "new_phone": new_phone,
+            },
+            status=status.HTTP_200_OK,
+        )
+
+
+class VerifyChangesView(APIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
 
     def post(self, request):
-        serializer = self.serializer_class(data=request.data)
+        serializer = VerifyChangeSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
 
-        if not serializer.is_valid():
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-        code = serializer.validated_data["code"]
         user = request.user
+        code = serializer.validated_data["code"]
 
         try:
             verification = VerificationCode.objects.get(
@@ -314,6 +302,7 @@ class VerifyChangeView(APIView):
 
 
 class ResendVerificationView(APIView):
+    authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated]
 
     def post(self, request):
@@ -327,6 +316,7 @@ class ResendVerificationView(APIView):
 
         if user.pending_email:
             create_verification_code(user, "email", user.pending_email)
+
             return Response(
                 {"success": True, "message": "Код отправлен на новый email"},
                 status=status.HTTP_200_OK,
@@ -334,6 +324,7 @@ class ResendVerificationView(APIView):
 
         if user.pending_phone:
             create_verification_code(user, "phone", user.pending_phone)
+
             return Response(
                 {"success": True, "message": "Код отправлен на новый номер"},
                 status=status.HTTP_200_OK,
