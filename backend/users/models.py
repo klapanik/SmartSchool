@@ -21,7 +21,7 @@ class User(AbstractUser):
     )
 
     pending_email = models.EmailField(blank=True, null=True)
-    is_email_verified = models.BooleanField(default=False)
+    pending_phone = models.CharField(blank=True, null=True)
 
     role = models.CharField(
         max_length=20,
@@ -34,9 +34,6 @@ class User(AbstractUser):
         blank=True,
         null=True,
     )
-
-    pending_phone = models.CharField(blank=True, null=True)
-    is_phone_verified = models.BooleanField(default=False)
 
     avatar = models.ImageField(
         upload_to="avatars/",

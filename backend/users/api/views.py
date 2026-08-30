@@ -174,9 +174,7 @@ class ChangeEmailView(APIView):
             )
 
         user.pending_email = new_email
-        user.is_email_verified = False
-
-        user.save(update_fields=["pending_email", "is_email_verified"])
+        user.save(update_fields=["pending_email"])
 
         try:
             create_verification_code(user, "email", new_email)
@@ -217,9 +215,7 @@ class ChangePhoneView(APIView):
             )
 
         user.pending_phone = new_phone
-        user.is_phone_verified = False
-
-        user.save(update_fields=["pending_phone", "is_phone_verified"])
+        user.save(update_fields=["pending_phone"])
 
         try:
             create_verification_code(user, "phone", new_phone)
