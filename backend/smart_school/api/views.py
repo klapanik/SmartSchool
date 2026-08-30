@@ -311,21 +311,18 @@ class AnalyticsView(APIView):
 
     def get(self, request):
         student = request.user.student_profile
+        
+        today = timezone.localdate()
 
-        quarter_id = request.query_params.get("quarter")
-
-        if not quarter_id:
-            return Response({"detail": "Quarter parameter is required."}, status=status.HTTP_400_BAD_REQUEST)
-
-        quarter = get_object_or_404(
-            Quarter,
-            pk=quarter_id,
+        quarter = Quarter.objects.filter(
+            starts_at__lte=today,
+            ends_at__gte=today,
             school=student.school_class.school,
-        )
+        ).first()
 
         student_grades = Grade.objects.filter(
             student=student,
-            created_at__date__range=(quarter.starts_at, quarter.ends_at),
+            date__range=(quarter.starts_at, quarter.ends_at),
         ).select_related("subject")
 
         # 1. Best and worst grade
@@ -352,14 +349,14 @@ class AnalyticsView(APIView):
 
         monthly_grades = (
             student_grades
-            .values("created_at__date__year", "created_at__date__month")
+            .values("date__year", "date__month")
             .annotate(average_grade=Avg("grade"))
-            .order_by("created_at__date__year", "created_at__date__month")
+            .order_by("date__year", "date__month")
         )
 
         monthly_average = [
             {
-                "month": self.MONTHS[item["created_at__date__month"]],
+                "month": self.MONTHS[item["date__month"]],
                 "average_grade": round(float(item["average_grade"]), 2),
             } for item in monthly_grades
         ]
@@ -519,7 +516,7 @@ class AnalyticsView(APIView):
             .filter(
                 student__school_class=student.school_class,
                 subject_id__in=subjects_for_comparison_ids,
-                created_at__date__range=(
+                date__range=(
                     quarter.starts_at,
                     quarter.ends_at,
                 ),
