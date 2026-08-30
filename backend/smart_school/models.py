@@ -71,15 +71,7 @@ class Grade(models.Model):
     )
 
     subject = models.ForeignKey(
-        "Subject",
-        on_delete=models.CASCADE,
-        related_name="grades"
-    )
-
-    schedule_lesson = models.ForeignKey(
-        "ScheduleLesson",
-        on_delete=models.CASCADE,
-        related_name="grades"
+        "Subject", on_delete=models.CASCADE, related_name="grades"
     )
 
     teacher = models.ForeignKey(
@@ -93,9 +85,7 @@ class Grade(models.Model):
         decimal_places=1,
     )
 
-    created_at = models.DateTimeField(
-        auto_now_add=True,
-    )
+    date = models.DateField(auto_now_add=True)
 
     comment = models.TextField(
         blank=True,
@@ -110,9 +100,7 @@ class QuarterGrade(models.Model):
     )
 
     subject = models.ForeignKey(
-        "Subject",
-        on_delete=models.CASCADE,
-        related_name="quarter_grades"
+        "Subject", on_delete=models.CASCADE, related_name="quarter_grades"
     )
 
     quarter = models.ForeignKey(
@@ -129,9 +117,7 @@ class QuarterGrade(models.Model):
 
 class ScheduleLesson(models.Model):
     school_class = models.ForeignKey(
-        "SchoolClass",
-        on_delete=models.CASCADE,
-        related_name="lessons"
+        "SchoolClass", on_delete=models.CASCADE, related_name="lessons"
     )
 
     subject = models.ForeignKey(

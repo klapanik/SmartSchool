@@ -1,6 +1,8 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.conf import settings
+from django.utils import timezone
+from datetime import timedelta
 
 
 class UserRole(models.TextChoices):
@@ -18,12 +20,8 @@ class User(AbstractUser):
         blank=True,
     )
 
-    pending_email = models.EmailField(
-        blank=True,
-        null=True,
-    )
-
-    is_email_verified = models.BooleanField(default=False)
+    pending_email = models.EmailField(blank=True, null=True)
+    pending_phone = models.CharField(blank=True, null=True)
 
     role = models.CharField(
         max_length=20,
@@ -43,7 +41,7 @@ class User(AbstractUser):
         null=True,
     )
 
-    USERNAME_FIELD = 'email'
+    USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
 
     def __str__(self):
@@ -57,17 +55,12 @@ class UserActivation(models.Model):
         related_name="activation",
     )
 
-    code = models.CharField(
-        max_length=15,
-        unique=True
-    )
+    code = models.CharField(max_length=15, unique=True)
 
     activated_at = models.DateTimeField(null=True, blank=True)
     expires_at = models.DateTimeField()
 
-    is_used = models.BooleanField(
-        default=False
-    )
+    is_used = models.BooleanField(default=False)
 
     def __str__(self):
         return f"{self.user.last_name}: {self.code}"
@@ -84,7 +77,7 @@ class Student(models.Model):
         "smart_school.SchoolClass",
         on_delete=models.CASCADE,
         related_name="students",
-        null=True,  # ! временно (сделано для облегчение миграций)
+        null=True,
         blank=True,
     )
 
@@ -122,7 +115,7 @@ class Teacher(models.Model):
         "smart_school.School",
         on_delete=models.CASCADE,
         related_name="teachers",
-        null=True,  # ! временно (сделано для облегчение миграций)
+        null=True,
         blank=True,
     )
 
@@ -135,3 +128,28 @@ class Teacher(models.Model):
 
     def __str__(self):
         return self.user.get_full_name()
+
+
+class VerificationCode(models.Model):
+    TYPE_CHOICES = (
+        ("email", "Email"),
+        ("phone", "Phone"),
+    )
+
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="verification_codes"
+    )
+
+    code = models.CharField(max_length=6)
+    type = models.CharField(max_length=10, choices=TYPE_CHOICES)
+    value = models.CharField(max_length=100)  # Новый email или телефон
+    created_at = models.DateTimeField(auto_now_add=True)
+    is_used = models.BooleanField(default=False)
+
+    def is_valid(self):
+        return not self.is_used and (timezone.now() - self.created_at) < timedelta(
+            minutes=10
+        )
+
+    def __str__(self):
+        return f"{self.user.email} - {self.type} - {self.code}"

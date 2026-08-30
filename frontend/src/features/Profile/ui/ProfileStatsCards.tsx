@@ -1,12 +1,17 @@
 import { ProfileStatsCard } from "@/shared/ui/ProfileStatsCard";
 import { BookOpen, TrendingUp, Trophy } from "lucide-react";
 
-export function ProfileStatsCards() {
+type Props = {
+    subjectsCount: string | number;
+    averageGrade: number;
+};
+
+export function ProfileStatsCards({ subjectsCount, averageGrade }: Props) {
     return (
         <div className="grid grid-cols-3 gap-2.5 ">
-            <ProfileStatsCard icon={TrendingUp} number={9.47} title="средний" />
-            <ProfileStatsCard icon={Trophy} number={76} title="оценок" />
-            <ProfileStatsCard icon={BookOpen} number={13} title="предметов" />
+            <ProfileStatsCard icon={TrendingUp} number={averageGrade} title="средний" />
+            <ProfileStatsCard icon={Trophy} number={1} title="место" />
+            <ProfileStatsCard icon={BookOpen} number={subjectsCount} title="предметов" />
         </div>
     );
 }

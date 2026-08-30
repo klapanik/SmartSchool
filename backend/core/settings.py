@@ -15,6 +15,7 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 AUTH_USER_MODEL = "users.User"
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=30),
@@ -59,7 +60,11 @@ REST_FRAMEWORK = {'DEFAULT_PERMISSION_CLASSES': [
     'rest_framework.permissions.AllowAny'
 ]}
 
-CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",
+]
+
+CORS_ALLOW_CREDENTIALS = True
 
 ROOT_URLCONF = 'core.urls'
 
@@ -120,3 +125,14 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 
 STATIC_URL = 'static/'
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False  # Set to False when using TLS
+EMAIL_HOST_USER = 'lapanik.kostik@gmail.com'  # Your Gmail address
+EMAIL_HOST_PASSWORD = 'dety uwhp uxrd ybla'  # NOT your regular Gmail password!
+DEFAULT_FROM_EMAIL = 'lapanik.kostik@gmail.com'  # Same as EMAIL_HOST_USER
+EMAIL_TIMEOUT = 30  # Timeout in seconds
