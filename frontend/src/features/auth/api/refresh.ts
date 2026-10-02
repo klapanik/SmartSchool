@@ -6,9 +6,13 @@ export async function refreshAccessToken() {
         method: "POST",
         credentials: "include",
     });
-    
+
     if (response.status === 401) {
-        throw new Error('Invalid refresh token')
+        if (window.location.pathname !== "/auth/login") {
+            window.location.href = "/auth/login";
+        }
+
+        throw new Error("Invalid refresh token");
     }
 
     if (!response.ok) {
