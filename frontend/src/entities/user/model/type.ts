@@ -22,7 +22,7 @@ interface BestAndWorstGrade {
 
 interface BestAndWorstSubject {
     subject: string;
-    average_grade: number;
+    averageGrade: number;
     last_average_grade?: number;
 }
 

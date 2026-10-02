@@ -14,7 +14,7 @@ export function AnalyticStatsCard(props: Props) {
     const { title, titleSubtext, number, prevNumber, description, subject } = props;
 
     const statNumber =
-        prevNumber !== undefined && number !== undefined && description === undefined
+        !!prevNumber && !!number && !description
             ? Math.round((number - prevNumber) * 100) / 100
             : null;
 
@@ -45,7 +45,7 @@ export function AnalyticStatsCard(props: Props) {
             </div>
 
             <div>
-                {prevNumber !== undefined && (
+                {!!prevNumber && (
                     <div>
                         <p>В прошлой четверти: {prevNumber}</p>
 

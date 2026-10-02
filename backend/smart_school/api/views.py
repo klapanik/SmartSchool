@@ -416,7 +416,7 @@ class AnalyticsView(APIView):
             best_subjects = [
                 {
                     "subject": item["subject__name"],
-                    "average_grade": round(float(item["average_grade"]), 2),
+                    "averageGrade": round(float(item["average_grade"]), 2),
                 } for item in subject_averages[:limit]
             ]
 
@@ -425,7 +425,7 @@ class AnalyticsView(APIView):
             worst_subjects = [
                 {
                     "subject": item["subject__name"],
-                    "average_grade": round(float(item["average_grade"]), 2),
+                    "averageGrade": round(float(item["average_grade"]), 2),
                 } for item in worst_subjects_queryset
             ]
 

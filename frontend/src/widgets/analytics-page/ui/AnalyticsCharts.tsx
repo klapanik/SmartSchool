@@ -1,13 +1,6 @@
 import { ChartPieLabel } from "@/widgets/analytics-page/ui/Charts/PieChart";
 import {
-    averageGradeDynamicsChartData,
-    bestSubjectsChartData,
-    comparisonWithClassChartData,
-    comparisonWithPastChartData,
     monthsData,
-    pieChartData,
-    workloadChartData,
-    worstSubjectsChartData,
 } from "../models/mock";
 
 import { ChartLineLabel } from "@/widgets/analytics-page/ui/Charts/LineChart";
@@ -16,24 +9,28 @@ import { HorizontalMultipleBarChart } from "@/widgets/analytics-page/ui/Charts/H
 import { VerticalMultipleBarChart } from "@/widgets/analytics-page/ui/Charts/VerticalMultipleBarChart";
 
 import { PresenceCalendar } from "./PresenceCalendar";
+import type { Analytics } from "@/entities/user/model/type";
 
-export function AnalyticsCharts() {
+export function AnalyticsCharts({ analyticsData }: { analyticsData: Analytics }) {
     return (
         <div className="grid @min-[700px]:grid-cols-2 gap-5">
-            <ChartLineLabel chartData={averageGradeDynamicsChartData} />
-            <ChartPieLabel chartData={pieChartData} />
+            {analyticsData.monthly_average.length > 1 && (
+                <ChartLineLabel chartData={analyticsData.monthly_average} />
+            )}
+
+            <ChartPieLabel chartData={analyticsData.grade_distribution} />
 
             <HorizontalBarChart
                 title="Рейтинг лучших предметов"
                 subtitle="Средние баллы по лучшим предметам"
-                chartData={bestSubjectsChartData}
+                chartData={analyticsData.best_subjects}
                 type="averageGrades"
             />
 
             <HorizontalBarChart
                 title="Рейтинг худших предметов"
                 subtitle="Средние баллы по худшим предметам"
-                chartData={worstSubjectsChartData}
+                chartData={analyticsData.worst_subjects}
                 type="averageGrades"
             />
 
@@ -42,20 +39,19 @@ export function AnalyticsCharts() {
             <VerticalMultipleBarChart
                 title="Сравнение с классом"
                 subtitle="Сравнение среднего балла по лучшим предметам с классом"
-                chartData={comparisonWithClassChartData}
+                chartData={analyticsData.comparison}
             />
 
             <HorizontalMultipleBarChart
                 title="Сравнение текущей и прошлой четвертей"
                 subtitle="По каким предметам успеваемость выросла или упала (наибольшие положительные и отрицательные разрывы)"
-                chartData={comparisonWithPastChartData}
+                chartData={analyticsData.comparison}
             />
 
             <HorizontalBarChart
                 title="Нагрузка по предметам (количество оценок)"
                 subtitle="По каким предметам больше всего оценок"
-                chartData={workloadChartData}
-                type={null}
+                chartData={analyticsData.subject_workload}
             />
         </div>
     );
