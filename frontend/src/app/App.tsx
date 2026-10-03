@@ -72,13 +72,17 @@ export function App() {
                 password: data.password,
             };
 
-            const result = await apiFetch<{ access: string }>("/user/login/", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(requestBody),
-            });
+            const result = await apiFetch<{ access: string; message?: string; success: boolean }>(
+                "/user/login/",
+                {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(requestBody),
+                },
+            );
 
             if (result.access) setAccessToken(result.access);
+            if (result.success) window.location.href = "/home";
 
             console.log(result);
         } catch (error) {

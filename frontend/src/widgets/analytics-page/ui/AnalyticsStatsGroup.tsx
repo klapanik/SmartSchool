@@ -1,31 +1,40 @@
+import type { Analytics } from "@/entities/user/model/type";
 import { AnalyticStatsCard } from "@/widgets/analytics-page/ui/AnalyticStatsCard";
 import { CalendarDays, TriangleAlert, Trophy } from "lucide-react";
 
-export function AnalyticStatsGroup() {
+export function AnalyticStatsGroup({
+    analyticsData,
+    averageGrade,
+}: {
+    analyticsData: Analytics;
+    averageGrade: number;
+}) {
+    const { absence_count, worst_grade, best_subjects, worst_subjects } = analyticsData;
+
     return (
         <section>
-            <div className="grid grid-cols-1 gap-5 @min-[550px]:grid-cols-2  @min-[1200px]:grid-cols-4  mb-5">
+            <div className="grid grid-cols-1 gap-5 @min-[550px]:grid-cols-2 @min-[1200px]:grid-cols-4 mb-5">
                 <AnalyticStatsCard
                     title="Пропуски"
                     titleSubtext="за четверть"
-                    number={3}
+                    number={absence_count}
                     icon={CalendarDays}
                     prevNumber={3}
                 />
                 <AnalyticStatsCard
                     title="Средний балл"
                     titleSubtext="за четверть"
-                    number={9.23}
+                    number={averageGrade}
                     icon={CalendarDays}
                     prevNumber={8.93}
                 />
                 <AnalyticStatsCard
                     title="Худшая оценка"
-                    titleSubtext="по Химии"
-                    number={7}
+                    titleSubtext={`по предмету '${worst_grade.subject}'`}
+                    number={worst_grade.grade}
                     icon={CalendarDays}
                     prevNumber={5}
-                    description="по Математике"
+                    description="по предмету 'Математика'"
                 />
                 <AnalyticStatsCard
                     title="Всего оценок"
@@ -39,19 +48,19 @@ export function AnalyticStatsGroup() {
                 <div>
                     <AnalyticStatsCard
                         title="Лучший предмет"
+                        subject={best_subjects[0].subject}
+                        number={best_subjects[0].averageGrade}
                         icon={Trophy}
-                        prevNumber={9.5}
-                        subject="География"
-                        number={10.0}
+                        prevNumber={best_subjects[0].last_average_grade}
                     />
                 </div>
                 <div>
                     <AnalyticStatsCard
                         title="Трудный предмет"
-                        subject="Химия"
-                        number={7.2}
+                        subject={worst_subjects[0].subject}
+                        number={worst_subjects[0].averageGrade}
                         icon={TriangleAlert}
-                        prevNumber={8.1}
+                        prevNumber={worst_subjects[0].last_average_grade}
                     />
                 </div>
             </div>

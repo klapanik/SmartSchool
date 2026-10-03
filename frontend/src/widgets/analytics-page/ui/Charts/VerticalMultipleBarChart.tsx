@@ -4,7 +4,12 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { ChartContainer } from "@/components/ui/chart";
 
 type Props = {
-    chartData: { subject: string; usersGrade: number; secondGrade: number }[];
+    chartData: {
+        subject: string;
+        users_grade: number;
+        class_grade?: number;
+        last_grade?: number;
+    }[];
     title: string;
     subtitle: string;
 };
@@ -28,7 +33,7 @@ export function VerticalMultipleBarChart({ title, subtitle, chartData }: Props) 
                         <CartesianGrid vertical={false} />
 
                         <YAxis
-                            dataKey="usersGrade"
+                            dataKey="users_grade"
                             tickLine={false}
                             tickMargin={10}
                             axisLine={false}
@@ -43,12 +48,12 @@ export function VerticalMultipleBarChart({ title, subtitle, chartData }: Props) 
 
                         <Bar
                             isAnimationActive={false}
-                            dataKey="usersGrade"
+                            dataKey="users_grade"
                             fill="var(--chart-1)"
                             radius={[10, 10, 0, 0]}
                         >
                             <LabelList
-                                dataKey="usersGrade"
+                                dataKey="users_grade"
                                 position="insideTop"
                                 offset={8}
                                 className="min-[1100px]:fill-muted fill-smoky-black"
@@ -57,12 +62,12 @@ export function VerticalMultipleBarChart({ title, subtitle, chartData }: Props) 
                         </Bar>
                         <Bar
                             isAnimationActive={false}
-                            dataKey="secondGrade"
+                            dataKey="class_grade"
                             fill="var(--chart-4)"
                             radius={[10, 10, 0, 0]}
                         >
                             <LabelList
-                                dataKey="secondGrade"
+                                dataKey="class_grade"
                                 position="insideTop"
                                 offset={8}
                                 className="min-[1100px]:fill-muted fill-smoky-black"

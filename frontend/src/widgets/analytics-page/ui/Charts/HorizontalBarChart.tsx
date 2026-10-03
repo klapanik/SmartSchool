@@ -9,17 +9,16 @@ import {
 } from "@/components/ui/chart";
 
 type Props = {
-    chartData: { subject: string; averageGrade: number }[];
+    chartData: { subject: string; averageGrade?: number; grades_count?: number }[];
     title: string;
     subtitle: string;
-    type: null | "averageGrades";
+    type?: string;
 };
 
 export function HorizontalBarChart({ title, subtitle, chartData, type }: Props) {
     const chartConfig = {
-        averageGrade: {
-            label: type === "averageGrades" ? "Средний балл" : "Количество оценок",
-        },
+        averageGrade: { label: "Средний балл" },
+        grades_count: { label: "Количество оценок" },
     } satisfies ChartConfig;
 
     return (
@@ -41,7 +40,7 @@ export function HorizontalBarChart({ title, subtitle, chartData, type }: Props) 
                         <CartesianGrid horizontal={false} />
                         <XAxis
                             type="number"
-                            dataKey="averageGrade"
+                            dataKey={type ? "averageGrade" : "grades_count"}
                             axisLine={false}
                             tickLine={false}
                             domain={type === "averageGrades" ? [0, 10] : [0, 0]}
@@ -57,18 +56,18 @@ export function HorizontalBarChart({ title, subtitle, chartData, type }: Props) 
                             content={
                                 <ChartTooltipContent
                                     indicator="line"
-                                    className={` ${type === "averageGrades" ? "min-w-35" : "min-w-40"}`}
+                                    className={`${type === "averageGrades" ? "min-w-35" : "min-w-40"}`}
                                 />
                             }
                         />
                         <Bar
                             isAnimationActive={false}
-                            dataKey="averageGrade"
+                            dataKey={type ? "averageGrade" : "grades_count"}
                             fill="var(--chart-1)"
                             radius={[0, 10, 10, 0]}
                         >
                             <LabelList
-                                dataKey="averageGrade"
+                                dataKey={type ? "averageGrade" : "grades_count"}
                                 position="insideRight"
                                 offset={8}
                                 className="fill-muted"

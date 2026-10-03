@@ -4,7 +4,12 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { ChartContainer } from "@/components/ui/chart";
 
 type Props = {
-    chartData: { subject: string; usersGrade: number; secondGrade: number }[];
+    chartData: {
+        subject: string;
+        users_grade: number;
+        class_grade?: number;
+        last_grade?: number;
+    }[];
     title: string;
     subtitle: string;
 };
@@ -31,7 +36,7 @@ export function HorizontalMultipleBarChart({ title, subtitle, chartData }: Props
 
                         <XAxis
                             type="number"
-                            dataKey="usersGrade"
+                            dataKey="users_grade"
                             domain={[0, 10]}
                             axisLine={false}
                             tickLine={false}
@@ -46,12 +51,12 @@ export function HorizontalMultipleBarChart({ title, subtitle, chartData }: Props
 
                         <Bar
                             isAnimationActive={false}
-                            dataKey="usersGrade"
+                            dataKey="users_grade"
                             fill="var(--chart-1)"
                             radius={[0, 10, 10, 0]}
                         >
                             <LabelList
-                                dataKey="usersGrade"
+                                dataKey="users_grade"
                                 position="insideRight"
                                 className="min-[1100px]:fill-muted fill-smoky-black"
                                 fontSize={10}
@@ -60,12 +65,12 @@ export function HorizontalMultipleBarChart({ title, subtitle, chartData }: Props
 
                         <Bar
                             isAnimationActive={false}
-                            dataKey="secondGrade"
+                            dataKey="last_grade"
                             fill="var(--chart-4)"
                             radius={[0, 10, 10, 0]}
                         >
                             <LabelList
-                                dataKey="secondGrade"
+                                dataKey="last_grade"
                                 position="insideRight"
                                 className="min-[1100px]:fill-muted fill-smoky-black"
                                 fontSize={10}
