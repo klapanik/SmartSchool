@@ -1,6 +1,5 @@
 from django.db.models import Avg, Count
 from django.utils import timezone
-from django.shortcuts import get_object_or_404
 
 from rest_framework import status
 from rest_framework.views import APIView
@@ -107,11 +106,10 @@ class GradesView(APIView):
             grades = grades.filter(subject_id=subject)
 
         if quarter:
-            quarter = get_object_or_404(
-                Quarter,
+            quarter = Quarter.objects.filter(
                 pk=quarter,
                 school=student.school_class.school,
-            )
+            ).first()
 
             grades = grades.filter(
                 date__range=(
