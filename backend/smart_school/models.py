@@ -158,3 +158,17 @@ class LessonAttendance(models.Model):
                 name="unique_student_lesson_attendance",
             ),
         ]
+
+class SchoolAttendance(models.Model):
+    student = models.ForeignKey(
+        "users.Student",
+        on_delete=models.CASCADE,
+        related_name="school_attendance",
+    )
+
+    date = models.DateField()
+    dayNumber = models.PositiveSmallIntegerField()
+
+    is_absent = models.BooleanField(default=False)
+    is_valid_reason = models.BooleanField(default=False)
+    is_late = models.BooleanField(default=False)
