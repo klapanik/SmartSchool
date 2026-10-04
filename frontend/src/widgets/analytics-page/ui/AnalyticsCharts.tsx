@@ -1,5 +1,4 @@
 import { ChartPieLabel } from "@/widgets/analytics-page/ui/Charts/PieChart";
-import { monthsData } from "../models/mock";
 
 import { ChartLineLabel } from "@/widgets/analytics-page/ui/Charts/LineChart";
 import { HorizontalBarChart } from "@/widgets/analytics-page/ui/Charts/HorizontalBarChart";
@@ -36,7 +35,7 @@ export function AnalyticsCharts({ analyticsData }: { analyticsData: Analytics })
                 />
             )}
 
-            <PresenceCalendar monthsData={monthsData} />
+            <PresenceCalendar monthsData={analyticsData.absence_data} />
 
             {analyticsData.comparison.length >= 3 && (
                 <>
