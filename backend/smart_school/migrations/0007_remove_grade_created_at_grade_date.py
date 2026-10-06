@@ -7,7 +7,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('smart_school', '0006_remove_grade_schedule_lesson'),
+        ('smart_school', '0006_lessonattendance'),
     ]
 
     operations = [
