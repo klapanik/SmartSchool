@@ -1,13 +1,16 @@
 from django.db.models import Avg, Count
 from django.utils import timezone
 
+import calendar
+from datetime import datetime
+
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.authentication import JWTAuthentication
 
-from smart_school.models import Grade, ScheduleLesson, Quarter, QuarterGrade, LessonAttendance
+from smart_school.models import Grade, ScheduleLesson, Quarter, QuarterGrade, LessonAttendance, SchoolAttendance
 from .serializers import (
     ScheduleLessonSerializer,
     GradeSerializer,
@@ -306,6 +309,22 @@ class AnalyticsView(APIView):
         11: "November",
         12: "December",
     }
+    
+    RUSSIAN_MONTH = [
+        "",
+        "январь",
+        "февраль",
+        "март",
+        "апрель",
+        "май",
+        "июнь",
+        "июль",
+        "август",
+        "сентябрь",
+        "октябрь",
+        "ноябрь",
+        "декабрь",
+    ]
 
     def get(self, request):
         student = request.user.student_profile
@@ -576,8 +595,83 @@ class AnalyticsView(APIView):
             date__range=(quarter.starts_at, quarter.ends_at),
             is_absent=True,
         ).count()
+        
+        # 10. Absence data
 
-        # 10. Response
+        now = datetime.now()
+
+        current_month = now.month
+        absence_data = []
+
+        if (current_month >= 3) and (current_month - 2 < 6 or current_month - 2 > 8):
+            absence_data.append({"id": current_month - 2})
+
+        if (current_month >= 2) and (current_month - 1 < 6 or current_month - 1 > 8):
+            absence_data.append({"id": current_month - 1})
+
+        absence_data.append({"id": current_month})
+        
+        attendance = SchoolAttendance.objects.filter(
+            student=self.request.user.student_profile,
+            date__year__in=[now.year, now.year - 1],
+        )
+        
+        attendance_statuses = {}
+        
+        for item in attendance:
+            if item.is_absent:
+                if item.is_valid_reason:
+                    attendance_statuses[item.date] = "absentValid"
+                else:
+                    attendance_statuses[item.date] = "absent"
+            elif item.is_late:
+                attendance_statuses[item.date] = "late"
+
+        for item in absence_data:
+            item["month"] = self.RUSSIAN_MONTH[item["id"]]
+            item["monthNumber"] = item["id"]
+
+            days = []
+            year_to_check = now.year
+
+            if item["id"] > current_month:
+                year_to_check = now.year - 1
+
+            first_day_number, _ = calendar.monthrange(year_to_check, item["id"])
+
+            for i in range(first_day_number):
+                days.append({"id": i + 1, "status": "none"})
+
+            days_count = calendar.monthrange(now.year, item["id"])[1]
+
+            for i in range(days_count):
+                day_id = len(days) + 1
+                day_number = i + 1
+                
+                current_date = datetime(
+                    year_to_check,
+                    item["id"],
+                    day_number,
+                ).date()
+                
+                attendance_status = attendance_statuses.get(current_date)
+                
+                if attendance_status:
+                    days.append({
+                        "id": day_id,
+                        "dayNumber": day_number,
+                        "status": attendance_status,
+                    })
+                    continue
+
+                if (day_id - 6) % 7 == 0 or day_id % 7 == 0:
+                    days.append({"id": day_id, "dayNumber": day_number, "status": "weekend"})
+                else:
+                    days.append({"id": day_id, "dayNumber": day_number})
+
+            item["days"] = days
+
+        # 11. Response
 
         return Response(
             {
@@ -590,6 +684,7 @@ class AnalyticsView(APIView):
                 "worst_subjects": worst_subjects,
                 "subject_workload": subject_workload,
                 "comparison": comparison,
+                "absence_data": absence_data,
             },
             status=status.HTTP_200_OK,
         )
