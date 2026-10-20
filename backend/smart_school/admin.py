@@ -10,3 +10,6 @@ admin.site.register(QuarterGrade)
 admin.site.register(Quarter)
 admin.site.register(Subject)
 admin.site.register(ScheduleLesson)
+
+admin.site.register(LessonAttendance)
+admin.site.register(SchoolAttendance)

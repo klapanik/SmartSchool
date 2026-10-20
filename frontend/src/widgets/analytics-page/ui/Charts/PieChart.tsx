@@ -9,16 +9,24 @@ import {
 } from "@/components/ui/chart";
 
 type Props = {
-    chartData: { grade: number; procent: number; fill: string }[];
+    chartData: { grade: number; percent: number }[];
 };
 
 const chartConfig = {
-    procent: {
+    percent: {
         label: "Процент от общего количества оценок",
     },
 } satisfies ChartConfig;
 
 export function ChartPieLabel({ chartData }: Props) {
+    const updatedChartData = chartData.map((grade) => ({
+        grade: grade.grade,
+        percent: grade.percent,
+        fill: `var(--chart-${11 - grade.grade})`,
+    }));
+
+    console.log(updatedChartData);
+
     return (
         <Card>
             <CardHeader>
@@ -35,15 +43,15 @@ export function ChartPieLabel({ chartData }: Props) {
                             content={
                                 <ChartTooltipContent
                                     className="min-w-70"
-                                    nameKey="procent"
+                                    nameKey="percent"
                                     hideLabel
                                 />
                             }
                         />
                         <Pie
                             isAnimationActive={false}
-                            data={chartData}
-                            dataKey="procent"
+                            data={updatedChartData}
+                            dataKey="percent"
                             nameKey="grade"
                             label={({ value, name }) => `${name} (${value}%)`}
                         />

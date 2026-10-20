@@ -133,3 +133,42 @@ class ScheduleLesson(models.Model):
     classroom = models.CharField(
         max_length=20,
     )
+
+
+class LessonAttendance(models.Model):
+    lesson = models.ForeignKey(
+        "ScheduleLesson",
+        on_delete=models.CASCADE,
+        related_name="attendance",
+    )
+
+    student = models.ForeignKey(
+        "users.Student",
+        on_delete=models.CASCADE,
+        related_name="attendance",
+    )
+
+    date = models.DateField()
+    is_absent = models.BooleanField(default=False)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=("lesson", "student", "date"),
+                name="unique_student_lesson_attendance",
+            ),
+        ]
+
+class SchoolAttendance(models.Model):
+    student = models.ForeignKey(
+        "users.Student",
+        on_delete=models.CASCADE,
+        related_name="school_attendance",
+    )
+
+    date = models.DateField()
+    dayNumber = models.PositiveSmallIntegerField()
+
+    is_absent = models.BooleanField(default=False)
+    is_valid_reason = models.BooleanField(default=False)
+    is_late = models.BooleanField(default=False)
