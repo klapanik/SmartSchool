@@ -12,7 +12,7 @@ type Props = {
 export const PersonalDataItem = ({ Icon, title, value, isChangeable }: Props) => {
     const [isEditing, setIsEditing] = useState(false);
 
-    const handleStarEditing = () => {
+    const handleStartEditing = () => {
         setIsEditing(true);
     };
     const handleEndEditing = () => {
@@ -32,7 +32,7 @@ export const PersonalDataItem = ({ Icon, title, value, isChangeable }: Props) =>
                 <div className="flex items-center">
                     <span className="text-sm text-smoky-black mr-1">{value}</span>
                     {isChangeable && (
-                        <button onClick={handleStarEditing}>
+                        <button onClick={handleStartEditing}>
                             <Pencil className="size-3 text-primary cursor-pointer" />
                         </button>
                     )}
