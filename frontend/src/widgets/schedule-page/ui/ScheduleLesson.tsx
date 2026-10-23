@@ -1,5 +1,5 @@
 import { Clock4, Dot } from "lucide-react";
-import { GradeBadge } from "@/shared/ui/GradeBadge/ui/GradeBadge";
+import { GradeBadge } from "@/shared/ui/GradeBadge";
 import { cn } from "@/lib/utils";
 
 type Props = {

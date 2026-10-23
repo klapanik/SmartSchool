@@ -1,4 +1,4 @@
-import { GradeBadge } from "./GradeBadge/ui/GradeBadge";
+import { GradeBadge } from "@/shared/ui/GradeBadge";
 import { GradeComment } from "./GradeComment";
 
 type Props = {
