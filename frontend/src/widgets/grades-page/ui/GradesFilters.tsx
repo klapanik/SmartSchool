@@ -1,47 +1,9 @@
-import {
-    Select,
-    SelectContent,
-    SelectGroup,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from "@/components/ui/select";
-import { Label } from "@/components/ui/label";
-import { cn } from "@/lib/utils";
-
-const filterTriggerClassName = cn("text-smoky-black md:text-smoky-black");
-
-const filterLabelClassName = "mb-2 text-base font-medium text-smoky-black";
-
-function FilterField({
-    id,
-    label,
-    defaultValue,
-    children,
-}: {
-    id: string;
-    label: string;
-    defaultValue: string;
-    children: React.ReactNode;
-}) {
-    return (
-        <div className="min-w-0">
-            <Label htmlFor={id} className={filterLabelClassName}>
-                {label}
-            </Label>
-            <Select defaultValue={defaultValue}>
-                <SelectTrigger id={id} className={filterTriggerClassName}>
-                    <SelectValue />
-                </SelectTrigger>
-                <SelectContent position="popper">{children}</SelectContent>
-            </Select>
-        </div>
-    );
-}
+import { SelectGroup, SelectItem } from "@/components/ui/select";
+import { FilterField } from "./FilterField";
 
 export function GradesFilters() {
     return (
-        <div className="flex flex-col gap-5">   
+        <div className="flex flex-col gap-5">
             <div className="grid grid-cols-1 gap-4 @min-[720px]:grid-cols-3 md:gap-x-6 md:gap-y-4">
                 <FilterField
                     id="grades-filter-quarter"
