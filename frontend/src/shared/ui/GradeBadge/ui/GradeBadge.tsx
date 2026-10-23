@@ -1,4 +1,4 @@
-import { getBadgeStyles } from "../models/getBadgeStyles";
+import { getBadgeStyles } from "../utils/getBadgeStyles";
 
 type Props = {
     grade: string | number;
