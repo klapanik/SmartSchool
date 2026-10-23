@@ -6,18 +6,13 @@ type Props = {
     grade: number | string;
     isApproximately?: boolean;
     date?: string;
-    gradesNumber?: number;
+    gNum?: string | number;
     comment?: string;
 };
 
-export function SubjectGrade({
-    subject,
-    grade,
-    isApproximately,
-    date,
-    gradesNumber,
-    comment,
-}: Props) {
+export function SubjectGrade({ subject, grade, isApproximately, date, gNum, comment }: Props) {
+    const grade_word = gNum === 1 ? "оценка" : gNum === 2 || gNum === 3 || gNum === 4 ? 'оценки' : 'оценок';
+
     return (
         <div className="flex items-center justify-between px-3 py-4 w-full max-h-15 border border-gray-200 rounded-xl">
             <div className="flex flex-col">
@@ -29,8 +24,8 @@ export function SubjectGrade({
                           ? `Примерная: ${grade}`
                           : date
                             ? date
-                            : gradesNumber || gradesNumber === 0
-                              ? `${gradesNumber} оценок`
+                            : gNum || gNum === 0
+                              ? `${gNum} ${grade_word}`
                               : ""}
                 </span>
             </div>

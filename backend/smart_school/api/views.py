@@ -160,14 +160,15 @@ class GradeAverageView(APIView):
         if group_by == "subjects":
             averages = (
                 grades.values("subject__name")
-                .annotate(average=Avg("grade"))
+                .annotate(average=Avg("grade"), grades_count=Count("id"))
                 .order_by("subject__name")
             )
 
             result = [
                 {
                     "subject": item["subject__name"],
-                    "average": item["average"],
+                    "average": round(item["average"] or 0, 2),
+                    "grades_count": item["grades_count"],
                 }
                 for item in averages
             ]

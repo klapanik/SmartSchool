@@ -23,4 +23,5 @@ export interface Grade {
 export interface AverageGrade {
     subject: string;
     average: string | number;
+    grades_count: string | number,
 }
