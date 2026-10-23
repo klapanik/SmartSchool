@@ -234,7 +234,7 @@ class QuarterGradesView(APIView):
                     subjects_grades_list = [float(grade.grade) for grade in subject_grades]
 
                     average_subject_grade = (
-                        round(sum(subjects_grades_list) / len(subjects_grades_list), 1)
+                        round(sum(subjects_grades_list) / len(subjects_grades_list), 0)
                         if subject_grades
                         else None
                     )
