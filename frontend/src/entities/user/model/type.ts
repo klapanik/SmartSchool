@@ -1,4 +1,4 @@
-import type { MonthDataType } from "@/widgets/analytics-page/models";
+import type { MonthDataType } from "@/widgets/analytics-page/model";
 
 export interface User {
     first_name: string;
@@ -60,5 +60,5 @@ export interface Analytics {
         last_grade?: number;
     }[];
 
-    absence_data: MonthDataType[]
+    absence_data: MonthDataType[];
 }

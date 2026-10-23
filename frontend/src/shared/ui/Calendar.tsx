@@ -1,4 +1,4 @@
-import type { CalendarDaysType } from "@/widgets/analytics-page/models";
+import type { CalendarDaysType } from "@/widgets/analytics-page/model";
 import { CalendarDay } from "./CalendarDay";
 
 type Props = {

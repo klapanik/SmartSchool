@@ -9,7 +9,7 @@ import {
 import { Calendar } from "@/shared/ui/Calendar";
 import { CalendarDay } from "@/shared/ui/CalendarDay";
 
-import type { MonthDataType } from "../models";
+import type { MonthDataType } from "../model";
 
 export function PresenceCalendar({ monthsData }: { monthsData: MonthDataType[] }) {
     return (
