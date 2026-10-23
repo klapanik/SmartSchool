@@ -6,7 +6,7 @@ type Props = {
     handleLogout: () => Promise<void>;
 };
 
-export function Settings({ handleLogout }: Props) {
+export function ProfileSettings({ handleLogout }: Props) {
     return (
         <div className="flex flex-col gap-3.5">
             <p className="text-sm text-smoky-black">Настройки</p>

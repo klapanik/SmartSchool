@@ -19,10 +19,10 @@ import { SchedulePage } from "@/pages/SchedulePage";
 import { AnalyticsPage } from "@/pages/AnalyticsPage";
 import { GradesPage } from "@/pages/GradesPage";
 
-import { ActivationForm } from "@/features/ActivationForm/ActivationForm";
-import type { ActivationFormType } from "@/features/ActivationForm/zod";
-import { LoginForm } from "@/features/LoginForm/LoginForm";
-import type { LoginFormType } from "@/features/LoginForm/zod";
+import { ActivationForm } from "@/features/auth/ui/ActivationForm/ActivationForm";
+import type { ActivationFormType } from "@/features/auth/ui/ActivationForm/zod";
+import { LoginForm } from "@/features/auth/ui/LoginForm/LoginForm";
+import type { LoginFormType } from "@/features/auth/ui/LoginForm/zod";
 import { setAccessToken } from "@/features/auth/model/token-storage";
 
 import { SidebarProvider } from "@/components/ui/sidebar";

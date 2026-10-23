@@ -10,7 +10,7 @@ import { PersonalData } from "./PersonalData";
 import { ProfileHeader } from "./ProfileHeader";
 import { ProfileStatsCards } from "./ProfileStatsCards";
 
-import { Settings } from "@/features/Settings";
+import { ProfileSettings } from "@/features/ProfileSettings";
 import { Separator } from "@/components/ui/separator";
 import { Spinner } from "@/components/ui/spinner";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -91,7 +91,7 @@ export function Profile() {
                         email={userQuery.data?.email}
                         phone_number={userQuery.data?.phone_number}
                     />
-                    <Settings handleLogout={handleLogout} />
+                    <ProfileSettings handleLogout={handleLogout} />
                 </div>
             </div>
         </section>
