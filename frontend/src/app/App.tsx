@@ -13,11 +13,11 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { RootLayout } from "@/layouts/RootLayout";
 import { AuthLayout } from "@/layouts/AuthLayout";
 
-import { MainPage } from "@/pages/MainPage/MainPage";
-import { QuartersPage } from "@/pages/QuartersPage/QuartersPage";
-import { SchedulePage } from "@/pages/SchedulePage/SchedulePage";
-import { AnalyticsPage } from "@/pages/AnalyticsPage/AnalyticsPage";
-import { GradesPage } from "@/pages/GradesPage/GradesPage";
+import { MainPage } from "@/pages/MainPage";
+import { QuartersPage } from "@/pages/QuartersPage";
+import { SchedulePage } from "@/pages/SchedulePage";
+import { AnalyticsPage } from "@/pages/AnalyticsPage";
+import { GradesPage } from "@/pages/GradesPage";
 
 import { ActivationForm } from "@/features/ActivationForm/ActivationForm";
 import type { ActivationFormType } from "@/features/ActivationForm/zod";
